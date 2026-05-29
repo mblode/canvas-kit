@@ -23,7 +23,7 @@ type ManagerId = (typeof MANAGERS)[number]["id"];
  * localStorage.
  */
 export const CommandTabs = ({ name }: { name: string }) => {
-  const url = `https://course.blode.co/r/${name}.json`;
+  const url = `https://canvas.blode.co/r/${name}.json`;
   const [value, setValue] = useState<ManagerId>("npm");
   const [hasCopied, setHasCopied] = useState(false);
 

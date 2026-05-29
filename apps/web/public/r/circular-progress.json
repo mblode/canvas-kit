@@ -3,9 +3,7 @@
   "name": "circular-progress",
   "title": "Circular progress",
   "description": "Accessible SVG circular progress dial used on folder fronts.",
-  "registryDependencies": [
-    "utils"
-  ],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/ui/circular-progress.tsx",

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { CanvasPage } from "@/components/canvas/canvas-page";
+import { CanvasBoard } from "@/components/canvas-kit/canvas-board";
 import { JsonLd } from "@/components/json-ld";
-import { modules } from "@/content/course";
 import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -12,24 +11,16 @@ export const metadata: Metadata = {
 };
 
 const HomePage = () => (
-  <>
+  <main className="min-h-dvh bg-canvas-bg">
     <JsonLd
       data={{
         "@context": "https://schema.org",
-        "@type": "Course",
+        "@type": "WebApplication",
+        applicationCategory: "DeveloperApplication",
         description: SITE_DESCRIPTION,
-        hasPart: modules.map((mod) => ({
-          "@type": "Course",
-          description: mod.description,
-          name: mod.title,
-          url: `${BASE_URL}/${mod.slug}`,
-        })),
         name: SITE_NAME,
-        provider: {
-          "@type": "Organization",
-          name: SITE_NAME,
-          url: BASE_URL,
-        },
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        operatingSystem: "Web",
         url: BASE_URL,
       }}
     />
@@ -38,29 +29,11 @@ const HomePage = () => (
     <section className="sr-only">
       <h1>{SITE_NAME}</h1>
       <p>{SITE_DESCRIPTION}</p>
-      <nav aria-label="Course modules">
-        <ul>
-          {modules.map((mod) => (
-            <li key={mod.slug}>
-              <Link href={`/${mod.slug}`}>{mod.title}</Link>
-              <span>: {mod.description}</span>
-              <ul>
-                {mod.lessons.map((lesson) => (
-                  <li key={lesson.slug}>
-                    <Link href={`/${mod.slug}/${lesson.slug}`}>
-                      {lesson.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <Link href="/docs">Read the documentation</Link>
     </section>
 
-    <CanvasPage />
-  </>
+    <CanvasBoard />
+  </main>
 );
 
 export default HomePage;

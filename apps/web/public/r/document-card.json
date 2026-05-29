@@ -5,9 +5,9 @@
   "description": "A draggable document card with title, excerpt and metadata that emits a generic onOpen payload.",
   "registryDependencies": [
     "utils",
-    "https://course.blode.co/r/use-draggable.json",
-    "https://course.blode.co/r/canvas-ring.json",
-    "https://course.blode.co/r/canvas-vars.json"
+    "https://canvas.blode.co/r/use-draggable.json",
+    "https://canvas.blode.co/r/canvas-ring.json",
+    "https://canvas.blode.co/r/canvas-vars.json"
   ],
   "files": [
     {

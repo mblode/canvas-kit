@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 
-export const alt = `${SITE_NAME}: obsessive attention to detail in web design`;
+export const alt = `${SITE_NAME}: an infinite-canvas shadcn registry`;
 export const size = { height: 630, width: 1200 };
 export const contentType = "image/png";
 
@@ -27,10 +27,12 @@ export default function OpengraphImage() {
           letterSpacing: "0.02em",
         }}
       >
-        course.blode.co
+        canvas.blode.co
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-        <div style={{ fontSize: 120, fontWeight: 600, letterSpacing: "-0.03em" }}>
+        <div
+          style={{ fontSize: 120, fontWeight: 600, letterSpacing: "-0.03em" }}
+        >
           {SITE_NAME}
         </div>
         <div

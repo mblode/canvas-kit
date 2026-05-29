@@ -3,16 +3,14 @@
   "name": "canvas-board",
   "title": "Canvas board",
   "description": "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data, install this to get everything at once.",
-  "dependencies": [
-    "motion"
-  ],
+  "dependencies": ["motion"],
   "registryDependencies": [
-    "https://course.blode.co/r/canvas.json",
-    "https://course.blode.co/r/canvas-card.json",
-    "https://course.blode.co/r/folder-card.json",
-    "https://course.blode.co/r/document-overlay.json",
-    "https://course.blode.co/r/pagination.json",
-    "https://course.blode.co/r/canvas-vars.json"
+    "https://canvas.blode.co/r/canvas.json",
+    "https://canvas.blode.co/r/canvas-card.json",
+    "https://canvas.blode.co/r/folder-card.json",
+    "https://canvas.blode.co/r/document-overlay.json",
+    "https://canvas.blode.co/r/pagination.json",
+    "https://canvas.blode.co/r/canvas-vars.json"
   ],
   "files": [
     {

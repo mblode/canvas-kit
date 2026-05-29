@@ -5,8 +5,8 @@
   "description": "An absolutely-positioned card for the canvas, optionally a link (router-agnostic) with a selection ring.",
   "registryDependencies": [
     "utils",
-    "https://course.blode.co/r/canvas-ring.json",
-    "https://course.blode.co/r/canvas-vars.json"
+    "https://canvas.blode.co/r/canvas-ring.json",
+    "https://canvas.blode.co/r/canvas-vars.json"
   ],
   "files": [
     {

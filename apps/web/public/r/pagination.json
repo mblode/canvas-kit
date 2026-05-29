@@ -3,12 +3,8 @@
   "name": "pagination",
   "title": "Pagination",
   "description": "Previous/next navigation between documents, a Previous-minimal + Next-card layout. Router-agnostic: pass href items with a linkComponent (e.g. next/link) or onClick items.",
-  "dependencies": [
-    "blode-icons-react"
-  ],
-  "registryDependencies": [
-    "utils"
-  ],
+  "dependencies": ["blode-icons-react"],
+  "registryDependencies": ["utils"],
   "files": [
     {
       "path": "components/canvas-kit/pagination.tsx",

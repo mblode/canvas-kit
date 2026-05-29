@@ -5,8 +5,8 @@
   "description": "The infinite-canvas viewport: pan, zoom, grab and marquee selection with a fixed full-bleed surface.",
   "registryDependencies": [
     "utils",
-    "https://course.blode.co/r/use-canvas.json",
-    "https://course.blode.co/r/canvas-vars.json"
+    "https://canvas.blode.co/r/use-canvas.json",
+    "https://canvas.blode.co/r/canvas-vars.json"
   ],
   "files": [
     {
