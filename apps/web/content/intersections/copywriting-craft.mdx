@@ -1,0 +1,62 @@
+export const lessonMeta = {
+  title: "Copywriting × craft",
+  module: "intersections",
+  order: 4,
+  duration: "8 min",
+};
+
+A team shipped a form with inline validation, `aria-describedby` on every field, focus management on error. Craft: flawless. The error message for an invalid email? "Invalid input."
+
+## Error messages need copy AND placement
+
+Copywriting fix: name the field, describe the problem, suggest the fix. Not "Invalid email" but "Enter an email like name@company.com." Not "Password too short" but "Passwords need 8 characters. You entered 5."
+
+Craft fix: place errors inline, below the field. Move focus to the first error. Set `aria-invalid="true"` and connect with `aria-describedby`. Red on white is below 4.5:1 contrast.
+
+A perfect message at the top of a 12-field form requires scrolling. A perfect placement that says "Invalid" gives no path forward.
+
+```tsx
+<label htmlFor="email">Email address</label>
+<input
+  id="email"
+  type="email"
+  aria-invalid={hasError}
+  aria-describedby={hasError ? "email-error" : undefined}
+  autoComplete="email"
+/>
+{hasError && (
+  <p id="email-error" className="text-sm text-red-600" role="alert">
+    Enter an email address like name@company.com
+  </p>
+)}
+```
+
+## Empty states need copy that drives action
+
+Every empty state answers three questions. What is this space for? Why is it empty? What should the user do?
+
+- Not: "No projects found."
+- Instead: "No projects yet. Start your first one to begin tracking progress."
+
+- Not: "No results."
+- Instead: "No matches for 'acme.' Try a different term or browse all integrations."
+
+Craft fix: clear hierarchy, proper centring, primary action button. Hit target at least 44x44px. Decorative illustrations get `alt=""` and `aria-hidden="true"`.
+
+## CTA buttons need visual weight to match copy importance
+
+"Start free trial" styled as a ghost button: words say primary, styling says secondary. "Cancel" styled as a large red filled button: words say escape hatch, styling says danger.
+
+Primary CTA: filled, high-contrast, prominent. Secondary: ghost or outlined, lower contrast. Destructive: red but not visually heavier than the primary.
+
+"Get started for free" needs at least 44px of clickable height. "Skip" can be smaller. Physical size signals importance as loudly as the words.
+
+## Accessible labels need meaningful copy
+
+The fix isn't just adding `aria-label`. It's writing a good one. "Close" works. "Close navigation menu" is better. Action, not element.
+
+- **Icon buttons**: describe the action. Not "X" but "Close dialog."
+- **Links**: describe the destination. Not "Click here" but "View pricing details."
+- **Form inputs**: label the expected input. Not "Field 1" but "Company name."
+
+Every `aria-label` must be unique in context. Two "Delete" buttons on one page are ambiguous. "Delete 'Acme project'" and "Delete 'Beta launch'" are specific.

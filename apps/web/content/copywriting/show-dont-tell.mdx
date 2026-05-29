@@ -1,0 +1,81 @@
+export const lessonMeta = {
+  title: "Show don't tell",
+  module: "copywriting",
+  order: 3,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+
+Adjectives claim. Specifics prove.
+
+## The translation table
+
+<GoodBad
+  bad={
+    <div className="space-y-2 text-sm">
+      <p>"Powerful analytics"</p>
+      <p>"Easy to set up"</p>
+      <p>"Seamless sync"</p>
+      <p>"Robust infrastructure"</p>
+      <p>"Lightning fast"</p>
+    </div>
+  }
+  good={
+    <div className="space-y-2 text-sm">
+      <p>"See which pages kill signups before users leave"</p>
+      <p>"Live in 5 minutes, no config files"</p>
+      <p>"Edit on mobile, see it on desktop instantly"</p>
+      <p>"99.97% uptime across 3 regions, verified by StatusPage"</p>
+      <p>"First paint under 200 ms"</p>
+    </div>
+  }
+  badLabel="Tell (adjective)"
+  goodLabel="Show (specific)"
+/>
+
+## Banned adjectives
+
+> _powerful, simple, easy, seamless, beautiful, robust, flexible, scalable, smart, intuitive, modern, next-generation, cutting-edge, best-in-class, innovative_
+
+Replace with a number, a scenario, or a screenshot. If none fit, cut.
+
+## When the adjective stays
+
+Three exceptions:
+
+- Product categories: "Open-source database." Descriptive, not aspirational.
+- Proper nouns: "iOS-native," "Stripe-compatible." The reference proves it.
+- Proof follows immediately: "Fast: first paint under 200 ms."
+
+## Adjective stacks
+
+<GoodBad
+  bad={
+    <div className="text-sm">
+      <p>"A powerful, intuitive, modern dashboard for data-driven teams."</p>
+    </div>
+  }
+  good={
+    <div className="text-sm">
+      <p>
+        "Every metric your board asks about, updated every 30 seconds, on one
+        screen."
+      </p>
+    </div>
+  }
+  badLabel="Three claims, no proof"
+  goodLabel="One specific, fully proven"
+/>
+
+## Numbers that lie
+
+"Up to 10x faster" without a benchmark is a Tell dressed as a Show. _Up to_ could mean 1.2x. Cite the benchmark or drop the claim.
+
+"Trusted by 10,000+ companies" is weak. "Used by Stripe, Linear, and Vercel" is strong. Names carry their own proof.
+
+## The smell test
+
+Read your hero out loud. Underline every adjective. Read again without them.
+
+Sentence still works? Cut them. Sentence collapses? Replace the adjective with its proof: a number, a name, or a scenario.

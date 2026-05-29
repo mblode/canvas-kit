@@ -1,0 +1,77 @@
+export const lessonMeta = {
+  title: "Colour systems",
+  module: "craft",
+  order: 2,
+  duration: "12 min",
+};
+
+import { OklchPalette } from "@/components/demos/craft/oklch-palette";
+
+HSL lies. Yellow at `hsl(60, 100%, 50%)` and blue at `hsl(240, 100%, 50%)` share the same L value, but yellow looks twice as bright. Add a second hue and you're hand-tuning the entire scale again.
+
+## OKLCH: perceptually uniform colour
+
+- **L** (Lightness): 0 = black, 1 = white.
+- **C** (Chroma): Vividness. 0 = grey. Maximum depends on hue.
+- **H** (Hue): 0-360 degrees.
+
+<OklchPalette />
+
+## Building a palette with CSS variables
+
+```css
+:root {
+  --brand-50: oklch(0.98 0.01 250);
+  --brand-100: oklch(0.93 0.02 250);
+  --brand-200: oklch(0.87 0.04 250);
+  --brand-300: oklch(0.78 0.06 250);
+  --brand-400: oklch(0.68 0.1 250);
+  --brand-500: oklch(0.58 0.14 250);
+  --brand-600: oklch(0.48 0.14 250);
+  --brand-700: oklch(0.38 0.12 250);
+  --brand-800: oklch(0.28 0.08 250);
+  --brand-900: oklch(0.18 0.04 250);
+}
+```
+
+Chroma tapers at extremes because light and dark shades clip at high chroma. To add a second hue, change only the hue angle and chroma curve. Lightness stays the same.
+
+## Avoiding pure black and pure white
+
+`#000` on `#FFF` is 21:1 contrast, but harsh. Pure black on pure white creates a vibrating edge.
+
+```css
+:root {
+  --text: oklch(0.15 0.01 250); /* near-black, not black */
+  --background: oklch(0.99 0.005 250); /* near-white, not white */
+}
+```
+
+~18:1 contrast. Far above WCAG AA, far more comfortable.
+
+## Dark mode mapping
+
+Dark mode is not a reversed light palette:
+
+```css
+[data-theme="dark"] {
+  --background: oklch(0.15 0.01 250);
+  --text: oklch(0.92 0.01 250);
+  --surface: oklch(0.2 0.015 250);
+  --border: oklch(0.28 0.02 250);
+  --muted: oklch(0.55 0.03 250);
+}
+```
+
+- **Low background chroma.** Saturated dark backgrounds create colour noise.
+- **High text lightness, not 1.0.** Pure white glares.
+- **Surface sits close to background.** Small lightness jumps.
+- **Borders need more contrast.** `rgba(0,0,0,0.1)` vanishes. Use `rgba(255,255,255,0.1)`.
+
+## Common mistakes
+
+- **HSL palettes with uneven mid-tones.** Switch to OKLCH.
+- **Pure `#000` on pure `#FFF`.** Soften both ends.
+- **Light grey body text.** `#999` on `#fff` is 2.85:1. Fails WCAG AA.
+- **Reversing the palette for dark mode.** Map dark mode independently.
+- **Brand colours as links without contrast checks.** Many teals and oranges fail against white.

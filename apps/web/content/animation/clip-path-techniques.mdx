@@ -1,0 +1,161 @@
+export const lessonMeta = {
+  title: "Clip-path techniques",
+  module: "animation",
+  order: 9,
+  duration: "10 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  FadeRevealCard,
+  ClipPathRevealCard,
+} from "@/components/demos/animation/clip-path-judgement-options";
+
+Directional reveals, wipe transitions, hold-to-delete confirmations, comparison sliders. One animatable property.
+
+`clip-path: inset()` defines a rectangular clipping region with four values (top, right, bottom, left), each animated independently.
+
+<Slide id="clip-inset" demoState={{ preset: "inset" }}>
+
+## inset() as the universal primitive
+
+```css
+/* Fully visible */
+clip-path: inset(0 0 0 0);
+
+/* Hidden from the right (clipped to nothing from the right edge) */
+clip-path: inset(0 100% 0 0);
+
+/* Hidden from the bottom */
+clip-path: inset(0 0 100% 0);
+
+/* Revealed from the left edge */
+clip-path: inset(0 0 0 0); /* animate from: inset(0 100% 0 0) */
+```
+
+`inset()` clips without reflowing layout. GPU-compositable with `will-change: clip-path`.
+
+</Slide>
+
+<JudgementExercise
+  id="clip-path-vs-fade"
+  category="Animation"
+  question="Reveal each card. Which communicates direction?"
+  optionA={<FadeRevealCard />}
+  optionB={<ClipPathRevealCard />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A fades in with opacity. The card appears but gives no spatial information
+      about <em>where</em> it came from. B reveals with{" "}
+      <code>clip-path: inset()</code> from left to right, communicating a
+      direction. For tab transitions, image reveals, and any context where
+      spatial origin matters, clip-path adds information that opacity alone
+      cannot.
+    </>
+  }
+/>
+
+<Slide id="clip-hold-delete" demoState={{ preset: "inset" }}>
+
+## Hold-to-delete
+
+A red fill wipes across the button from left to right. Release early, it reverses. Hold long enough, the delete fires.
+
+```css
+.delete-button {
+  position: relative;
+}
+
+.delete-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--destructive);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.5s linear;
+}
+
+.delete-button:active::before {
+  clip-path: inset(0 0 0 0);
+}
+```
+
+Linear timing is intentional. Progress indicators use linear easing so the user can predict completion.
+
+In React, track hold time with `onPointerDown` / `onPointerUp` and fire only if the full duration elapsed.
+
+</Slide>
+
+<Slide id="clip-tab" demoState={{ preset: "tab" }}>
+
+## Tab transitions
+
+Clip the new panel in from the direction the user is navigating. Tab 1 to Tab 3: reveal from right. Tab 3 to Tab 1: reveal from left.
+
+```tsx
+const direction = newIndex > oldIndex ? "right" : "left";
+const initial =
+  direction === "right" ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)";
+```
+
+Smoother than a transform-based slide because you don't need to position two panels side by side.
+
+</Slide>
+
+<Slide id="clip-circle" demoState={{ preset: "circle" }}>
+
+## Image reveals
+
+```css
+.image-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.image-reveal.visible {
+  clip-path: inset(0 0 0 0);
+}
+```
+
+Trigger `.visible` with an Intersection Observer at threshold 0.1-0.2.
+
+</Slide>
+
+<Slide id="clip-diagonal" demoState={{ preset: "diagonal" }}>
+
+## Comparison sliders
+
+```css
+.comparison-before {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 var(--clip-right) 0 0);
+}
+```
+
+Update `--clip-right` as `100% - dragPosition%`. Combine with `setPointerCapture` and `touch-action: none` on the slider handle.
+
+## Rounded insets
+
+`inset()` accepts an optional `round` parameter:
+
+```css
+clip-path: inset(8px round 12px);
+```
+
+Useful for padded, rounded reveals that match the card's own border-radius.
+
+</Slide>
+
+## Performance notes
+
+`inset()` and `circle()` are GPU-compositable. `polygon()` may cause paint on every frame.
+
+Add `will-change: clip-path` before animation starts. Remove after completion.
+
+## When not to use clip-path
+
+For soft reveals, use `mask-image` with a CSS gradient.
+
+Clipped elements still receive pointer events. Add `pointer-events: none` to clipped regions with interactive children.

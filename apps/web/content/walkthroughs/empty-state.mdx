@@ -1,0 +1,140 @@
+export const lessonMeta = {
+  title: "Empty state",
+  module: "walkthroughs",
+  order: 4,
+  duration: "15 min",
+};
+
+## The starting point
+
+```tsx
+<div className="mt-12 flex flex-col items-center">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-16 w-16 text-gray-300"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1}
+      d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-2.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+    />
+  </svg>
+  <h2 className="mt-4 text-lg font-medium text-gray-900">No data yet</h2>
+  <p className="mt-1 text-sm text-gray-500">
+    There is currently no data to display. Please add some data to get started
+    with the dashboard.
+  </p>
+  <button className="mt-6 rounded bg-blue-600 px-4 py-2 text-sm text-white">
+    Get Started
+  </button>
+</div>
+```
+
+Count the problems.
+
+## Layer 1: Copywriting
+
+### Fix the heading
+
+**Before:** "No data yet"
+**After:** "Your first deploy is five minutes away"
+
+### Fix the helper text
+
+**Before:** "There is currently no data to display. Please add some data to get started with the dashboard."
+**After:** "Connect a repository and push a commit. Your build logs, deploy previews, and uptime metrics will appear here automatically."
+
+### Fix the CTA
+
+**Before:** "Get Started"
+**After:** "Connect your first repository"
+
+## Layer 2: Typography
+
+### Heading scale
+
+`text-lg` is too small for the space it occupies. The heading needs to command the entire content area:
+
+```tsx
+<h2 className="mt-6 text-xl font-semibold tracking-tight text-foreground sm:text-2xl text-balance">
+  Your first deploy is five minutes away
+</h2>
+```
+
+### Body typography
+
+```tsx
+<p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground text-balance">
+  Connect a repository and push a commit. Your build logs, deploy previews, and
+  uptime metrics will appear here automatically.
+</p>
+```
+
+## Layer 3: Craft
+
+### Vertical centring
+
+```tsx
+<div className="flex flex-1 flex-col items-center justify-center px-6 py-24">
+  <div className="flex max-w-sm flex-col items-center text-center">
+```
+
+### Illustration accessibility
+
+```tsx
+<svg aria-hidden="true" className="size-12 text-muted-foreground/50" ...>
+```
+
+### CTA as a link
+
+```tsx
+<a
+  href="/setup/connect"
+  className="mt-8 inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+>
+  Connect your first repository
+</a>
+```
+
+## Layer 4: Animation
+
+### Stagger entrance
+
+```tsx
+<motion.svg
+  aria-hidden="true"
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+  className="size-12 text-muted-foreground/50"
+/>
+<motion.h2
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+>
+  Your first deploy is five minutes away
+</motion.h2>
+<motion.p
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+>
+```
+
+### Reduced motion
+
+```tsx
+const prefersReduced = useReducedMotion();
+
+<motion.h2
+  initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+>
+```
+
+When `initial` is `false`, the element renders immediately.

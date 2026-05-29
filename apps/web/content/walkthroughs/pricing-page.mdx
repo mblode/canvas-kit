@@ -1,0 +1,249 @@
+export const lessonMeta = {
+  title: "Pricing page",
+  module: "walkthroughs",
+  order: 2,
+  duration: "25 min",
+};
+
+## The starting point
+
+```tsx
+<section className="px-6 py-24">
+  <h2 className="text-center text-3xl font-bold">Pricing</h2>
+  <p className="mt-2 text-center text-gray-500">
+    Choose the plan that's right for you.
+  </p>
+  <div className="mt-4 flex justify-center">
+    <button onClick={() => setAnnual(!annual)}>
+      {annual ? "Annual" : "Monthly"}
+    </button>
+  </div>
+  <div className="mt-12 grid grid-cols-3 gap-6">
+    {[
+      {
+        name: "Basic",
+        price: annual ? 8 : 10,
+        features: ["5 projects", "1 GB storage", "Email support"],
+      },
+      {
+        name: "Pro",
+        price: annual ? 24 : 30,
+        features: [
+          "Unlimited projects",
+          "10 GB storage",
+          "Priority support",
+          "API access",
+        ],
+      },
+      {
+        name: "Enterprise",
+        price: annual ? 80 : 100,
+        features: [
+          "Everything in Pro",
+          "SSO",
+          "Dedicated account manager",
+          "Custom integrations",
+        ],
+      },
+    ].map((tier) => (
+      <div key={tier.name} className="rounded border p-6">
+        <h3 className="text-lg font-bold">{tier.name}</h3>
+        <p className="mt-2 text-3xl font-bold">${tier.price}/mo</p>
+        <ul className="mt-4 space-y-2">
+          {tier.features.map((f) => (
+            <li key={f}>{f}</li>
+          ))}
+        </ul>
+        <button className="mt-6 w-full rounded bg-blue-600 py-2 text-white">
+          Get Started
+        </button>
+      </div>
+    ))}
+  </div>
+</section>
+```
+
+Count the problems.
+
+## Layer 1: Copywriting
+
+### Fix the tier names
+
+**Before:** Basic / Pro / Enterprise
+**After:** Starter / Team / Organization
+
+### Fix the tier descriptions
+
+**Before:** "5 projects, 1 GB storage, Email support"
+**After:** "For solo makers shipping side projects" / "For teams shipping daily" / "For companies that need compliance and control"
+
+Describes the buyer, not the product.
+
+### Fix the CTAs
+
+**Before:** Get Started / Get Started / Get Started
+**After:** Start for free / Start a team trial / Talk to sales
+
+### Fix the section header
+
+**Before:** "Choose the plan that's right for you."
+**After:** "Start free. Scale when you're ready."
+
+## Layer 2: Typography
+
+### Tabular numerals
+
+```tsx
+<p className="mt-2 font-semibold text-4xl tracking-tight tabular-nums">
+  ${tier.price}
+  <span className="text-muted-foreground text-base font-normal tracking-normal">
+    /mo
+  </span>
+</p>
+```
+
+### Tier label letterspacing
+
+```tsx
+<p className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
+  {tier.label}
+</p>
+<h3 className="mt-1 text-lg font-semibold">{tier.name}</h3>
+```
+
+### Hierarchy between tiers
+
+```tsx
+{/* Standard tier */}
+<p className="text-4xl font-semibold tracking-tight tabular-nums">
+
+{/* Recommended tier */}
+<p className="text-5xl font-semibold tracking-tight tabular-nums">
+```
+
+### Proper punctuation
+
+```tsx
+<span className="text-muted-foreground text-base font-normal">
+  &thinsp;/&thinsp;mo
+</span>
+```
+
+## Layer 3: Craft
+
+### The toggle
+
+```tsx
+<div className="inline-flex items-center gap-3 rounded-full bg-muted p-1">
+  <button
+    onClick={() => setAnnual(false)}
+    className={cn(
+      "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+      !annual
+        ? "bg-background text-foreground shadow-sm"
+        : "text-muted-foreground"
+    )}
+  >
+    Monthly
+  </button>
+  <button
+    onClick={() => setAnnual(true)}
+    className={cn(
+      "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+      annual
+        ? "bg-background text-foreground shadow-sm"
+        : "text-muted-foreground"
+    )}
+  >
+    Annual
+  </button>
+</div>
+```
+
+### The recommended tier
+
+```tsx
+<div
+  className={cn(
+    "relative rounded-2xl p-8",
+    tier.recommended
+      ? "border-2 border-primary bg-primary/[0.03] shadow-lg"
+      : "border border-border"
+  )}
+>
+  {tier.recommended && (
+    <p className="absolute -top-3 left-6 bg-primary px-3 py-0.5 text-xs font-semibold text-primary-foreground rounded-full">
+      Most popular
+    </p>
+  )}
+```
+
+### CTA differentiation
+
+```tsx
+<a
+  href={tier.href}
+  className={cn(
+    "mt-8 flex h-11 items-center justify-center rounded-lg text-sm font-medium transition-colors",
+    tier.recommended
+      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+      : "border border-border text-foreground hover:bg-muted"
+  )}
+>
+  {tier.cta}
+</a>
+```
+
+`<a>`, not `<button>`. `h-11` for 44px touch target.
+
+### Responsive layout
+
+```tsx
+<div className="mx-auto mt-12 grid max-w-sm grid-cols-1 gap-6 sm:max-w-none sm:grid-cols-3">
+```
+
+## Layer 4: Animation
+
+### Toggle price transition
+
+```tsx
+<AnimatePresence mode="wait">
+  <motion.span
+    key={annual ? "annual" : "monthly"}
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 10 }}
+    transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+    className="tabular-nums"
+  >
+    ${tier.price}
+  </motion.span>
+</AnimatePresence>
+```
+
+### Card hover states
+
+```tsx
+<motion.div
+  whileHover={{ y: -2 }}
+  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+  className={cn("rounded-2xl p-8", tier.recommended ? "..." : "...")}
+>
+```
+
+### Reduced motion
+
+```tsx
+const prefersReduced = useReducedMotion();
+
+<AnimatePresence mode="wait">
+  <motion.span
+    key={annual ? "annual" : "monthly"}
+    initial={prefersReduced ? false : { opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 10 }}
+    transition={prefersReduced ? { duration: 0.15 } : { type: "spring", duration: 0.3, bounce: 0 }}
+  >
+```
+
+Reduced motion keeps the crossfade but removes vertical translation.

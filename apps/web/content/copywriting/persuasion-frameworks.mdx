@@ -1,0 +1,83 @@
+export const lessonMeta = {
+  title: "Persuasion frameworks",
+  module: "copywriting",
+  order: 2,
+  duration: "12 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+
+## PAS: Problem, Agitate, Solution
+
+1. **Problem.** _Your API keys are scattered across `.env` files, CI configs, and Slack messages._
+2. **Agitate.** _One leaked key can take down production. You won't know until a customer calls._
+3. **Solution.** _Vault centralises every secret with per-environment rotation and zero-config CI integration._
+
+Use PAS when the audience knows the pain but hasn't acted. Over-agitation is the common failure. Read it aloud. Cringe? Soften. Shrug? Sharpen.
+
+## AIDA: Attention, Interest, Desire, Action
+
+1. **Attention.** Interrupt the scroll. _73% of SaaS churn happens before the first "aha" moment._
+2. **Interest.** Show relevance. _If onboarding takes more than one session, you're losing._
+3. **Desire.** Show the outcome with proof. _Teams using Onramp cut time-to-value by 40%._
+4. **Action.** One clear CTA. _See your onboarding score free._
+
+Use AIDA for cold traffic: display ads, cold email. Skip for warm traffic.
+
+Common failure: "Get more done with our app" tries to be Attention, Interest, and Desire at once.
+
+## StoryBrand: Customer as hero
+
+The customer is the hero. The product is the guide.
+
+| Beat    | Question                            | Example                                                          |
+| ------- | ----------------------------------- | ---------------------------------------------------------------- |
+| Hero    | Who is the customer?                | A founder who can't sleep because deploys keep failing           |
+| Problem | External + internal + philosophical | Broken deploys; feeling incompetent; code should ship, not haunt |
+| Guide   | Who helps them?                     | The product, positioned as the expert                            |
+| Plan    | What are the steps?                 | Connect repo, set alerts, deploy with confidence                 |
+| CTA     | What action do you invite?          | _Start your first deploy free_                                   |
+| Success | What does winning look like?        | Ship on Friday without anxiety                                   |
+| Failure | What's at stake?                    | More 3 a.m. incidents, more team burnout                         |
+
+Count _we/our/us_ versus _you/your_. If we-language wins, the brand is the hero.
+
+<GoodBad
+  bad={
+    <div className="space-y-1.5 text-sm">
+      <p>"We built Relayer after years of fighting broken CI pipelines."</p>
+      <p>"Our team is obsessed with developer experience."</p>
+    </div>
+  }
+  good={
+    <div className="space-y-1.5 text-sm">
+      <p>"You shouldn't have to babysit your pipeline."</p>
+      <p>"Ship code, not anxiety."</p>
+    </div>
+  }
+  badLabel="Brand as hero"
+  goodLabel="Customer as hero"
+/>
+
+Use StoryBrand for homepage heroes, about pages, and sales pages. Skip it on pricing pages and reference docs.
+
+## BAB: Before, After, Bridge
+
+1. **Before.** _You spend two hours every Monday pulling reports from four tools._
+2. **After.** _Every metric, live, in one dashboard. Monday starts with decisions._
+3. **Bridge.** _Metric pairs your stack in 15 minutes and surfaces the numbers that move revenue._
+
+Use BAB when the audience wants change but needs a path. BAB assumes motivation; PAS creates it.
+
+"Our product makes it easy" is a dead bridge. "Connect Stripe and Postgres, the dashboard is live before your coffee cools" is one the reader can picture.
+
+## Choosing by audience temperature
+
+| Temperature        | Definition                   | Framework  |
+| ------------------ | ---------------------------- | ---------- |
+| **Cold**           | No context, no awareness     | AIDA       |
+| **Problem-aware**  | Knows the pain, hasn't acted | PAS        |
+| **Solution-aware** | Comparing alternatives       | StoryBrand |
+| **Motivated**      | Wants change, needs a path   | BAB        |
+
+Pick the framework before writing a word.

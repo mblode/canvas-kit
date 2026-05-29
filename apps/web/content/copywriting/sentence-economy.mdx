@@ -1,0 +1,107 @@
+export const lessonMeta = {
+  title: "Sentence economy",
+  module: "copywriting",
+  order: 6,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+
+Every sentence earns its space or gets cut. Four tests:
+
+| Test        | Rule                                                           |
+| ----------- | -------------------------------------------------------------- |
+| Removal     | Delete the sentence. Meaning unchanged? Cut it.                |
+| Opener      | "In order to," "It is important to note that." Cut the opener. |
+| Length      | Over 25 words? Split.                                          |
+| Restatement | Says the same thing as the headline? Cut it.                   |
+
+## Dead-weight catalogue
+
+| Pattern                         | Fix                       |
+| ------------------------------- | ------------------------- |
+| "We believe that..."            | Make the claim            |
+| "X is a Y that helps you Z"     | "X does Z"                |
+| "Whether you're an A or a B..." | Pick your audience        |
+| "Our mission is to..."          | State the user benefit    |
+| "Designed to be..."             | Show it                   |
+| "Powerful yet simple"           | Show one specific quality |
+| "Featuring" / "With built-in"   | Lead with the benefit     |
+
+## Before/after
+
+<GoodBad
+  bad={
+    <div className="text-sm">
+      <p>
+        "We believe that developers deserve better tooling. Whether you're a
+        solo founder or a team of 50, Relay is designed to make deployment
+        simple and powerful."
+      </p>
+      <p className="mt-2 text-xs text-muted-foreground">
+        44 words. Three dead-weight patterns: "we believe," "whether you're,"
+        and "designed to be."
+      </p>
+    </div>
+  }
+  good={
+    <div className="text-sm">
+      <p>"Deploy in one command. Roll back in two seconds."</p>
+      <p className="mt-2 text-xs text-muted-foreground">
+        9 words. Same content, more force.
+      </p>
+    </div>
+  }
+  badLabel="44 words"
+  goodLabel="9 words"
+/>
+
+## Why bloat happens
+
+Warmth comes from voice, not word count.
+
+"Easy to use. Built for ease. Designed with simplicity in mind." Pick one, kill the rest.
+
+"Click below to get started. [Get started]." The button is the CTA.
+
+## The 25-word test
+
+<GoodBad
+  bad={
+    <div className="text-sm">
+      <p>
+        "Our platform is designed to help teams of all sizes collaborate more
+        effectively by providing a comprehensive suite of tools that integrate
+        seamlessly with your existing workflow."
+      </p>
+      <p className="mt-2 text-xs text-muted-foreground">
+        28 words. Three dead adjectives, one vague benefit, no proof.
+      </p>
+    </div>
+  }
+  good={
+    <div className="text-sm">
+      <p>
+        "Connect your tools in one place. No migration, no config files. Your
+        team is collaborating by Thursday."
+      </p>
+      <p className="mt-2 text-xs text-muted-foreground">
+        17 words across three sentences. Specific timeline, specific promise.
+      </p>
+    </div>
+  }
+  badLabel="One bloated sentence"
+  goodLabel="Three tight ones"
+/>
+
+## Consecutive sentence test
+
+Two sentences in a row. Second adds nothing? Cut it.
+
+"Our analytics are real-time. You'll always have up-to-date data." Cut the second.
+
+"Our analytics are real-time. See which feature drives retention before the user churns." Keep both.
+
+## When length works
+
+Story openings. Founder letters. Reference docs. In hero copy, CTAs, and microcopy, brevity is non-negotiable.

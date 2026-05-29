@@ -1,0 +1,112 @@
+export const metadata = {
+  alternates: { canonical: "/docs/folder-card" },
+  description:
+    "The signature draggable folder: tap to peek open into a staggered masonry of preview cards, with a progress dial.",
+  title: "Folder card",
+};
+
+import { FolderCardDemo } from "@/components/docs/demos/folder-card-demo";
+
+# Folder card
+
+The signature Canvas Kit component. A draggable folder that taps open to "peek": its items rise into a staggered masonry of preview cards. The front shows a
+[`circular-progress`](/docs/circular-progress) dial (the share of completed
+items, or an explicit `progress`). You control each preview's contents with a
+`renderPreview` render prop.
+
+<Preview>
+  <FolderCardDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="folder-card" />
+
+## Usage
+
+```tsx
+import { FolderCard } from "@/components/canvas/folder-card";
+
+const items = [
+  { completed: true, id: "a", title: "Layout & grids" },
+  { id: "b", title: "Spacing systems" },
+];
+
+<FolderCard
+  folderId="foundations"
+  items={items}
+  renderPreview={(item, ctx) => (
+    <div style={{ height: ctx.height, width: ctx.width }}>{item.title}</div>
+  )}
+  title="Foundations"
+  x={160}
+  y={220}
+/>;
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    {
+      name: "x",
+      type: "number",
+      required: true,
+      description: "Left position on the canvas, in px.",
+    },
+    {
+      name: "y",
+      type: "number",
+      required: true,
+      description: "Top position on the canvas, in px.",
+    },
+    {
+      name: "title",
+      type: "string",
+      required: true,
+      description: "Folder label.",
+    },
+    {
+      name: "folderId",
+      type: "string",
+      required: true,
+      description: "Stable id for selection and the open payload.",
+    },
+    {
+      name: "items",
+      type: "CanvasFolderItem[]",
+      required: true,
+      description: "Items revealed on peek: `{ id, title, completed? }`.",
+    },
+    {
+      name: "renderPreview",
+      type: "(item, ctx: { width; height }) => ReactNode",
+      description: "Render the contents of each raised preview card.",
+    },
+    {
+      name: "progress",
+      type: "number",
+      description: "Explicit 0–100 progress; defaults to the completed share.",
+    },
+    {
+      name: "selected",
+      type: "boolean",
+      description: "Draws the selection ring.",
+    },
+    {
+      name: "initialPeeked",
+      type: "boolean",
+      description: "Start in the peeked-open state.",
+    },
+    {
+      name: "onPeekChange",
+      type: "(peeked: boolean) => void",
+      description: "Fires when the folder peeks open or closed.",
+    },
+    {
+      name: "onOpenItem",
+      type: "(state: FolderOpenState) => void",
+      description: "Fires when a peeked item is clicked.",
+    },
+  ]}
+/>

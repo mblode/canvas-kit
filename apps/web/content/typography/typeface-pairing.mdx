@@ -1,0 +1,67 @@
+export const lessonMeta = {
+  title: "Typeface pairing",
+  module: "typography",
+  order: 10,
+  duration: "12 min",
+};
+
+import { PairingLab } from "@/components/demos/typography/pairing-lab";
+
+Pairs that look kind-of-the-same-but-not-quite are the worst. Either harmonise or contrast.
+
+> Consistency is one of the forms of beauty. Contrast is another., Robert Bringhurst
+
+<PairingLab />
+
+## The two-typeface rule
+
+**Use no more than two typefaces.** One for body, one for display.
+
+- **Performance.** Each face is a network request.
+- **Forced hierarchy.** Weight, size, or colour has to do the work.
+- **Lower risk.** Two faces have one relationship. Three have three. Four have six.
+
+## Stress and skeleton: the diagnostic
+
+**Stress** is the angle of the thinnest part of a curved letter. **Skeleton** is the underlying structure. These predict whether two faces will pair.
+
+- **Diagonal stress (humanist)**: Old-style serifs (Garamond, Caslon) and humanist sans-serifs (Gill Sans, Frutiger).
+- **Vertical stress (rational)**: Modern serifs (Bodoni, Didot) and geometric sans-serifs (Futura, Avenir).
+
+## The reliable pairings
+
+Match stress angles:
+
+- **Old-style serif + humanist sans.** Garamond + Gill Sans. Caslon + Frutiger. Classic.
+- **Modern serif + geometric sans.** Bodoni + Futura. Didot + Avenir. Fashion and luxury.
+- **Transitional serif + grotesque.** Baskerville + Franklin Gothic. Times + Trade Gothic. Newspaper feel.
+- **Neo-grotesque + slab serif.** Helvetica + Rockwell. Inter + Clarendon. Contemporary.
+
+## The superfamily shortcut
+
+A **superfamily** includes serif and sans-serif variants from the same designer.
+
+- **Source Serif Pro + Source Sans Pro.** Open-source workhorse.
+- **FF Meta + FF Meta Serif.** Spiekermann's humanist pair.
+- **Freight Text + Freight Sans.** Editorial and versatile.
+- **Calluna + Calluna Sans.** Jos Buivenga's balance.
+- **FF Scala + FF Scala Sans.** Martin Majoor's classic.
+
+Eliminates stress mismatch and x-height disagreement in one choice.
+
+## What to avoid
+
+- **Two sans-serifs from the same genre.** Helvetica + Arial: near-identical, no contrast.
+- **Two serifs from different eras.** Bodoni + Garamond: vertical stress against diagonal.
+- **Geometric sans + old-style serif.** Futura + Garamond.
+- **Too many faces.** Each new face multiplies relationships that can go wrong.
+
+## Pairing by designer
+
+Eric Gill drew Perpetua and Gill Sans. Hermann Zapf drew Palatino and Optima. Each pair shares a sensibility that creates coherence without similarity.
+
+## Choosing faces for UI
+
+For UI (buttons, labels, navigation, forms), pick faces with distinct `l`, `I`, and `1` glyphs.
+
+Use condensed faces for headlines when space is tight. Avoid condensed for body.

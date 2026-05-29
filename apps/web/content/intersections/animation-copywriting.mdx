@@ -1,0 +1,54 @@
+export const lessonMeta = {
+  title: "Animation × copywriting",
+  module: "intersections",
+  order: 5,
+  duration: "8 min",
+};
+
+import { Demo } from "@/components/demos";
+import { StaggerNarrativeDemo } from "@/components/demos/intersections/stagger-narrative";
+
+Every persuasion framework has a sequence. Context first, value second, CTA last. Stagger must follow the same order.
+
+<Demo title="Stagger order and narrative flow">
+  <StaggerNarrativeDemo />
+</Demo>
+
+If the CTA animates before the headline, the user sees "Start free trial" before knowing what they'd be starting.
+
+## Copy length determines stagger granularity
+
+"Ship with confidence." Three words. Word-level stagger works.
+
+"The all-in-one platform for building, deploying, and scaling modern web applications." Each word drips in at 50ms. The user waits 600ms for a sentence they could scan in two seconds.
+
+- **1-4 words**: word-level stagger can work.
+- **5-8 words**: line-level stagger. Headline appears as a unit, stagger surrounding elements.
+- **9+ words**: section-level only. Headline appears instantly, stagger macro structure.
+
+The animation adapts to the copy, not the reverse.
+
+## The CTA as punchline
+
+The CTA _responds_ to everything above it. Give it a slightly longer delay than the rest of the stagger. If headline-to-subhead is 80ms, subhead-to-CTA should be 120-160ms. Setup, setup, _beat_, punchline.
+
+```tsx
+const staggerConfig = {
+  eyebrow: { delay: 0 },
+  headline: { delay: 0.08 },
+  subhead: { delay: 0.16 },
+  cta: { delay: 0.32 }, // Double gap, the beat before the punchline
+};
+```
+
+## One-word headlines stagger differently
+
+"Simplify." "Ship." A single word is atomic. Stagger the elements _around_ it: fade the eyebrow, then the headline with more dramatic motion (larger y-offset, slight scale), then the subhead.
+
+Multi-word headlines slide up gently. The words do the talking. One-word headlines need motion to _compensate_ for brevity. Slower duration (400ms over 300ms), slight scale-up (0.95 to 1), or blur-to-sharp.
+
+## Timing as editorial voice
+
+Fast stagger (40-60ms) feels energetic. Slow stagger (120-200ms) feels deliberate, premium.
+
+"Move money in milliseconds" needs a brisk stagger. "Crafted without compromise" needs a slow, confident one. If the copy says "fast" but the stagger says "slow," the interface contradicts itself.

@@ -1,0 +1,81 @@
+export const metadata = {
+  alternates: { canonical: "/docs/use-canvas-state" },
+  description:
+    "Persists camera position and the peeked folder to localStorage under a configurable key.",
+  title: "useCanvasState",
+};
+
+import { UseCanvasStateDemo } from "@/components/docs/demos/use-canvas-state-demo";
+
+# useCanvasState
+
+Persists the canvas camera (`x`, `y`, `scale`) and the currently peeked folder
+to `localStorage`, so a canvas returns to where the user left it. Pass the
+restored camera to `<Canvas>` as its initial state and feed `onCameraSettle`
+back into the setter.
+
+<Preview>
+  <UseCanvasStateDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="use-canvas-state" />
+
+## Usage
+
+```tsx
+const { camera, setCameraState } = useCanvasState("my-canvas");
+
+return (
+  <Canvas
+    initialScale={camera.scale}
+    initialX={camera.x}
+    initialY={camera.y}
+    onCameraSettle={setCameraState}
+  >
+    {children}
+  </Canvas>
+);
+```
+
+Because the restore runs after first paint, gate the `<Canvas>` behind a mount
+flag (or `restored`) so its initial camera reflects the saved view.
+
+## API
+
+<PropsTable
+  rows={[
+    {
+      name: "storageKey",
+      type: "string",
+      default: '"canvas-view"',
+      description: "Argument, the localStorage key to read/write.",
+    },
+    {
+      name: "camera",
+      type: "{ x; y; scale }",
+      description: "The restored (or default) camera state.",
+    },
+    {
+      name: "peekedFolder",
+      type: "string | null",
+      description: "Id of the folder that was peeked open.",
+    },
+    {
+      name: "restored",
+      type: "boolean",
+      description: "True once a saved state has been loaded.",
+    },
+    {
+      name: "setCameraState",
+      type: "(camera) => void",
+      description: "Persist a new camera (no-op if unchanged).",
+    },
+    {
+      name: "setPeekedFolder",
+      type: "(id | null) => void",
+      description: "Persist the peeked folder id.",
+    },
+  ]}
+/>

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-draggable",
+  "title": "useDraggable",
+  "description": "Pointer-based drag offset tracking with a tap/drag threshold, scale-aware so it works inside a zoomed canvas.",
+  "files": [
+    {
+      "path": "hooks/use-draggable.ts",
+      "content": "\"use client\";\n\nimport type React from \"react\";\nimport { useRef, useState } from \"react\";\n\nconst DRAG_THRESHOLD = 5;\n\nexport const useDraggable = () => {\n  const ref = useRef<HTMLDivElement>(null);\n  const [dragging, setDragging] = useState(false);\n  const state = useRef({\n    active: false,\n    baseOffsetX: 0,\n    baseOffsetY: 0,\n    dragging: false,\n    offsetX: 0,\n    offsetY: 0,\n    startX: 0,\n    startY: 0,\n  });\n\n  const onPointerDown = (e: React.PointerEvent) => {\n    if (e.button !== 0) {\n      return;\n    }\n    // Touch is reserved for canvas pan/zoom — folders don't move on mobile.\n    if (e.pointerType === \"touch\") {\n      return;\n    }\n    const target = e.target as HTMLElement;\n    const current = e.currentTarget as HTMLElement;\n    if (target !== current && target.closest(\"a, button\")) {\n      return;\n    }\n    e.stopPropagation();\n    const s = state.current;\n    s.active = true;\n    s.dragging = false;\n    s.startX = e.clientX;\n    s.startY = e.clientY;\n    s.baseOffsetX = s.offsetX;\n    s.baseOffsetY = s.offsetY;\n    current.setPointerCapture(e.pointerId);\n  };\n\n  const onPointerMove = (e: React.PointerEvent) => {\n    const s = state.current;\n    if (!s.active) {\n      return;\n    }\n\n    const dx = e.clientX - s.startX;\n    const dy = e.clientY - s.startY;\n\n    if (!s.dragging) {\n      if (Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) {\n        return;\n      }\n      s.dragging = true;\n      setDragging(true);\n    }\n\n    const el = ref.current;\n    if (!el) {\n      return;\n    }\n    const cssWidth = el.offsetWidth;\n    const renderedWidth = el.getBoundingClientRect().width;\n    const scale = cssWidth > 0 ? renderedWidth / cssWidth : 1;\n\n    s.offsetX = s.baseOffsetX + dx / scale;\n    s.offsetY = s.baseOffsetY + dy / scale;\n    el.style.transform = `translate(${s.offsetX}px, ${s.offsetY}px)`;\n  };\n\n  const onPointerUp = (): boolean => {\n    const s = state.current;\n    const wasDragging = s.dragging;\n    s.active = false;\n    s.dragging = false;\n    if (wasDragging) {\n      setDragging(false);\n    }\n    return wasDragging;\n  };\n\n  const transform =\n    state.current.offsetX || state.current.offsetY\n      ? `translate(${state.current.offsetX}px, ${state.current.offsetY}px)`\n      : undefined;\n\n  return {\n    dragging,\n    onPointerDown,\n    onPointerMove,\n    onPointerUp,\n    ref,\n    transform,\n  };\n};\n",
+      "type": "registry:hook",
+      "target": "hooks/use-draggable.ts"
+    }
+  ],
+  "type": "registry:hook"
+}

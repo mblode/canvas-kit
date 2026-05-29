@@ -1,0 +1,96 @@
+export const lessonMeta = {
+  title: "Interaction details",
+  module: "craft",
+  order: 4,
+  duration: "10 min",
+};
+
+import { HitTargetVisualizer } from "@/components/demos/craft/hit-target-visualizer";
+import { FocusTrapVisualizer } from "@/components/demos/craft/focus-trap-visualizer";
+
+## Focus management: trap and restore
+
+Dialog opens: tab cycles _within_ the overlay. Dialog closes: focus returns to the trigger.
+
+```tsx
+<Dialog open onClose={close}>
+  <Dialog.Content>
+    <input autoFocus />
+    <button>Save</button>
+    <button onClick={close}>Cancel</button>
+  </Dialog.Content>
+</Dialog>
+```
+
+Native `<dialog>` handles trapping. Radix, Aria, Headless UI handle trapping and restoration.
+
+Other focus moments:
+
+- **On open.** Focus the first form field, not the close button.
+- **On validation failure.** Focus the first invalid field.
+- **After deletion.** Focus the next item. Never drop to `<body>`.
+
+<FocusTrapVisualizer />
+
+## Hit targets: 24px desktop, 44px mobile
+
+- **24 x 24px** desktop (WCAG 2.2 minimum).
+- **44 x 44px** touch (Apple HIG).
+
+These are _hit area_, not visual size. A 16px icon can have a 44px tap target:
+
+```css
+.icon-button {
+  padding: 14px;
+  /* or expand with a pseudo-element: */
+}
+.icon-button::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+}
+```
+
+<HitTargetVisualizer />
+
+Adjacent targets need 8px minimum between hit areas.
+
+## Hover gates
+
+Touch devices fire hover on tap. Gate hover behind a media query:
+
+```css
+button {
+  background: var(--rest);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  button:hover {
+    background: var(--hover);
+  }
+}
+```
+
+Use `:active` for press feedback and `:focus-visible` for keyboard.
+
+## `touch-action` for gestures
+
+```css
+.swipe-panel {
+  touch-action: pan-y; /* browser handles vertical scroll; you handle horizontal */
+}
+```
+
+- `pan-y`: vertical scroll only.
+- `pan-x`: horizontal scroll only.
+- `none`: you handle everything. Use sparingly.
+- `manipulation`: scroll + pinch-zoom, no double-tap-to-zoom.
+
+## Common mistakes
+
+- **Modal opens, focus stays on trigger.** Tab navigates behind the modal.
+- **Modal closes, focus snaps to `<body>`.** User is lost.
+- **Tiny close buttons on mobile.** Users mis-tap.
+- **Hover styles without the media query.** Flash on phone tap.
+- **Suppressing tap highlight with no `:active` replacement.** Touches feel dead.
+- **Nested clickables.** Button inside a clickable row fires both. Restructure or use `stopPropagation()`.

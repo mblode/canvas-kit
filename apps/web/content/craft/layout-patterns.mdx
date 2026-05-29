@@ -1,0 +1,70 @@
+export const lessonMeta = {
+  title: "Layout patterns",
+  module: "craft",
+  order: 3,
+  duration: "10 min",
+};
+
+## What flex and grid solve
+
+- **Equal-width columns:** `grid-template-columns: repeat(3, 1fr);`
+- **Aspect-ratio cards:** `aspect-ratio: 4 / 3;`
+- **Responsive wrap:** `flex-wrap: wrap;` with `min-content`.
+- **Sidebar + main:** `grid-template-columns: 240px 1fr;`
+- **Centred elements:** `place-items: center;`
+- **Sticky elements:** `position: sticky; top: 0;`
+- **Equal heights:** `display: grid` with `align-items: stretch`.
+
+## When JavaScript is appropriate
+
+- **Anchor positioning** for tooltips and popovers.
+- **Virtualised lists** past 50 items.
+- **Drag-and-drop** hit-testing.
+
+Batch reads and writes. Layout reads (`getBoundingClientRect`) followed by writes followed by reads cause **layout thrashing**.
+
+## `overscroll-behavior` in modals
+
+```css
+.modal {
+  overscroll-behavior: contain;
+}
+```
+
+Use `100dvh` instead of `100vh` on mobile. `100vh` includes browser chrome and overflows.
+
+## Empty, loading, and error states
+
+### Empty
+
+- **First-time empty:** Explain the surface. Provide a CTA.
+- **Filter empty:** Show what matched nothing. Offer "Clear filters."
+
+### Loading
+
+Show nothing for 150-300ms. Once a spinner appears, keep it 300ms minimum to avoid flicker. Prefer skeletons for lists.
+
+### Error
+
+State what failed, what to do, and offer an action. Preserve typed values.
+
+## Long content safety
+
+```css
+.cell {
+  min-width: 0; /* allow flex/grid children to shrink */
+  overflow-wrap: anywhere; /* break long unbroken strings */
+  word-break: break-word; /* fallback for older browsers */
+}
+```
+
+`min-width: 0` matters because flex/grid children default to `min-width: auto` and refuse to shrink below content width.
+
+## Common mistakes
+
+- **JS-measured equal heights.** Use `display: grid`.
+- **`resize` event listeners for layout.** Use CSS media queries.
+- **No `overscroll-behavior` on modals.** Page scrolls behind.
+- **No empty state.** User sees blank whitespace.
+- **Spinner for a 50ms request.** Flicker. Use a show-delay.
+- **`100vh` on mobile.** Content hides behind the toolbar. Use `100dvh`.

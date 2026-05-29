@@ -1,0 +1,49 @@
+export const metadata = {
+  alternates: { canonical: "/docs/canvas-vars" },
+  description:
+    "CSS custom properties for the canvas surface, folders, drag rings and marquee selection.",
+  title: "Canvas theme variables",
+};
+
+# Canvas theme variables
+
+The `--canvas-*` CSS custom properties that drive every Canvas Kit component,
+the surface, folder colours, drag rings and marquee selection, in both light
+and dark. This is a `registry:theme` item: it adds the variables to your CSS, no
+component files.
+
+## Installation
+
+<CommandTabs name="canvas-vars" />
+
+Most components list `canvas-vars` as a dependency, so it's usually installed
+for you. Add it directly if you only want the tokens.
+
+## Variables
+
+| Variable                  | Light                   | Dark                    |
+| ------------------------- | ----------------------- | ----------------------- |
+| `--canvas-bg`             | `#e7eaeb`               | `#16181a`               |
+| `--canvas-fg`             | `#1b1d22`               | `#d5d7d9`               |
+| `--canvas-border`         | `rgba(27,29,34,0.08)`   | `#2e3233`               |
+| `--canvas-folder-back`    | `#f1f7f9`               | `#cdeef6`               |
+| `--canvas-folder-front`   | `#edf5f7`               | `#d6f3fb`               |
+| `--canvas-folder-accent`  | `#16a34a`               | `#16a34a`               |
+| `--canvas-drag-ring`      | `white`                 | `rgba(255,255,255,.15)` |
+| `--canvas-selection`      | `rgba(59,130,246,0.5)`  | `rgba(96,165,250,0.5)`  |
+| `--canvas-selection-fill` | `rgba(59,130,246,0.08)` | `rgba(96,165,250,0.1)`  |
+
+The theme also exposes Tailwind colour utilities (`bg-canvas-bg`,
+`text-canvas-fg`, `border-canvas-border`, …) via `@theme`.
+
+## Usage
+
+Reference the tokens directly in markup:
+
+```tsx
+<div className="bg-canvas-bg text-canvas-fg">…</div>
+```
+
+Dark mode follows the system preference through Tailwind's `dark` variant, no
+toggle required. Override any variable in your own `:root` / `@media (prefers-color-scheme: dark)`
+block to re-skin the canvas.

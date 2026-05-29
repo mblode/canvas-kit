@@ -1,0 +1,96 @@
+export const metadata = {
+  alternates: { canonical: "/docs/canvas-card" },
+  description:
+    "An absolutely-positioned card for the canvas, optionally a router-agnostic link with a selection ring.",
+  title: "Canvas card",
+};
+
+import { CanvasCardDemo } from "@/components/docs/demos/canvas-card-demo";
+
+# Canvas card
+
+An absolutely-positioned card you place on the [`canvas`](/docs/canvas) by `x` /
+`y`. It can render as a link by passing a router-agnostic `linkComponent` (e.g.
+`next/link`), and shows a selection ring when marquee-selected.
+
+<Preview>
+  <CanvasCardDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="canvas-card" />
+
+## Usage
+
+```tsx
+import Link from "next/link";
+import { CanvasCard } from "@/components/canvas/canvas-card";
+
+// A plain card
+<CanvasCard cardId="a" x={60} y={60}>
+  <div className="p-5">A card</div>
+</CanvasCard>
+
+// A link card
+<CanvasCard cardId="b" href="/lesson" linkComponent={Link} x={360} y={140}>
+  <div className="p-5">Open lesson →</div>
+</CanvasCard>
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    {
+      name: "x",
+      type: "number",
+      required: true,
+      description: "Left position on the canvas, in px.",
+    },
+    {
+      name: "y",
+      type: "number",
+      required: true,
+      description: "Top position on the canvas, in px.",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      required: true,
+      description: "Card content.",
+    },
+    {
+      name: "width",
+      type: "number",
+      default: "280",
+      description: "Card width, in px.",
+    },
+    {
+      name: "href",
+      type: "string",
+      description: "When set, the card renders as a link.",
+    },
+    {
+      name: "linkComponent",
+      type: "ElementType",
+      default: '"a"',
+      description: "Component used for the link (e.g. `next/link`).",
+    },
+    {
+      name: "cardId",
+      type: "string",
+      description: "Marks the card selectable; reported by `onSelect`.",
+    },
+    {
+      name: "selected",
+      type: "boolean",
+      description: "Draws the selection ring.",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Extra classes for the card surface.",
+    },
+  ]}
+/>

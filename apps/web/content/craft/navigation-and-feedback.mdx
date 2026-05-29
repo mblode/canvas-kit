@@ -1,0 +1,85 @@
+export const lessonMeta = {
+  title: "Navigation & feedback",
+  module: "craft",
+  order: 7,
+  duration: "10 min",
+};
+
+import { LoadingStateDemo } from "@/components/demos/craft/loading-state-demo";
+
+## Links vs. buttons
+
+- **`<a href="...">`** for navigation. Supports Cmd+click, middle-click, copy link, bookmarks.
+- **`<button>`** for actions on the current page: modals, forms, toggles.
+
+Put state in the URL. Tab state, sort order, filters become shareable, refreshable, and Back-button friendly:
+
+```tsx
+<Link href={`/dashboard?tab=${tab}&sort=${sort}`}>Dashboard</Link>
+// vs
+<button onClick={() => setTab(t)}>Dashboard</button>
+```
+
+Most common violation: `<button onClick={() => router.push('/x')}>`. Use `<Link href="/x">`.
+
+## Loading delay: 150-300ms before the spinner
+
+### Show-delay (~150-300ms)
+
+Show nothing for the first 150-300ms. If the operation finishes, it feels instant.
+
+```tsx
+const [showSpinner, setShowSpinner] = useState(false);
+
+useEffect(() => {
+  const timer = setTimeout(() => setShowSpinner(true), 200);
+  return () => clearTimeout(timer);
+}, []);
+```
+
+### Minimum-duration (~300-500ms)
+
+Once the spinner appears, keep it for at least 300ms.
+
+<LoadingStateDemo />
+
+## Toasts and live regions
+
+1. **An `aria-live="polite"` container** so screen readers announce them.
+2. **A keyboard-reachable dismiss action.**
+3. **Persistence near the field** for errors.
+
+The live region must exist in the DOM from page load.
+
+```html
+<div role="status" aria-live="polite" aria-atomic="true">
+  {/* Inject toast text here when events fire */}
+</div>
+```
+
+Use `aria-live="polite"` for almost everything. Reserve `assertive` for emergencies: session expiry, payment failure.
+
+## Destructive confirmation
+
+1. **Name the action.** "Delete project", not "Are you sure?"
+2. **Name the consequences.** "This will permanently delete all 47 invoices."
+3. **Make the destructive button visually distinct.** Red, secondary position.
+
+For irreversible actions, require typing the resource name:
+
+```
+Type "production-database" to confirm deletion.
+```
+
+## Optimistic updates
+
+When the outcome is predictable (toggles, likes, stars), update the UI immediately and roll back on failure.
+
+## Common mistakes
+
+- **`<button onClick={() => router.push('/x')}>`.** Loses link semantics. Use `<Link>`.
+- **`<a href="#">` with a click handler.** Looks like a link, isn't one. Use `<button>`.
+- **Spinner on every render.** Fast navigation causes loading flashes.
+- **No loading state for slow operations.** User clicks Submit twice. Two submissions.
+- **"OK" and "Cancel" on destructive dialogs.** Name the action: "Delete project" / "Keep project."
+- **Error toast that auto-dismisses.** Persist errors near the field.

@@ -1,0 +1,126 @@
+export const metadata = {
+  alternates: { canonical: "/docs/document-overlay" },
+  description:
+    "A full-screen document reader that scales up from a source card and scales back into it on close.",
+  title: "Document overlay",
+};
+
+import { DocumentOverlayDemo } from "@/components/docs/demos/document-overlay-demo";
+
+# Document overlay
+
+A full-screen document reader. It opens by **scaling up** from the card you
+clicked (a FLIP from the card's rect to a centered column) and, on close, scales
+**back down** into that same card. Content- and router-agnostic: pass the
+document as `children` and optional prev/next controls via the `footer` slot.
+
+<Preview center>
+  <DocumentOverlayDemo />
+</Preview>
+
+It renders full-screen (portaled to `document.body`). The back arrow, the scrim,
+and the Escape key all close it.
+
+## Installation
+
+<CommandTabs name="document-overlay" />
+
+## Usage
+
+Capture the source card's rect on click, then drive `open`. Give the card a
+stable `data-card-id` (or `data-item-id`) matching `sourceId` so the overlay can
+find it again to scale back into, even if it moved while open.
+
+```tsx
+import { DocumentOverlay } from "@/components/canvas/document-overlay";
+
+const [open, setOpen] = useState(false);
+const [rect, setRect] = useState<DOMRect | null>(null);
+
+<button
+  data-card-id="doc-1"
+  onClick={(e) => {
+    setRect(e.currentTarget.getBoundingClientRect());
+    setOpen(true);
+  }}
+  type="button"
+>
+  Open
+</button>
+
+<DocumentOverlay
+  onClose={() => setOpen(false)}
+  open={open}
+  sourceId="doc-1"
+  sourceRect={rect}
+  title="Brand & identity"
+>
+  <p>…document content…</p>
+</DocumentOverlay>
+```
+
+Pair it with [`folder-card`](/docs/folder-card) / [`document-card`](/docs/document-card)
+(whose items expose `data-item-id` / `data-card-id`) and a
+[`pagination`](/docs/pagination) footer, see the [live demo](/demo).
+
+## Props
+
+<PropsTable
+  rows={[
+    {
+      name: "open",
+      type: "boolean",
+      required: true,
+      description: "Whether the overlay is open.",
+    },
+    {
+      name: "children",
+      type: "ReactNode",
+      required: true,
+      description: "The document content.",
+    },
+    {
+      name: "onClose",
+      type: "() => void",
+      required: true,
+      description: "Called after the close animation completes.",
+    },
+    {
+      name: "sourceRect",
+      type: "DOMRect | null",
+      description: "Rect of the source card, for the scale-up FLIP.",
+    },
+    {
+      name: "sourceId",
+      type: "string",
+      description:
+        "Source card id (`data-card-id`/`data-item-id`), re-found on close.",
+    },
+    {
+      name: "title",
+      type: "string",
+      description: "Heading rendered above the content.",
+    },
+    {
+      name: "footer",
+      type: "ReactNode",
+      description: "Rendered below the content once open (e.g. pagination).",
+    },
+    {
+      name: "skipEntrance",
+      type: "boolean",
+      default: "false",
+      description: "Skip the entrance animation (e.g. for a direct link).",
+    },
+    {
+      name: "onBeforeClose",
+      type: "() => void",
+      description: "Fired right before the close animation starts.",
+    },
+    {
+      name: "onExitComplete",
+      type: "() => void",
+      description: "Fired after the close animation completes.",
+    },
+  ]}
+/>

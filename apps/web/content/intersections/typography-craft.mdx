@@ -1,0 +1,61 @@
+export const lessonMeta = {
+  title: "Typography × craft",
+  module: "intersections",
+  order: 3,
+  duration: "10 min",
+};
+
+Set your heading to WCAG AA contrast. Now check it at `font-weight: 300`. The ratio drops below 3:1 on most colour systems.
+
+## Contrast depends on stroke weight
+
+A light-weight heading at 4.6:1 might fail perceptually because thin strokes disappear against the background. A bold heading at 3.2:1 might pass because thick strokes hold their own.
+
+Check contrast at the lightest weight you ship. Light text on dark backgrounds loses perceived contrast faster at thin weights.
+
+## Heading hierarchy is two systems at once
+
+Typography sees headings as a scale. Accessibility sees headings as an outline: h1 then h2 then h3, never skipping a level. Skip from h2 to h4 and the screen reader outline breaks.
+
+Don't use an h4 because it "looks right at that size." Style the h3 to the size you need:
+
+```css
+.section-subhead {
+  font-size: var(--text-lg);
+  font-weight: 500;
+}
+```
+
+## The 4px grid and type sizing
+
+Type sizes should produce 4px-aligned line heights. 16px with `line-height: 1.5` produces 24px (multiple of 4). 18px with `line-height: 1.5` produces 27px (not a multiple of 4).
+
+Choose type sizes where `size x line-height` lands on your grid, or accept the drift and align only spacing between blocks. Both are valid. Mixing approaches creates subtle vertical rhythm breaks.
+
+```css
+:root {
+  --text-sm: 14px; /* × 1.43 = 20px ✓ */
+  --text-base: 16px; /* × 1.5  = 24px ✓ */
+  --text-lg: 20px; /* × 1.4  = 28px ✓ */
+  --text-xl: 24px; /* × 1.33 = 32px ✓ */
+}
+```
+
+## Button typography
+
+**Optical centring.** Text inside a button with equal padding looks left-shifted because letterforms have asymmetric visual weight. Add 2-4px more padding on the trailing side:
+
+```css
+.button {
+  padding-left: 16px;
+  padding-right: 20px;
+}
+```
+
+**Icon + text alignment.** Icons sit on a grid, text sits on a baseline. `align-items: center` often looks wrong because the icon's visual centre doesn't match its geometric centre. Nudge with `transform: translateY(-1px)` on the icon.
+
+**Font size in buttons.** Buttons inherit the component's font size unless explicitly set. A `text-sm` button inside a `text-lg` section looks broken. Set button font size explicitly.
+
+**Letterspacing on uppercase buttons.** All-caps labels without tracking look cramped. Add `letter-spacing: 0.05em` to uppercase button text.
+
+Change the type scale, recheck the spacing grid. Change the heading weight, recheck the contrast ratio.

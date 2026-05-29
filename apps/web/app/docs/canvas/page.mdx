@@ -1,0 +1,94 @@
+export const metadata = {
+  alternates: { canonical: "/docs/canvas" },
+  description:
+    "The infinite-canvas viewport: pan, zoom, grab and marquee selection on a fixed full-bleed surface.",
+  title: "Canvas",
+};
+
+import { CanvasDemo } from "@/components/docs/demos/canvas-demo";
+
+# Canvas
+
+The viewport. A fixed, full-bleed surface that pans, zooms (wheel + pinch),
+grabs (hold space) and marquee-selects its positioned children. Place absolutely
+positioned cards inside it; tag selectable ones with `data-card-id`.
+
+<Preview>
+  <CanvasDemo />
+</Preview>
+
+The preview is contained in a box. In your app the Canvas renders `fixed
+inset-0`, open the [live demo](/demo) for the real thing.
+
+## Installation
+
+<CommandTabs name="canvas" />
+
+## Usage
+
+```tsx
+import { Canvas } from "@/components/canvas/canvas";
+import { CanvasCard } from "@/components/canvas/canvas-card";
+
+<Canvas initialScale={0.85} onSelect={(ids) => setSelected(new Set(ids))}>
+  <CanvasCard cardId="a" x={60} y={60}>
+    <div className="p-5">A card</div>
+  </CanvasCard>
+</Canvas>;
+```
+
+Children opt out of panning with `data-no-pan`, and out of selection by omitting
+`data-card-id`. Marquee selection reports the ids of intersected `[data-card-id]`
+elements through `onSelect`.
+
+## Props
+
+<PropsTable
+  rows={[
+    {
+      name: "children",
+      type: "ReactNode",
+      required: true,
+      description: "Positioned canvas content.",
+    },
+    {
+      name: "initialX",
+      type: "number",
+      default: "0",
+      description: "Starting camera x offset.",
+    },
+    {
+      name: "initialY",
+      type: "number",
+      default: "0",
+      description: "Starting camera y offset.",
+    },
+    {
+      name: "initialScale",
+      type: "number",
+      default: "0.85",
+      description: "Starting zoom level.",
+    },
+    {
+      name: "onSelect",
+      type: "(ids: string[]) => void",
+      description: "Ids of cards inside the marquee when selection ends.",
+    },
+    {
+      name: "onCameraSettle",
+      type: "(state) => void",
+      description: "Fires after pan/zoom settles with `{ x, y, scale }`.",
+    },
+    {
+      name: "onHandleReady",
+      type: "(handle) => void",
+      description:
+        "Exposes `animateTo` and `getCamera` for imperative control.",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Override surface classes (e.g. to contain the viewport).",
+    },
+  ]}
+/>

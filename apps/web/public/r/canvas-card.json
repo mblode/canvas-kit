@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "canvas-card",
+  "title": "Canvas card",
+  "description": "An absolutely-positioned card for the canvas, optionally a link (router-agnostic) with a selection ring.",
+  "registryDependencies": [
+    "utils",
+    "https://course.blode.co/r/canvas-ring.json",
+    "https://course.blode.co/r/canvas-vars.json"
+  ],
+  "files": [
+    {
+      "path": "components/canvas-kit/canvas-card.tsx",
+      "content": "\"use client\";\n\nimport type * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport { CanvasRing } from \"./canvas-ring\";\n\ninterface CanvasCardProps {\n  x: number;\n  y: number;\n  width?: number;\n  /** When set, the card renders as a link. Router-agnostic, pass any element\n   * via `linkComponent` (e.g. next/link) or fall back to a plain anchor. */\n  href?: string;\n  linkComponent?: React.ElementType;\n  cardId?: string;\n  selected?: boolean;\n  /** Fade the card back so it recedes while another element is focused. */\n  dimmed?: boolean;\n  className?: string;\n  children: React.ReactNode;\n}\n\nexport const CanvasCard = ({\n  x,\n  y,\n  width = 280,\n  href,\n  linkComponent,\n  cardId,\n  selected,\n  dimmed,\n  className,\n  children,\n}: CanvasCardProps) => {\n  const cardClasses = cn(\n    \"absolute rounded-2xl bg-background/80 backdrop-blur-sm border border-canvas-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)] transition-[box-shadow,opacity] duration-200 focus-visible:ring-2 focus-visible:ring-canvas-fg/20 focus-visible:ring-offset-2\",\n    href &&\n      \"hover:shadow-[0_1px_3px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)]\",\n    dimmed && \"opacity-30 duration-300\",\n    className\n  );\n\n  const style = {\n    left: x,\n    top: y,\n    width,\n  };\n\n  const selectionRing = (\n    <CanvasRing active={Boolean(selected)} inset={-4} thickness={2} />\n  );\n\n  if (href) {\n    const LinkComp = linkComponent ?? \"a\";\n    return (\n      <LinkComp\n        className={cardClasses}\n        data-card-id={cardId}\n        data-no-pan\n        href={href}\n        style={style}\n      >\n        {selectionRing}\n        {children}\n      </LinkComp>\n    );\n  }\n\n  return (\n    <div className={cardClasses} data-card-id={cardId} style={style}>\n      {selectionRing}\n      {children}\n    </div>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/canvas/canvas-card.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

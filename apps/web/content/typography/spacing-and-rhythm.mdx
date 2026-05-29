@@ -1,0 +1,122 @@
+export const lessonMeta = {
+  title: "Spacing & rhythm",
+  module: "typography",
+  order: 6,
+  duration: "10 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+import { SpacingRhythmLab } from "@/components/demos/typography/spacing-rhythm-lab";
+
+Right typeface, right size, right measure, still feels wrong. The problem is spacing.
+
+<SpacingRhythmLab />
+
+## Paragraph separation
+
+A new paragraph needs **either** a blank line **or** a first-line indent. Never both.
+
+Books use indents. Websites use line breaks. Web readers skim rather than read sequentially, so line breaks work better on screen.
+
+### Line breaks (web default)
+
+```css
+p {
+  margin-bottom: 1em;
+  text-indent: 0;
+}
+```
+
+One line of space.
+
+### Indents (longform / editorial)
+
+```css
+p {
+  margin-bottom: 0;
+}
+p + p {
+  text-indent: 1.5em;
+}
+```
+
+The first paragraph never gets an indent. Use `p + p`.
+
+<GoodBad
+  bad={
+    <div className="space-y-4">
+      <p className="text-sm indent-6">
+        First paragraph with an indent. There is nothing above to separate from.
+      </p>
+      <p className="text-sm indent-6">
+        Second paragraph, also indented, with extra vertical space. Belt and
+        braces.
+      </p>
+    </div>
+  }
+  good={
+    <div>
+      <p className="text-sm">
+        First paragraph, no indent. Nothing above to separate from.
+      </p>
+      <p className="text-sm mt-4">
+        Second paragraph with spacing only. One signal, not two.
+      </p>
+    </div>
+  }
+  badLabel="Indent + line break"
+  goodLabel="Line break only"
+/>
+
+## Letterspacing: the default rule
+
+For body text: _leave it alone_. The type designer already set the spacing.
+
+### When to add letterspacing
+
+- **Uppercase text.** Capitals need extra air. Add 0.05–0.15 em.
+- **Tiny text** (10px and below). A hint of tracking helps legibility.
+- **Large display headlines.** At 72px, body spacing feels too open. Tighten with `letter-spacing: -0.02em`.
+
+### When _not_ to add letterspacing
+
+- **Body text in mixed case.** Don't.
+- **Monospaced fonts.** Tracking breaks the grid.
+- **Connected scripts** (handwriting, Arabic, Devanagari). Tracking breaks the joins.
+- **Justified text** to fill a line.
+
+## Subhead proximity
+
+```css
+h2 {
+  margin-top: 2.5em; /* generous space above */
+  margin-bottom: 0.5em; /* tight space below */
+}
+```
+
+<Callout type="rule">
+  Aim for a 3:1 to 5:1 ratio of top margin to bottom margin on subheads. Equal
+  spacing is the most common spacing error in first drafts.
+</Callout>
+
+## Vertical rhythm
+
+Set `line-height` first, then derive paragraph spacing from it. A paragraph margin of one line-height produces even vertical rhythm. Baseline-grid alignment is impractical on the web. Prioritise consistent _feel_ over mathematical purity.
+
+## Padding and margins
+
+- **Column gutters.** Wide enough that the eye doesn't jump to the adjacent column.
+- **Outer margins.** At least 16px of horizontal padding on mobile.
+- **Thumb space.** Interactive text needs enough padding to be tappable.
+
+Two to four sentences per paragraph. Shorter paragraphs invite scanning. Longer ones stall it.
+
+<Exercise
+  id="typo-spacing-audit"
+  title="Audit subhead proximity and letterspacing"
+>
+  Check your project's subhead margins. Is `margin-bottom` less than
+  `margin-top`? Fix any subheads that float equidistant between sections. Then
+  search for `letter-spacing` in your CSS. Remove any applied to body text, and
+  add tracking to any uppercase labels that lack it.
+</Exercise>

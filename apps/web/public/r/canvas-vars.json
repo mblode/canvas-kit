@@ -1,0 +1,46 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "canvas-vars",
+  "title": "Canvas theme variables",
+  "description": "CSS custom properties for the canvas surface, folders, drag rings and marquee selection (light + dark).",
+  "cssVars": {
+    "theme": {
+      "color-canvas-bg": "var(--canvas-bg)",
+      "color-canvas-fg": "var(--canvas-fg)",
+      "color-canvas-border": "var(--canvas-border)",
+      "color-canvas-selection": "var(--canvas-selection)",
+      "color-canvas-selection-fill": "var(--canvas-selection-fill)"
+    },
+    "light": {
+      "canvas-bg": "#e7eaeb",
+      "canvas-fg": "#1b1d22",
+      "canvas-border": "rgba(27, 29, 34, 0.08)",
+      "canvas-folder-back": "#f1f7f9",
+      "canvas-folder-front": "#edf5f7",
+      "canvas-folder-tab": "#e3ecee",
+      "canvas-folder-tab-accent": "#ced9db",
+      "canvas-folder-fg": "#1b1d22",
+      "canvas-folder-fg-muted": "rgba(27, 29, 34, 0.35)",
+      "canvas-folder-accent": "#16a34a",
+      "canvas-drag-ring": "white",
+      "canvas-selection": "rgba(59, 130, 246, 0.5)",
+      "canvas-selection-fill": "rgba(59, 130, 246, 0.08)"
+    },
+    "dark": {
+      "canvas-bg": "#16181a",
+      "canvas-fg": "#d5d7d9",
+      "canvas-border": "#2e3233",
+      "canvas-folder-back": "#cdeef6",
+      "canvas-folder-front": "#d6f3fb",
+      "canvas-folder-tab": "#bfe7f1",
+      "canvas-folder-tab-accent": "#c8ebf4",
+      "canvas-folder-fg": "#1b1d22",
+      "canvas-folder-fg-muted": "rgba(27, 29, 34, 0.35)",
+      "canvas-folder-accent": "#16a34a",
+      "canvas-drag-ring": "rgba(255, 255, 255, 0.15)",
+      "canvas-selection": "rgba(96, 165, 250, 0.5)",
+      "canvas-selection-fill": "rgba(96, 165, 250, 0.1)"
+    }
+  },
+  "type": "registry:theme"
+}

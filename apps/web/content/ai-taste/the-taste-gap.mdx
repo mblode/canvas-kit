@@ -1,0 +1,65 @@
+export const lessonMeta = {
+  title: "The AI taste gap",
+  module: "ai-taste",
+  order: 1,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos";
+
+AI can write code that compiles. It can't tell you whether the result feels right.
+
+Jony Ive: you might not always sense care, but you can always sense carelessness. AI-generated interfaces pass every functional test and fail that one.
+
+AI made code cheap. The artifact is what matters now.
+
+## Why everything looks the same
+
+AI converges on the most common patterns in its training data. The most common patterns are mediocre. Every AI-generated landing page ships with the same Inter font, the same purple-to-blue gradient, the same three-column feature grid with `rounded-xl` cards.
+
+Not a bug. A statistical inevitability. The model picks the average. The exceptional is where taste lives.
+
+## The "vibe coding" trap
+
+Generating a full page in one prompt feels productive. Speed without editing is how you ship something indistinguishable from every other AI-generated site.
+
+The problem isn't using AI. The problem is trusting the first output. Every generation is a first draft. First drafts need editing. The editing _is_ the craft.
+
+<GoodBad
+  badLabel="First draft"
+  goodLabel="After editing"
+  bad={
+    <div className="space-y-3 text-sm">
+      <div className="font-semibold">What ships without editing</div>
+      <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
+        <li>Default system font or Inter</li>
+        <li>Purple-to-blue gradient hero</li>
+        <li>Three identical feature cards</li>
+        <li>Generic stock copy</li>
+        <li>No hover states, no focus styles</li>
+        <li>Every section the same height</li>
+      </ul>
+    </div>
+  }
+  good={
+    <div className="space-y-3 text-sm">
+      <div className="font-semibold">
+        What ships after 30 minutes of editing
+      </div>
+      <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
+        <li>A typeface chosen for the brand</li>
+        <li>A colour palette with intent</li>
+        <li>Layout that breaks the grid</li>
+        <li>Copy rewritten from the user's perspective</li>
+        <li>Hover, focus, and active states</li>
+        <li>Rhythm that varies by content</li>
+      </ul>
+    </div>
+  }
+/>
+
+## What the model can't judge
+
+AI has no opinion. It doesn't feel discomfort when a `border-radius` is wrong. It doesn't notice that the heading weight is too close to the body weight. It doesn't know that your users need reassurance on the pricing page, not features.
+
+Taste is the ability to feel that something is off before you can name the problem. AI doesn't have that sense. You do, or you will, once you've trained it.

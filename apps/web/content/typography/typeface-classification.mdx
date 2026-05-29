@@ -1,0 +1,115 @@
+export const lessonMeta = {
+  title: "Typeface classification",
+  module: "typography",
+  order: 2,
+  duration: "10 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+import { ClassificationExplorer } from "@/components/demos/typography/classification-explorer";
+
+Six genres cover what you'll encounter on the web. Identify them on sight and pairing stops being guesswork.
+
+<ClassificationExplorer />
+
+## The three sans-serif genres
+
+### Humanist sans-serif
+
+The DNA of a hand holding a pen. Diagonal stress, modulated stroke widths, varying proportions.
+
+**Examples:** Gill Sans, Frutiger, Optima, Myriad, FF Meta.
+
+**Neo-humanist** variants evolved for screens with larger x-heights and more open apertures: Inter, Calibri, Verdana, Lucida Grande.
+
+The best sans-serif genre for body text. If you want one sans-serif to do everything, pick a humanist.
+
+### Geometric sans-serif
+
+Built from circles, squares, and triangles. Uniform strokes, the lowercase `o` is a near-perfect circle. Vertical stress.
+
+**Examples:** Futura (the archetype, 1927), Avenir, Century Gothic, Proxima Nova, Gotham, Circular.
+
+Strong for display and headlines. Weaker for body because uniform strokes reduce letter distinction. Contemporary geometrics (Avenir, Proxima Nova) handle body better than the originals.
+
+### Grotesque and neo-grotesque
+
+The oldest sans-serif genre.
+
+**Grotesques** (~1815–1900): Akzidenz-Grotesk, Franklin Gothic, News Gothic, Trade Gothic. Slight stroke variation, closed apertures.
+
+**Neo-grotesques** (1950s onward): Helvetica, Univers, Arial. Uniform strokes, tighter apertures.
+
+Dominant in UI and branding where neutrality is the goal.
+
+## The three serif genres
+
+### Old-style (humanist) serif
+
+The trace of the broad-nib pen. Diagonal stress, moderate stroke contrast, bracketed serifs.
+
+**Examples:** Garamond, Caslon, Jenson, Bembo, Sabon, Goudy Old Style.
+
+The gold standard for long-form reading. Paperbacks, literary magazines, sustained paragraphs.
+
+### Transitional serif
+
+Between calligraphic old-style and rationalist modern. Vertical stress, stroke contrast more pronounced than old-style but less extreme than modern.
+
+**Examples:** Baskerville, Times/Times New Roman, Georgia, Plantin, Mrs Eaves.
+
+Strong body text faces. Georgia was designed for screens and still reads well.
+
+### Modern (rational/didone) serif
+
+Extreme stroke contrast, vertical stress, thin unbracketed hairline serifs. "Modern" is historical. These were modern in 1790.
+
+**Examples:** Bodoni, Didot, Walbaum, GT Sectra Display.
+
+Dramatic display faces. Fine hairlines break at small sizes. Reserve moderns for 24px+.
+
+## x-height: why size lies
+
+Two typefaces at the same pixel size can look different sizes. **x-height** (the height of the lowercase `x`) is the reason. Verdana has a tall x-height. Garamond a short one. Both at 16px and Verdana looks two sizes bigger.
+
+- **Body size.** Short x-height needs a larger size.
+- **Line height.** Tall x-heights fill more vertical space. Add leading to compensate.
+- **Pairing.** Match x-heights _visually_, not by pixel value.
+
+## Stress: the master key to pairing
+
+The best predictor of whether two typefaces will pair: **stress**. Set the lowercase `o` at large size. Find the two thinnest points on the curve. Diagonal? Humanist. Upright? Rational.
+
+<GoodBad
+  good={
+    <div className="space-y-2 text-sm">
+      <p className="font-medium">Matching stress</p>
+      <p>Garamond + Gill Sans (both diagonal)</p>
+      <p>Bodoni + Futura (both vertical)</p>
+      <p>Baskerville + Franklin Gothic (compatible)</p>
+    </div>
+  }
+  bad={
+    <div className="space-y-2 text-sm">
+      <p className="font-medium">Mismatched stress</p>
+      <p>Garamond + Futura (diagonal + vertical)</p>
+      <p>Bodoni + Gill Sans (vertical + diagonal)</p>
+      <p>Old-style + geometric (two different worlds)</p>
+    </div>
+  }
+  goodLabel="Works"
+  badLabel="Tension"
+/>
+
+## The quick classification test
+
+1. **Serifs?** No = sans-serif. Yes = serif.
+2. **Stress?** Set the `o` at display size. Diagonal = humanist lineage. Vertical = rational lineage.
+3. **Stroke contrast?** Low and uniform = grotesque/geometric. Moderate = transitional. Extreme with hairlines = modern/didone.
+
+<Exercise id="typo-classify-sites" title="Classify three websites">
+  Open three websites you visit daily. For each, identify the body and heading
+  typefaces and classify them using the three-question test: serifs? stress?
+  stroke contrast? You'll be surprised how quickly the six genres become
+  automatic.
+</Exercise>

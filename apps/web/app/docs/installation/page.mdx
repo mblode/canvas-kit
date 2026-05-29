@@ -1,0 +1,60 @@
+export const metadata = {
+  alternates: { canonical: "/docs/installation" },
+  description: "Add Canvas Kit to a React + Tailwind v4 project.",
+  title: "Installation",
+};
+
+# Installation
+
+Canvas Kit is distributed as a [shadcn registry](https://ui.shadcn.com/docs/registry).
+If you already have a React + Tailwind v4 app with the shadcn CLI configured,
+adding a component is a single command.
+
+## Prerequisites
+
+- **React 19** and **Tailwind CSS v4**.
+- A project initialised with `shadcn` (a `components.json` at the root). If you
+  haven't, run `npx shadcn@latest init` first.
+
+## Install a component
+
+Every item resolves its own dependencies, installing `folder-card`, for
+example, also pulls in `use-draggable`, `circular-progress` and the
+`canvas-vars` theme.
+
+<CommandTabs name="folder-card" />
+
+## Install everything
+
+To get the Canvas, cards, folders and sample data in one go, add the
+`canvas-board` block:
+
+<CommandTabs name="canvas-board" />
+
+## Manual setup
+
+<Steps>
+  <Step title="Add the theme variables">
+    Canvas Kit reads its colours from `--canvas-*` CSS variables. Install the
+    [`canvas-vars`](/docs/canvas-vars) theme (or copy the variables into your
+    `globals.css`):
+
+    <CommandTabs name="canvas-vars" />
+
+  </Step>
+  <Step title="Add the pieces you need">
+    Browse the sidebar and install the [`canvas`](/docs/canvas) viewport plus any
+    cards. Each registry item targets `components/canvas/` (the components) and
+    `hooks/` (the hooks) by default.
+  </Step>
+  <Step title="Compose your canvas">
+    Drop a `<Canvas>` somewhere full-bleed and place positioned children inside
+    it. See [`canvas`](/docs/canvas) for the full example.
+  </Step>
+</Steps>
+
+## Where files land
+
+Components install to `components/canvas/`, hooks to `hooks/`, and the
+`circular-progress` UI primitive to `components/ui/`. Adjust the targets in your
+`components.json` aliases if your layout differs.

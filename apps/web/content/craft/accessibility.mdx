@@ -1,0 +1,94 @@
+export const lessonMeta = {
+  title: "Accessibility",
+  module: "craft",
+  order: 6,
+  duration: "10 min",
+};
+
+import { ContrastChecker } from "@/components/demos/craft/contrast-checker";
+
+Tab through your product. Can you see focus? Can you open and close a dialog without a mouse?
+
+## Semantic HTML before ARIA
+
+`<button>` has role, keyboard handling, and form-submit built in. A `<div role="button" tabIndex={0}>` reproduces all of that worse.
+
+- **Clickable `<div>`.** Use `<button>`. If it navigates, use `<a href>`.
+- **Custom dropdowns.** Use `<details>` / `<summary>`.
+- **Custom checkboxes.** Style `<input type="checkbox">`. Don't replace it.
+- **`<div role="navigation">`.** Use `<nav>`.
+- **Heading text in `<div class="title">`.** Use `<h1>`-`<h3>`.
+
+ARIA is for tab panels, live regions, custom comboboxes. Reach for it second.
+
+## Icon buttons need `aria-label`
+
+```tsx
+<button aria-label="Delete" onClick={handleDelete}>
+  <TrashIcon aria-hidden="true" />
+</button>
+```
+
+- **Visible text wins.** Don't add `aria-label` if text already exists.
+- **Decorative icons get `aria-hidden`.**
+- **Be specific.** "Delete this comment" beats "Delete."
+- **Never contradict.** `aria-label="Cancel"` on a Submit button is a bug.
+
+## Skip links
+
+```html
+<a href="#main" class="skip-link">Skip to main content</a>
+<!-- ...navigation... -->
+<main id="main">...</main>
+```
+
+```css
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 9999;
+}
+```
+
+## Heading hierarchy
+
+- **One `<h1>` per page.**
+- **Never skip levels.** `<h1>` then `<h3>` breaks the outline.
+- **Headings describe sections.** "Billing history," not "Section 1."
+- **Don't use headings for styling.** Use CSS for big bold text.
+
+## Contrast
+
+WCAG: **4.5:1** body text, **3:1** large text and UI elements.
+
+<ContrastChecker />
+
+Never rely on colour alone:
+
+- **Error fields:** colour + icon + label + role.
+- **Required fields:** colour + asterisk + SR-only text.
+- **Active tab:** colour + underline or weight change.
+
+## `:focus-visible`
+
+Never apply `outline: none` without a replacement.
+
+```css
+:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+```
+
+## Common mistakes
+
+- **Click handler on a `<div>`.** Mouse-only. Use `<button>`.
+- **`outline: none` with no replacement.** Keyboard users are blind.
+- **Skip link that CSS hid from focus.** Test by tabbing from page load.
+- **`aria-label` contradicting visible text.** Confuses everyone.
+- **`tabIndex="-1"` everywhere.** Removes from tab order. Use only for programmatic focus.
+- **`autocomplete="off"` on passwords.** Breaks password managers.

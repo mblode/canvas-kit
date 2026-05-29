@@ -1,0 +1,75 @@
+export const lessonMeta = {
+  title: "Microcopy",
+  module: "craft",
+  order: 9,
+  duration: "10 min",
+};
+
+## Specific action labels
+
+Replace **Submit**, **OK**, **Continue**, **Done**, and **Yes** with what the click does.
+
+| Generic  | Specific        |
+| -------- | --------------- |
+| Submit   | Send invitation |
+| OK       | Save changes    |
+| Continue | Add to cart     |
+| Done     | Publish         |
+| Confirm  | Delete project  |
+| Yes      | Move to trash   |
+
+The pattern is **verb + object**: _Save invoice_, _Send message_, _Delete file_.
+
+Don't surface internals. _Send notification_, not _Trigger webhook_.
+
+## Actionable error messages
+
+An error has three jobs: **what happened**, **why**, and **what to do next**.
+
+| Bad                  | Better                                                            |
+| -------------------- | ----------------------------------------------------------------- |
+| _Network error._     | _Couldn't reach the server. Check your connection and try again._ |
+| _Validation failed._ | _Your password needs at least one number._                        |
+| _Permission denied._ | _You're not an admin. Ask the team owner to grant access._        |
+| _Invalid email._     | _That doesn't look right. Did you mean jane@example.com?_         |
+
+When you don't know what happened, still give a recovery path: _Something broke on our end. Try again in a few minutes._
+
+Don't blame the user. _That email doesn't match our records_, not _You entered an invalid email_.
+
+## Active voice
+
+| Passive                            | Active                |
+| ---------------------------------- | --------------------- |
+| The CLI will be installed.         | Install the CLI.      |
+| Your changes have been saved.      | Saved.                |
+| An email was sent.                 | We sent an email.     |
+| Files can be uploaded by dragging. | Drop files to upload. |
+
+Use numerals: _3 unread messages_, not _three unread messages_.
+
+Drop _Please_. _Save changes_ is direct. _Please save your changes_ is condescending.
+
+## Loading ellipsis
+
+Follow-up steps (dialog, more data, more input) get an ellipsis: _Rename…_, _Move to…_, _Save as…_.
+
+In-progress states: _Loading…_, _Saving…_, _Searching…_. Immediate actions: _Save_, _Delete_, _Bookmark_. No ellipsis.
+
+Use `…` (U+2026), not three periods.
+
+```tsx
+{
+  loading ? "Saving…" : "Saved";
+}
+```
+
+## Common mistakes
+
+- **"OK" and "Cancel" on destructive actions.** Name the action: _Delete project_ / _Keep project_.
+- **Same error message for every failure.** _Something went wrong_ flattens all problems.
+- **Toast with error that auto-dismisses.** Persist errors near the field.
+- **Three periods instead of `…`.** Renders inconsistently.
+- **Ellipsis on immediate actions.** _Save…_ on a button that saves immediately is misleading.
+- **"Your data is stored securely."** Passive. Better: _Encrypted at rest._
+- **"Would you like to delete this item?"** Better: _Delete this item?_

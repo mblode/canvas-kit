@@ -1,0 +1,165 @@
+export const lessonMeta = {
+  title: "CTA clarity",
+  module: "copywriting",
+  order: 5,
+  duration: "8 min",
+};
+
+import { Demo } from "@/components/demos";
+import { GoodBad } from "@/components/demos/good-bad";
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import { CtaGrader } from "@/components/demos/copywriting/cta-grader";
+import {
+  ClickHereCta,
+  CreateAccountCta,
+  DownloadGuideCta,
+  LearnMoreCta,
+  SeeHowCta,
+  SubmitCta,
+} from "@/components/demos/copywriting/cta-judgement-options";
+
+The formula: **verb + what they get + qualifier.**
+
+| Weak        | Why it fails       | Strong                        |
+| ----------- | ------------------ | ----------------------------- |
+| Get started | Started on what?   | Start syncing free            |
+| Learn more  | Passive            | See how it works              |
+| Sign up     | Describes the form | Create your workspace         |
+| Try it now  | No qualifier       | Try it free, no card required |
+| Submit      | Bureaucratic       | Send my request               |
+| Click here  | Never acceptable   | Download the guide            |
+
+## The outcome test
+
+Cover the page. Read only the button. Could it appear on any site unchanged?
+
+<JudgementExercise
+  id="cta-learn-more"
+  category="Copywriting"
+  question="Which CTA tells you what you'll see?"
+  optionA={<LearnMoreCta />}
+  optionB={<SeeHowCta />}
+  correctAnswer="b"
+  explanation={
+    <>
+      “Learn More” is the most generic CTA on the internet. It could sit on any
+      page about anything. “See how it works” names the experience on the other
+      side of the click: a walkthrough, a demo, an explanation. Specific beats
+      generic every time.
+    </>
+  }
+/>
+
+<JudgementExercise
+  id="cta-submit-vs-outcome"
+  category="Copywriting"
+  question="Which CTA do you click first?"
+  optionA={<SubmitCta />}
+  optionB={<CreateAccountCta />}
+  correctAnswer="b"
+  explanation={
+    <>
+      “Submit” describes the form mechanic, not the user's outcome. B names the
+      result (“Create your account”) and removes the friction (“free”) in seven
+      words.
+    </>
+  }
+/>
+
+<JudgementExercise
+  id="cta-click-here"
+  category="Copywriting"
+  question="Which link earns the click?"
+  optionA={<ClickHereCta />}
+  optionB={<DownloadGuideCta />}
+  correctAnswer="b"
+  explanation={
+    <>
+      “Click Here” describes the input device, not the action. B tells the user
+      what they'll get (“the guide”), what format (“PDF”), and how heavy it is
+      (“2MB”). Those three facts answer every question a hesitant reader has.
+      Link text is the most-scanned copy on a page. Waste no characters.
+    </>
+  }
+/>
+
+## Outcome verbs
+
+| Context        | Verbs                   |
+| -------------- | ----------------------- |
+| Product entry  | Start, Create, Build    |
+| Demos          | See, Watch, Preview     |
+| Content offers | Download, Get, Claim    |
+| Calls          | Book, Schedule, Reserve |
+| Completion     | Send, Share, Publish    |
+
+Avoid form mechanics: _Submit, Continue, Proceed, Confirm._
+
+<Demo
+  title="CTA grader"
+  caption="Enter a CTA to score its specificity, commitment clarity, and risk reduction."
+>
+  <CtaGrader />
+</Demo>
+
+## Add a qualifier
+
+- "Try it" becomes "Try it free."
+- "Start your trial" becomes "Start your trial, no card required."
+- "Create your workspace" becomes "Create your workspace in 5 minutes."
+
+Best qualifiers: _free, in 5 minutes, no card required, no install, cancel anytime._
+
+## Primary vs. secondary
+
+One primary CTA. Zero or one secondary. The primary dominates visually at a **3:1 ratio**.
+
+<GoodBad
+  bad={
+    <div className="flex flex-col items-center gap-2 text-sm">
+      <button
+        type="button"
+        className="rounded-lg bg-foreground px-4 py-2 font-medium text-background"
+      >
+        Start free trial
+      </button>
+      <button
+        type="button"
+        className="rounded-lg bg-foreground px-4 py-2 font-medium text-background"
+      >
+        Get started now
+      </button>
+      <p className="text-xs text-muted-foreground">
+        Two primary CTAs compete. The reader clicks neither.
+      </p>
+    </div>
+  }
+  good={
+    <div className="flex flex-col items-center gap-2 text-sm">
+      <button
+        type="button"
+        className="rounded-lg bg-foreground px-4 py-2 font-medium text-background"
+      >
+        Start syncing free
+      </button>
+      <button
+        type="button"
+        className="text-sm text-muted-foreground underline underline-offset-2"
+      >
+        See how it works
+      </button>
+      <p className="text-xs text-muted-foreground">
+        One primary, one visually subordinate secondary.
+      </p>
+    </div>
+  }
+  badLabel="Competing CTAs"
+  goodLabel="Clear hierarchy"
+/>
+
+Watch for verbless CTAs. "Free trial" has no verb. "Start your free trial" gives direction.
+
+## The mismatch trap
+
+- Page promise: _Cut your AWS bill in half._
+- CTA: _See your savings estimate free._

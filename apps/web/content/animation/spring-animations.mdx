@@ -1,0 +1,137 @@
+export const lessonMeta = {
+  title: "Physics-based motion",
+  module: "animation",
+  order: 5,
+  duration: "14 min",
+};
+
+import { InterruptibilityDemo } from "@/components/demos/animation";
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  BouncyPopover,
+  SnappyPopover,
+} from "@/components/demos/animation/spring-judgement-options";
+
+<Slide id="spring-intro" demoState={{ preset: "Snappy" }}>
+
+A CSS transition follows a predetermined path. A spring responds to forces: target position, damping resistance, inertia.
+
+Retarget a spring mid-flight and the velocity carries over. A CSS transition interrupted mid-flight either jumps or snaps.
+
+</Slide>
+
+<Slide id="spring-three-parameters" demoState={{ preset: "Bouncy" }}>
+
+## The three parameters
+
+**Stiffness** controls speed. 100 = lazy, 500 = snappy, 700+ = hard snap.
+
+**Damping** controls resistance. 15 = visible bounce, 40 = smooth settle. Low = playful, high = professional.
+
+**Mass** controls weight. 0.5 = zippy, 2 = heavy. Stay between 0.5 and 1.5.
+
+</Slide>
+
+<Slide id="spring-useful-presets" demoState={{ preset: "Gentle" }}>
+
+## Useful presets
+
+| Preset | Stiffness | Damping | Use case                              |
+| ------ | --------- | ------- | ------------------------------------- |
+| Snappy | 500       | 40      | General UI, no bounce, fast settle    |
+| Bouncy | 300       | 20      | Playful elements, notification badges |
+| Gentle | 200       | 30      | Page transitions, large panels        |
+| Stiff  | 700       | 50      | Small precise movements, toggles      |
+
+In product UI, `bounce` above 0.3 reads as cartoonish.
+
+</Slide>
+
+<Slide id="spring-apple-style" demoState={{ preset: "Stiff" }}>
+
+## The Apple-style parameterisation
+
+Apple uses `duration` and `bounce` instead of `stiffness`, `damping`, and `mass`.
+
+- `bounce: 0`: no overshoot (critically damped)
+- `bounce: 0.15`: barely perceptible, natural
+- `bounce: 0.3`: visible overshoot, playful but restrained
+
+Motion supports both.
+
+SwiftUI's `.spring(response: 0.35, dampingFraction: 0.85)` maps to Motion's `{ type: "spring", duration: 0.35, bounce: 0.15 }`.
+
+</Slide>
+
+<Slide id="spring-interruptibility" demoState={{ preset: "Snappy" }}>
+
+## Interruptibility
+
+Every drag, gesture, or interruptible element should use springs.
+
+<InterruptibilityDemo />
+
+</Slide>
+
+<JudgementExercise
+  id="spring-bouncy-vs-snappy"
+  category="Animation"
+  question="Open each popover in a product UI context. Which spring feels right?"
+  optionA={<BouncyPopover />}
+  optionB={<SnappyPopover />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A uses a bouncy spring (stiffness 300, damping 15). The overshoot reads as
+      playful. Fine for a game or a badge, wrong for a context menu. B uses a
+      snappy spring (stiffness 500, damping 40) that settles quickly with no
+      visible bounce. In product UI, bounce above 0.3 reads as cartoonish.
+    </>
+  }
+/>
+
+<Slide id="spring-when-not-to" demoState={{ preset: "Snappy" }}>
+
+## Velocity inheritance
+
+When a user flicks a card and a snap point catches it, the velocity should transfer to the spring.
+
+```tsx
+animate(x, snapPoint, {
+  type: "spring",
+  velocity: gesture.velocity,
+  stiffness: 400,
+  damping: 40,
+});
+```
+
+## Conceptual weight
+
+Mass is a design decision about perceived importance. A 0.5 mass tooltip zips into view. A 1.5 mass modal settles deliberately. Destructive actions get critically damped springs (no bounce). Playful moments get underdamped springs (visible overshoot).
+
+## When not to use springs
+
+- **Opacity fades.** Springs overshoot past 1.0. Use linear or ease-out.
+- **Colour transitions.** Overshoot produces values outside the palette.
+- **Progress bars.** Bouncing at 100% looks dishonest.
+- **Precise timing.** Audio/video sync needs duration-based curves.
+
+## In code
+
+```tsx
+import { motion } from "motion/react"
+
+// Stiffness/damping/mass parameterisation
+<motion.div
+  animate={{ x: isOpen ? 300 : 0 }}
+  transition={{ type: "spring", stiffness: 500, damping: 40 }}
+/>
+
+// Apple-style parameterisation
+<motion.div
+  animate={{ x: isOpen ? 300 : 0 }}
+  transition={{ type: "spring", duration: 0.4, bounce: 0.15 }}
+/>
+```
+
+</Slide>

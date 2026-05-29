@@ -1,0 +1,116 @@
+export const lessonMeta = {
+  title: "Font loading",
+  module: "typography",
+  order: 4,
+  duration: "10 min",
+};
+
+import { FontLoadingWaterfall } from "@/components/demos/craft/font-loading-waterfall";
+
+<FontLoadingWaterfall />
+
+Every `@font-face` declaration needs `font-display: swap`. Without it, the browser defaults to three seconds of invisible text.
+
+## The performance pipeline
+
+### 1. Preconnect to the font origin
+
+```html
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+```
+
+### 2. Preload critical fonts
+
+```html
+<link
+  rel="preload"
+  href="/fonts/inter-regular.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+```
+
+Preload _only_ above-the-fold fonts. The `crossorigin` attribute is required even for same-origin fonts. Omit it and the browser downloads the font twice.
+
+<Callout type="warning">
+  Missing `crossorigin` on a font preload means the browser downloads the font
+  twice. The preload is silently wasted.
+</Callout>
+
+### 3. Choose a `font-display` strategy
+
+| Value      | Behavior                                                        | Use case                               |
+| ---------- | --------------------------------------------------------------- | -------------------------------------- |
+| `auto`     | Browser decides. Usually 3s invisible text (FOIT)               | Never use explicitly                   |
+| `swap`     | Show fallback immediately, swap when loaded (FOUT)              | Default for most fonts                 |
+| `fallback` | Short block (~100ms), short swap (~3s), then permanent fallback | Non-critical fonts                     |
+| `optional` | Brief block; use cached font or permanently fall back           | Slow networks, progressive enhancement |
+
+`swap` is the right default.
+
+## Taming the flash (FOUT)
+
+`font-display: swap` trades invisible text for a visible flash when the webfont arrives. Tune the fallback to match the webfont's metrics with `size-adjust`, `ascent-override`, and `descent-override`:
+
+```css
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+}
+
+body {
+  font-family: "Inter", "Inter Fallback", sans-serif;
+}
+```
+
+Fontaine and next/font automate this calculation.
+
+<Depth level="reference" title="Fallback metric overrides for common fonts">
+
+| Webfont          | Fallback | size-adjust | ascent-override | descent-override |
+| ---------------- | -------- | ----------- | --------------- | ---------------- |
+| Inter            | Arial    | 107%        | 90%             | 22%              |
+| Source Sans Pro  | Arial    | 110%        | 88%             | 22%              |
+| Source Serif Pro | Georgia  | 103%        | 89%             | 24%              |
+| Roboto           | Arial    | 100%        | 92%             | 22%              |
+| Open Sans        | Arial    | 105%        | 90%             | 22%              |
+
+These are approximations. Use [Fontaine](https://github.com/unjs/fontaine) or `next/font` for exact values calculated from font metrics.
+
+</Depth>
+
+## Common mistakes
+
+**No `font-display` at all.** Defaults to `auto`, three seconds of invisible text.
+
+**Preloading every weight.** Preload only above-the-fold weights.
+
+**Loading weights you don't use.** If the design uses 400 and 600, don't load 300, 500, 700, 800, 900.
+
+**Google Fonts without preconnect.** Preconnect to both `fonts.googleapis.com` and `fonts.gstatic.com`, or self-host.
+
+## Font subsetting
+
+**`unicode-range` subsetting** tells the browser to download a font file only when the page uses characters in that range:
+
+```css
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F;
+}
+```
+
+Google Fonts does this automatically, splitting each font into language-specific slices. Self-hosting? Use **glyphhanger** or **subfont** to generate subsets matching the characters you use.
+
+Skip subsetting for variable fonts where it breaks axis interpolation, or sites with user-generated content in unpredictable scripts.
+
+<Exercise id="typo-font-network-audit" title="Network tab font audit">
+  Open your site's DevTools Network tab. Filter by "font". Count the font files.
+  Are any uncached? Are you loading weights you never use? Add `font-display:
+  swap` to any declaration missing it.
+</Exercise>

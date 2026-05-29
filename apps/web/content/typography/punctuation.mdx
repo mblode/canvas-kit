@@ -1,0 +1,94 @@
+export const lessonMeta = {
+  title: "Punctuation & special characters",
+  module: "typography",
+  order: 1,
+  duration: "12 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+import { SmartQuoteConverter } from "@/components/demos/typography/smart-quote-converter";
+
+Open any website. Look at the quotation marks. If they're straight, the developer didn't care about typography. Every fix here takes seconds.
+
+## Smart quotes vs. straight quotes
+
+Your keyboard's `"` key produces a straight quote, inherited from typewriters. Correct quotation marks are _curly_, with distinct opening and closing forms.
+
+<GoodBad
+  bad={
+    <div className="space-y-2">
+      <p className="text-lg">"Hello World", straight quotes</p>
+      <p className="text-lg">It's a beautiful day, straight apostrophe</p>
+    </div>
+  }
+  good={
+    <div className="space-y-2">
+      <p className="text-lg">"Hello World", smart quotes</p>
+      <p className="text-lg">It's a beautiful day, curly apostrophe</p>
+    </div>
+  }
+  badLabel="Straight quotes"
+  goodLabel="Smart quotes"
+/>
+
+<Callout type="rule">
+  The apostrophe is the highest-impact fix. It appears in every contraction and
+  every possessive, far more often than quotation marks. One straight apostrophe
+  in a headline betrays an otherwise-typeset page.
+</Callout>
+
+Use the Unicode characters directly: `“` for left double, `”` for right double, `‘` for left single, `’` for right single and apostrophes. Most MDX pipelines handle this automatically. Verify.
+
+## Em dash, en dash, and hyphen
+
+Three marks that look similar. Different jobs.
+
+- **Hyphen** (`-`): Joins compound words. "High-quality," "re-enter." No spaces.
+- **En dash** (`–`): Indicates ranges. "2020–2024," "pages 12–36." No spaces in ranges.
+- **Em dash** (`—`): Sets off parenthetical clauses or introduces a sharp break. The width of a capital M.
+
+Two house styles: the _unspaced em dash_ (American) and the _spaced en dash_ (Bringhurst, British). Choose one. Be consistent.
+
+Developers type a hyphen or `--` where an em dash belongs. Use `—` (U+2014) directly.
+
+## Primes vs. quotes
+
+- **Prime** (′): feet, arcminutes.
+- **Double prime** (″): inches, arcseconds.
+
+A 50″ television is correct. A 50” television uses a straight quote. A 50” television uses a closing smart quote. Both are wrong. CMS auto-quote conversion swaps blindly, so prime-as-quote is a bug you catch by hand.
+
+## Midpoints and ampersands
+
+The **midpoint** (·) is an underused separator for horizontal lists. _Home · About · Contact_ reads cleaner than _Home | About | Contact_. Pad midpoints with hair spaces or thin spaces.
+
+The **ampersand** (&) is a logogram for _et_. Use in proper names (_Johnson & Johnson_), pair forms (_Mr & Mrs_), and shorthand (_R&B_, _Q&A_). In prose, write _and_.
+
+## Non-breaking spaces
+
+A non-breaking space (`&nbsp;`) prevents a line break between two words.
+
+- **Units and values**: "100&nbsp;kg" should never break across lines.
+- **Last two words of a headline** to prevent a widow: "Web&nbsp;Typography."
+- **Copyright symbol and year**: "©&nbsp;2026."
+- **Keyboard shortcuts**: "Cmd&nbsp;+&nbsp;K."
+
+Use sparingly. Too many defeat the browser's line-breaking algorithm.
+
+## Ellipsis
+
+The **ellipsis** (…) is a single character (U+2026), not three periods. Three periods produce uneven spacing and can break across lines. Use for omissions ("Wait for it…") and in UI to signal that an action needs more input ("Save As…", "Print…").
+
+## Multiplication sign and fractions
+
+Dimensions use the **multiplication sign** (×, U+00D7), not a lowercase `x`. "1920×1080" is correct. At display size the difference is obvious.
+
+Unicode provides proper fraction characters: ½, ¼, ¾. "1½ cups" reads better than "1-1/2 cups."
+
+<SmartQuoteConverter />
+
+<Exercise id="typo-punctuation-audit" title="Audit your quotes">
+  Search your codebase for straight quotes in user-facing strings. Replace them.
+  Check contractions ("don't", "it's") first. Those slip through most often.
+  Fifteen minutes.
+</Exercise>

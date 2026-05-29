@@ -1,0 +1,81 @@
+export const lessonMeta = {
+  title: "Sizing & measure",
+  module: "typography",
+  order: 5,
+  duration: "12 min",
+};
+
+import { TypePlayground } from "@/components/demos/typography/type-playground";
+
+**Legibility** is whether you can tell an `l` from a `1`. **Readability** is whether you can read sustained paragraphs without effort. Body size, line length, and line height form a triangle. Get one wrong and the paragraph feels effortful.
+
+<TypePlayground />
+
+## Body size: the anchor
+
+Set body size first. Derive heading sizes upward and caption sizes downward.
+
+- **Desktop:** 16–24px. 16 is a hard minimum. Most sites read better at 18–20px.
+- **Mobile:** 14–19px. Phones are held closer, so smaller sizes look the same.
+- **Print:** 10–12pt.
+
+The right number depends on **x-height**. Verdana has a tall x-height. Garamond a short one. Both at 16px and Verdana looks two sizes bigger.
+
+If 19px looks alive but 18px feels thin and 20px feels heavy, use 19px. The scale is a starting point. The eye is the editor.
+
+### Common body-size mistakes
+
+- **14px desktop body.** Cramped on modern screens.
+- **24+ px desktop body.** Reserve for narrow columns or accessibility-first sites.
+- **Same size on mobile and desktop.** Different contexts need different sizes.
+
+## Line length: the measure
+
+Target: **66 characters**, with 45–75 the workable range. Below 45, the eye snaps back before settling. Above 75, the eye loses the next line.
+
+```css
+.prose {
+  max-width: 65ch;
+  margin-inline: auto;
+}
+```
+
+For fluid sizing, `clamp()` scales between breakpoints without jumps:
+
+```css
+body {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+}
+```
+
+### Common line-length mistakes
+
+- **Letting copy fill the viewport.**
+- **Constraining only by pixels.** `ch` units track character count as font size changes.
+
+## Line height: the vertical space
+
+For body copy, **1.45–1.5**. Tall x-height faces need more. Small-x-height faces can run tighter. For large display type, drop to **1.0–1.2**.
+
+### Always unitless
+
+Use `line-height: 1.5`, not `line-height: 24px` or `line-height: 150%`. Unitless values inherit as a multiplier. Fixed values inherit as computed pixels, breaking when children have different font sizes:
+
+```css
+body {
+  line-height: 1.5;
+} /* good, every child computes its own */
+body {
+  line-height: 24px;
+} /* bad, h1 inherits 24px and overlaps */
+```
+
+## The three decisions together
+
+Changing one usually requires adjusting the others:
+
+- **Larger body size** = measure shrinks at the same pixel width.
+- **Wider column** = more characters per line, increase line height.
+- **Taller x-height** = lines feel more packed, increase line height.
+
+No formula replaces reading the result. Set the three values, read a real paragraph, adjust.

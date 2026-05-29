@@ -1,0 +1,149 @@
+export const lessonMeta = {
+  title: "Gesture & drag",
+  module: "animation",
+  order: 8,
+  duration: "12 min",
+};
+
+import { GestureSandbox } from "@/components/demos/animation";
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  NoMomentumDrag,
+  MomentumDrag,
+  FlatHoverAvatarGroup,
+  DistanceAwareAvatarGroup,
+} from "@/components/demos/animation/gesture-judgement-options";
+
+Drag requires frame-by-frame response: zero perceptible lag, resistance at boundaries, natural settle on release.
+
+<GestureSandbox />
+
+## Pointer capture
+
+Without `setPointerCapture`, the element loses track of the cursor the moment it escapes bounds.
+
+```tsx
+const handlePointerDown = (e: React.PointerEvent) => {
+  (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  // Begin tracking
+};
+```
+
+Always use `pointer` events, not `mouse` events. Pointer events unify mouse, touch, and stylus.
+
+<JudgementExercise
+  id="gesture-momentum"
+  category="Animation"
+  question="Flick each card quickly and release. Which feels physical?"
+  optionA={<NoMomentumDrag />}
+  optionB={<MomentumDrag />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A stops dead on release. The card hits an invisible wall. B carries
+      momentum after release and decelerates naturally. iOS's rubber-band
+      constant (0.55) has been unchanged since the original iPhone. Real objects
+      have inertia. Velocity tracking on release is the single most important
+      detail in drag interactions.
+    </>
+  }
+/>
+
+## Momentum
+
+Track the last 2-3 pointer positions with timestamps. Compute velocity as `deltaPosition / deltaTime`. Pass that velocity to a spring.
+
+```tsx
+// On release, pass the gesture velocity to the spring
+animate(x, snapPoint, {
+  type: "spring",
+  velocity: gesture.velocity,
+  stiffness: 400,
+  damping: 40,
+});
+```
+
+Motion's `drag` prop handles this automatically.
+
+<JudgementExercise
+  id="gesture-avatar-hover"
+  category="Animation"
+  question="Hover across the avatars in each group. Which feels spatially aware?"
+  optionA={<FlatHoverAvatarGroup />}
+  optionB={<DistanceAwareAvatarGroup />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A lifts only the hovered avatar. Its neighbours stay flat, creating a
+      harsh step between "lifted" and "not lifted." B uses spring-based distance
+      falloff: the hovered avatar lifts most, immediate neighbours lift
+      slightly. The effect reads as a physical surface responding to proximity
+      rather than a binary hover state. The same principle applies to any
+      horizontal stack: tab bars, button groups, card rows.
+    </>
+  }
+/>
+
+## Boundary damping
+
+Apply logarithmic damping past the boundary:
+
+```tsx
+function rubberBand(offset: number, dimension: number, constant = 0.55) {
+  return (offset * dimension * constant) / (dimension + constant * offset);
+}
+```
+
+0.55 is iOS's value. 0.3 feels stiffer. 0.8 feels loose.
+
+## Swipe-to-dismiss
+
+Use both distance and velocity, never just one.
+
+```tsx
+const shouldDismiss =
+  Math.abs(offset) > dimension * 0.35 || Math.abs(velocity) > 500;
+```
+
+If neither is met, spring back. On dismiss, animate off-screen with current velocity.
+
+## Touch-action and scroll conflict
+
+```css
+/* Horizontal drag: let the browser handle vertical scroll */
+.horizontal-drag {
+  touch-action: pan-y;
+}
+
+/* Vertical drag: let the browser handle horizontal scroll */
+.vertical-drag {
+  touch-action: pan-x;
+}
+
+/* Full custom gesture: prevent all browser handling */
+.custom-gesture {
+  touch-action: none;
+}
+```
+
+## Axis locking
+
+On the first `pointermove`, lock to whichever axis has the larger delta.
+
+```tsx
+if (!axisLock) {
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    axisLock = "x";
+  } else {
+    axisLock = "y";
+  }
+}
+```
+
+Apply a 5-8px dead zone before checking.
+
+## The 60fps requirement
+
+- **Only animate `transform` and `opacity`.**
+- **Use `will-change: transform`** on the dragged element. Remove it when drag ends.
+- **Avoid React re-renders during drag.** Use `useMotionValue` or refs, not state.

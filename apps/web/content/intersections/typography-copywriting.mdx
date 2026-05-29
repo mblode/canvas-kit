@@ -1,0 +1,42 @@
+export const lessonMeta = {
+  title: "Typography × copywriting",
+  module: "intersections",
+  order: 2,
+  duration: "8 min",
+};
+
+A copywriter writes a perfect headline. A typographer sets it at display scale. At 480px, the last word wraps alone. Widow. Neither can fix what the other breaks.
+
+## Smart quotes in code vs. rendered copy
+
+A component rendering `”Start your free trial”` with straight quotes displays straight quotes unless your pipeline transforms them. Some MDX configs auto-convert. Some don't.
+
+Write the actual Unicode characters (`“` and `”`) in every user-facing string, or verify your toolchain converts them.
+
+Smart quotes in variable names create silent bugs. Curly quotes are different Unicode codepoints. String comparisons fail without warning. Smart quotes in rendered copy, straight quotes in code.
+
+## Non-breaking spaces for brand names
+
+Brand names, product names, compound proper nouns: use non-breaking spaces or hyphens to prevent splits.
+
+In JSX, use `{" "}` or `&nbsp;` in MDX. For hyphens in brand names, use `‑` (U+2011) instead of `-` (U+002D).
+
+## Headline length governs line breaks
+
+> Build better products with real-time collaboration
+
+At 600px, one line. At 480px, "collaboration" sits alone. Widow. `text-wrap: balance` helps but doesn't fix every width.
+
+> Build better products, together
+
+Shorter. Punchier. Wraps cleanly everywhere. Editing the copy is the best typographic fix.
+
+## text-wrap: balance and copy length
+
+`text-wrap: balance` works best on four to eight words. Three words fit on one line without help. Twelve words defeat the algorithm. Outside that range, change the copy.
+
+## Typographic hierarchy must match copy hierarchy
+
+If the copy leads with the user's pain point, that element should be the largest text. A homepage with the company name in 64px and the value proposition in 18px says "our brand matters most." The type overrides the copy.
+
+Write copy with line breaks in mind. Set type with word count in mind.

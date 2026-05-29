@@ -1,0 +1,167 @@
+export const lessonMeta = {
+  title: "Accessibility & performance",
+  module: "animation",
+  order: 10,
+  duration: "10 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  TransformAnimation,
+  LayoutAnimation,
+} from "@/components/demos/animation/performance-judgement-options";
+
+Two non-negotiable requirements: respect motion preferences and keep 60fps.
+
+## prefers-reduced-motion
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+A more targeted approach:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .modal {
+    /* Remove scale and translate; keep a fast opacity fade */
+    animation: none;
+    transition: opacity 100ms ease;
+  }
+}
+```
+
+Reduced motion users don't want _zero_ feedback. They want animation that doesn't _move across the screen_.
+
+### In JavaScript
+
+```tsx
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+const transition = prefersReducedMotion
+  ? { duration: 0 }
+  : { type: "spring", stiffness: 500, damping: 40 };
+```
+
+Or use Motion's `useReducedMotion` hook:
+
+```tsx
+import { useReducedMotion } from "motion/react";
+
+function Modal() {
+  const shouldReduce = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={
+        shouldReduce ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 12 }
+      }
+      animate={shouldReduce ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+      transition={shouldReduce ? { duration: 0.1 } : { duration: 0.25 }}
+    />
+  );
+}
+```
+
+## Transform and opacity only
+
+`transform` and `opacity` run entirely in the composite stage. Everything else triggers layout or paint.
+
+**Animate `transform` and `opacity`. Nothing else.**
+
+| Property                               | Triggers       | Performance                    |
+| -------------------------------------- | -------------- | ------------------------------ |
+| `transform` (translate, scale, rotate) | Composite      | Smooth                         |
+| `opacity`                              | Composite      | Smooth                         |
+| `filter` (blur, brightness)            | Paint          | Test on mobile                 |
+| `box-shadow`                           | Paint          | Can stutter with large spreads |
+| `background-color`                     | Paint          | Avoid during drag              |
+| `width`, `height`, `top`, `left`       | Layout + Paint | Never animate                  |
+| `border-radius`                        | Paint          | Never animate                  |
+| `clip-path` (inset, circle)            | Composite      | Smooth with `will-change`      |
+
+<JudgementExercise
+  id="perf-transform-vs-layout"
+  category="Animation"
+  question="Start both animations. Which runs smoother?"
+  optionA={<TransformAnimation />}
+  optionB={<LayoutAnimation />}
+  correctAnswer="a"
+  explanation={
+    <>
+      A animates <code>transform: translateX()</code>, composited on the GPU
+      without triggering layout. B animates <code>left</code>, which causes
+      layout recalculation every frame. On a complex page or mid-range phone, B
+      stutters visibly. The rule is absolute: animate <code>transform</code> and{" "}
+      <code>opacity</code>, nothing else.
+    </>
+  }
+/>
+
+## will-change: use sparingly
+
+```css
+.about-to-animate {
+  will-change: transform;
+}
+```
+
+`will-change: transform` on 200 list items creates 200 compositor layers.
+
+1. **Apply** before animation starts (on `mouseenter`, modal about to open).
+2. **Remove** after animation completes (on `transitionend`).
+3. **Never** apply in a static stylesheet to elements that "might" animate.
+
+```tsx
+// Apply on hover, remove on animation end
+<div
+  onMouseEnter={() => (el.style.willChange = "transform")}
+  onTransitionEnd={() => (el.style.willChange = "auto")}
+/>
+```
+
+## Off-screen pausing
+
+```tsx
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        controls.start("visible");
+      } else {
+        controls.stop();
+      }
+    },
+    { threshold: 0.1 }
+  );
+
+  if (ref.current) observer.observe(ref.current);
+  return () => observer.disconnect();
+}, [controls]);
+```
+
+For CSS animations, toggle `animation-play-state: paused` when not intersecting.
+
+## Layout animation gotchas
+
+Motion's `layout` prop on fifty elements means fifty position recalculations per frame.
+
+- Use `layout` on individual hero elements, not every list item.
+- Use `layoutId` for shared-element transitions between two specific elements.
+- For list reordering, use `layout="position"` (skips size animation).
+- Set `layoutScroll` on scrolling containers. Without it, scroll position is ignored.
+
+## The performance test
+
+Test on a two-year-old Android phone. Enable paint flashing in DevTools. Below 50fps? Simplify.

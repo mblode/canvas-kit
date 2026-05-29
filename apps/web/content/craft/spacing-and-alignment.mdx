@@ -1,0 +1,66 @@
+export const lessonMeta = {
+  title: "Spacing & alignment",
+  module: "craft",
+  order: 1,
+  duration: "10 min",
+};
+
+import { BorderRadiusBuilder } from "@/components/demos/craft/border-radius-builder";
+
+## The 4px grid
+
+```css
+--space-1: 4px;
+--space-2: 8px;
+--space-3: 12px;
+--space-4: 16px;
+--space-6: 24px;
+--space-8: 32px;
+```
+
+Tailwind already uses this. `p-2` is 8px, `p-4` is 16px.
+
+## Concentric border radius
+
+**Outer radius = inner radius + padding.** Same radius on both makes the inner corners pinch.
+
+<BorderRadiusBuilder />
+
+Encode the rule in CSS variables:
+
+```css
+.card {
+  --card-radius: 16px;
+  --card-padding: 12px;
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+}
+.card .inner {
+  border-radius: calc(var(--card-radius) - var(--card-padding));
+}
+```
+
+If the math goes negative, use 0.
+
+## Optical centring
+
+Spotify's play triangle isn't centred mathematically. It's nudged right because visual mass sits right. Same for icon-plus-text buttons:
+
+```css
+.button {
+  padding-left: 16px;
+  padding-right: 20px; /* slightly more on the text side */
+}
+```
+
+For icon centring, adjust the SVG bounding box so visual centre matches geometric centre. For other icons: `transform: translateX(2px)`.
+
+Trust your eye over your grid.
+
+## Common mistakes
+
+- **Same radius inside and out.** Inner corners pinch against the outer.
+- **Non-4px spacing values.** A 14px gap next to 16px creates a rhythm break.
+- **Symmetric padding on icon-text buttons.** The icon looks shifted.
+- **Centring bounding boxes, not visual mass.** Triangles and chevrons need manual adjustment.
+- **Forgetting border-width.** Subtract it from the inner radius too.

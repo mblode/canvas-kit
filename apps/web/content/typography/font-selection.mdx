@@ -1,0 +1,128 @@
+export const lessonMeta = {
+  title: "Font selection & weights",
+  module: "typography",
+  order: 3,
+  duration: "10 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+import { FauxStyleDetector } from "@/components/demos/typography/faux-style-detector";
+
+Every font you load is a design decision and a network request. Get the selection wrong and the browser synthesises **faux bold** or **faux italic** by distorting the regular weight.
+
+<FauxStyleDetector />
+
+## True styles vs. faux styles
+
+Body text needs four files: regular, italic, bold, bold italic. Each gets a separate `@font-face` declaration mapping the _same_ `font-family` name to a different `font-weight` and `font-style`:
+
+```css
+@font-face {
+  font-family: "Source Serif";
+  src: url("source-serif-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif";
+  src: url("source-serif-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Source Serif";
+  src: url("source-serif-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+```
+
+Incomplete table? The browser synthesises. Faux bold adds stroke width to the regular. Faux italic slants the roman. Both look wrong.
+
+<GoodBad
+  bad={
+    <div className="space-y-1">
+      <p className="text-base">Faux bold: browser adds stroke weight</p>
+      <p className="text-base">Faux italic: browser slants the roman</p>
+      <p className="text-sm text-muted-foreground">
+        Distorted proportions, wrong stroke distribution
+      </p>
+    </div>
+  }
+  good={
+    <div className="space-y-1">
+      <p className="text-base font-bold">
+        True bold: drawn by the type designer
+      </p>
+      <p className="text-base italic">
+        True italic: a separately-designed cursive cut
+      </p>
+      <p className="text-sm text-muted-foreground">
+        Correct weight, proper optical adjustments
+      </p>
+    </div>
+  }
+  badLabel="Faux styles"
+  goodLabel="True styles"
+/>
+
+## True italics, not obliques
+
+Quality serifs and humanist sans-serifs ship a _true italic_: a separately drawn cursive cut. Some sans-serifs (Helvetica, Univers) ship only **obliques**, the regular letterforms tilted at an angle.
+
+How to tell: look at the lowercase `a`. A true italic shifts from the double-story to a single-story form. An oblique just leans the upright `a` over.
+
+## Variable fonts
+
+A **variable font** packages multiple weights and styles into a single file. One file, any value (`font-weight: 437`).
+
+```css
+@font-face {
+  font-family: "Inter Variable";
+  src: url("InterVariable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+```
+
+## Weight selection
+
+Set body text in Regular (400), Book, or Medium (500). Below 300, thin strokes break apart at small sizes. Above 600, heavy ink makes paragraphs hard to scan. Load only the weights you use.
+
+As headings grow larger, their weight should _drop_. A 48px Bold headline overwhelms 18px body. The same 48px in Regular feels balanced.
+
+## Evaluating font quality
+
+Before committing to a typeface, check:
+
+- **Kerning.** Set "AWAY" or "To" at large size. Uneven spacing means weak kerning tables.
+- **Weight range.** Regular and Bold at minimum. Ideally Regular, Medium, Semibold, Bold.
+- **Character set.** Check `é`, `ñ`, `ü`, `å`. Missing glyphs produce empty boxes.
+- **True italics.** Look at `a`, `e`, `f`, `g` in italic. Redesigned, or slanted?
+- **OpenType features.** Ligatures, small caps, tabular figures? Free fonts often skip these.
+
+Good sources: Adobe Fonts, Google Fonts, Hoefler, Klim, Commercial Type, Grilli Type, Colophon.
+
+## Define fallback stacks
+
+```css
+body {
+  font-family: "Source Serif", Georgia, "Times New Roman", serif;
+}
+```
+
+Test with the web font disabled. A bad fallback shifts layout when the font loads.
+
+<Callout type="warning">
+  For UI typefaces, check that `l` (lowercase L), `I` (uppercase i), and `1`
+  (the digit) are visually distinct. In some sans-serifs these three characters
+  are nearly identical.
+</Callout>
+
+<Exercise id="typo-font-face-audit" title="Audit your @font-face declarations">
+  Check your project's `@font-face` declarations. Do bold and italic map to real
+  files, or is the browser synthesising them? Disable web fonts and check
+  whether the fallback stack holds.
+</Exercise>

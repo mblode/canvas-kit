@@ -1,0 +1,272 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "canvas-kit",
+  "homepage": "https://course.blode.co",
+  "items": [
+    {
+      "name": "canvas",
+      "type": "registry:component",
+      "title": "Canvas",
+      "description": "The infinite-canvas viewport: pan, zoom, grab and marquee selection with a fixed full-bleed surface.",
+      "registryDependencies": [
+        "utils",
+        "https://course.blode.co/r/use-canvas.json",
+        "https://course.blode.co/r/canvas-vars.json"
+      ],
+      "files": [
+        {
+          "path": "components/canvas-kit/canvas.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/canvas.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas-board",
+      "type": "registry:block",
+      "title": "Canvas board",
+      "description": "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data, install this to get everything at once.",
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "https://course.blode.co/r/canvas.json",
+        "https://course.blode.co/r/canvas-card.json",
+        "https://course.blode.co/r/folder-card.json",
+        "https://course.blode.co/r/document-overlay.json",
+        "https://course.blode.co/r/pagination.json",
+        "https://course.blode.co/r/canvas-vars.json"
+      ],
+      "files": [
+        {
+          "path": "components/canvas-kit/canvas-board.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/canvas-board.tsx"
+        },
+        {
+          "path": "components/canvas-kit/canvas-board-data.ts",
+          "type": "registry:lib",
+          "target": "components/canvas/canvas-board-data.ts"
+        },
+        {
+          "path": "components/canvas-kit/document-preview.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/document-preview.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas-card",
+      "type": "registry:component",
+      "title": "Canvas card",
+      "description": "An absolutely-positioned card for the canvas, optionally a link (router-agnostic) with a selection ring.",
+      "registryDependencies": [
+        "utils",
+        "https://course.blode.co/r/canvas-ring.json",
+        "https://course.blode.co/r/canvas-vars.json"
+      ],
+      "files": [
+        {
+          "path": "components/canvas-kit/canvas-card.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/canvas-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas-ring",
+      "type": "registry:component",
+      "title": "Canvas ring",
+      "description": "The selection/drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card.",
+      "registryDependencies": ["https://course.blode.co/r/canvas-vars.json"],
+      "files": [
+        {
+          "path": "components/canvas-kit/canvas-ring.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/canvas-ring.tsx"
+        }
+      ]
+    },
+    {
+      "name": "canvas-vars",
+      "type": "registry:theme",
+      "title": "Canvas theme variables",
+      "description": "CSS custom properties for the canvas surface, folders, drag rings and marquee selection (light + dark).",
+      "cssVars": {
+        "theme": {
+          "color-canvas-bg": "var(--canvas-bg)",
+          "color-canvas-fg": "var(--canvas-fg)",
+          "color-canvas-border": "var(--canvas-border)",
+          "color-canvas-selection": "var(--canvas-selection)",
+          "color-canvas-selection-fill": "var(--canvas-selection-fill)"
+        },
+        "light": {
+          "canvas-bg": "#e7eaeb",
+          "canvas-fg": "#1b1d22",
+          "canvas-border": "rgba(27, 29, 34, 0.08)",
+          "canvas-folder-back": "#f1f7f9",
+          "canvas-folder-front": "#edf5f7",
+          "canvas-folder-tab": "#e3ecee",
+          "canvas-folder-tab-accent": "#ced9db",
+          "canvas-folder-fg": "#1b1d22",
+          "canvas-folder-fg-muted": "rgba(27, 29, 34, 0.35)",
+          "canvas-folder-accent": "#16a34a",
+          "canvas-drag-ring": "white",
+          "canvas-selection": "rgba(59, 130, 246, 0.5)",
+          "canvas-selection-fill": "rgba(59, 130, 246, 0.08)"
+        },
+        "dark": {
+          "canvas-bg": "#16181a",
+          "canvas-fg": "#d5d7d9",
+          "canvas-border": "#2e3233",
+          "canvas-folder-back": "#cdeef6",
+          "canvas-folder-front": "#d6f3fb",
+          "canvas-folder-tab": "#bfe7f1",
+          "canvas-folder-tab-accent": "#c8ebf4",
+          "canvas-folder-fg": "#1b1d22",
+          "canvas-folder-fg-muted": "rgba(27, 29, 34, 0.35)",
+          "canvas-folder-accent": "#16a34a",
+          "canvas-drag-ring": "rgba(255, 255, 255, 0.15)",
+          "canvas-selection": "rgba(96, 165, 250, 0.5)",
+          "canvas-selection-fill": "rgba(96, 165, 250, 0.1)"
+        }
+      }
+    },
+    {
+      "name": "circular-progress",
+      "type": "registry:ui",
+      "title": "Circular progress",
+      "description": "Accessible SVG circular progress dial used on folder fronts.",
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "components/ui/circular-progress.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/circular-progress.tsx"
+        }
+      ]
+    },
+    {
+      "name": "document-card",
+      "type": "registry:component",
+      "title": "Document card",
+      "description": "A draggable document card with title, excerpt and metadata that emits a generic onOpen payload.",
+      "registryDependencies": [
+        "utils",
+        "https://course.blode.co/r/use-draggable.json",
+        "https://course.blode.co/r/canvas-ring.json",
+        "https://course.blode.co/r/canvas-vars.json"
+      ],
+      "files": [
+        {
+          "path": "components/canvas-kit/document-card.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/document-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "document-overlay",
+      "type": "registry:component",
+      "title": "Document overlay",
+      "description": "A full-screen document reader that scales up from a source card and scales back into it on close. Content-agnostic, pass the document as children and optional prev/next controls via a footer slot.",
+      "dependencies": ["motion", "blode-icons-react"],
+      "registryDependencies": ["https://course.blode.co/r/canvas-vars.json"],
+      "files": [
+        {
+          "path": "components/canvas-kit/document-overlay.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/document-overlay.tsx"
+        }
+      ]
+    },
+    {
+      "name": "folder-card",
+      "type": "registry:component",
+      "title": "Folder card",
+      "description": "The signature draggable folder: tap to peek open into a staggered masonry of preview cards (render-prop driven), with a progress dial.",
+      "dependencies": ["motion"],
+      "registryDependencies": [
+        "utils",
+        "https://course.blode.co/r/use-draggable.json",
+        "https://course.blode.co/r/circular-progress.json",
+        "https://course.blode.co/r/canvas-ring.json",
+        "https://course.blode.co/r/canvas-vars.json"
+      ],
+      "files": [
+        {
+          "path": "components/canvas-kit/folder-card.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/folder-card.tsx"
+        },
+        {
+          "path": "components/canvas-kit/folder-card/folder-geometry.ts",
+          "type": "registry:lib",
+          "target": "components/canvas/folder-card/folder-geometry.ts"
+        },
+        {
+          "path": "components/canvas-kit/folder-card/peek-card.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/folder-card/peek-card.tsx"
+        },
+        {
+          "path": "components/canvas-kit/folder-card/folder-front.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/folder-card/folder-front.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:component",
+      "title": "Pagination",
+      "description": "Previous/next navigation between documents, a Previous-minimal + Next-card layout. Router-agnostic: pass href items with a linkComponent (e.g. next/link) or onClick items.",
+      "dependencies": ["blode-icons-react"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "components/canvas-kit/pagination.tsx",
+          "type": "registry:component",
+          "target": "components/canvas/pagination.tsx"
+        }
+      ]
+    },
+    {
+      "name": "use-canvas",
+      "type": "registry:hook",
+      "title": "useCanvas",
+      "description": "Infinite-canvas engine: wheel/pinch zoom, pan, spacebar grab, marquee selection and fit-to-content, all via requestAnimationFrame, no dependencies.",
+      "files": [
+        {
+          "path": "components/canvas-kit/use-canvas.ts",
+          "type": "registry:hook",
+          "target": "components/canvas/use-canvas.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-canvas-state",
+      "type": "registry:hook",
+      "title": "useCanvasState",
+      "description": "Persists camera position and the peeked folder to localStorage under a configurable key.",
+      "files": [
+        {
+          "path": "hooks/use-canvas-state.ts",
+          "type": "registry:hook",
+          "target": "hooks/use-canvas-state.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-draggable",
+      "type": "registry:hook",
+      "title": "useDraggable",
+      "description": "Pointer-based drag offset tracking with a tap/drag threshold, scale-aware so it works inside a zoomed canvas.",
+      "files": [
+        {
+          "path": "hooks/use-draggable.ts",
+          "type": "registry:hook",
+          "target": "hooks/use-draggable.ts"
+        }
+      ]
+    }
+  ]
+}

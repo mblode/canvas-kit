@@ -1,0 +1,94 @@
+export const lessonMeta = {
+  title: "Why first, not what",
+  module: "copywriting",
+  order: 1,
+  duration: "8 min",
+};
+
+import { Demo } from "@/components/demos";
+import { GoodBad } from "@/components/demos/good-bad";
+import { HeadlineAnalyzer } from "@/components/demos/copywriting/headline-analyzer";
+
+Lead with **Why** (the user's motivation), not **What** (the product).
+
+## The three layers
+
+| Layer    | Question it answers              | Example                                                |
+| -------- | -------------------------------- | ------------------------------------------------------ |
+| **Why**  | Why does this matter to me?      | _Stale dashboards kill trust._                         |
+| **How**  | How does the product address it? | _StrataSync keeps every client in sync automatically._ |
+| **What** | What is the product?             | _A real-time data layer for React apps._               |
+
+## The diagnostic test
+
+<GoodBad
+  bad={
+    <div className="space-y-2 text-sm">
+      <p className="font-medium">
+        "StrataSync is a real-time data sync engine for React apps."
+      </p>
+      <p className="text-muted-foreground">
+        Leads with What. The reader has no reason to care.
+      </p>
+    </div>
+  }
+  good={
+    <div className="space-y-2 text-sm">
+      <p className="font-medium">
+        "Stale dashboards kill trust. StrataSync keeps every client in sync
+        automatically."
+      </p>
+      <p className="text-muted-foreground">
+        Leads with Why. The reader recognises their own problem.
+      </p>
+    </div>
+  }
+  badLabel="What-first"
+  goodLabel="Why-first"
+/>
+
+## More inversions
+
+<GoodBad
+  bad={
+    <div className="space-y-1.5 text-sm">
+      <p>"Introducing CloudBase, the all-in-one backend platform."</p>
+      <p>"A powerful analytics dashboard for modern teams."</p>
+      <p>"Our AI-powered workflow automation tool."</p>
+    </div>
+  }
+  good={
+    <div className="space-y-1.5 text-sm">
+      <p>
+        "Stop stitching together five services. One backend, already connected."
+      </p>
+      <p>"See which features drive retention before users leave."</p>
+      <p>
+        "Your Monday shouldn't start with tasks a machine can finish by Friday."
+      </p>
+    </div>
+  }
+  badLabel="Product-first"
+  goodLabel="Motivation-first"
+/>
+
+<Demo
+  title="Headline analyzer"
+  caption="Paste a headline to see whether it leads with Why, How, or What."
+>
+  <HeadlineAnalyzer />
+</Demo>
+
+## When to skip the Why
+
+Onboarding: users already know why. Lead with How.
+
+Pricing: the reader is shopping. Lead with the offer.
+
+Reference docs: engineers want What and How.
+
+## Common mistakes
+
+The Why must be the _user's_ Why. "Our team is obsessed with developer experience" is founder voice. "You shouldn't have to babysit your pipeline" is user voice.
+
+"We believe in a more connected world" is a mission statement. _Stale dashboards kill trust_ lands because the reader has lived it.

@@ -1,0 +1,61 @@
+export const metadata = {
+  alternates: { canonical: "/docs/circular-progress" },
+  description: "An accessible SVG circular progress dial.",
+  title: "Circular progress",
+};
+
+import { CircularProgressDemo } from "@/components/docs/demos/circular-progress-demo";
+
+# Circular progress
+
+An accessible SVG progress dial, a native `<progress>` for assistive tech with
+a stroked-circle visual on top. Used on folder fronts, but handy anywhere. Colour
+comes from `currentColor`, so set it with a text colour utility.
+
+<Preview center>
+  <CircularProgressDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="circular-progress" />
+
+## Usage
+
+```tsx
+import { CircularProgress } from "@/components/ui/circular-progress";
+
+<CircularProgress className="size-14 text-canvas-folder-accent" value={75} />;
+```
+
+## Props
+
+Accepts every `div` prop in addition to:
+
+<PropsTable
+  rows={[
+    {
+      name: "value",
+      type: "number",
+      required: true,
+      description: "Progress from 0–100 (clamped).",
+    },
+    {
+      name: "strokeWidth",
+      type: "number",
+      default: "4",
+      description: "Width of the progress ring stroke.",
+    },
+    {
+      name: "hideText",
+      type: "boolean",
+      default: "false",
+      description: "Hide the centered percentage label.",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Sets the size (e.g. `size-14`) and colour.",
+    },
+  ]}
+/>

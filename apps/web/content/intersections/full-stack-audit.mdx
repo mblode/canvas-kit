@@ -1,0 +1,64 @@
+export const lessonMeta = {
+  title: "The full stack audit",
+  module: "intersections",
+  order: 6,
+  duration: "20 min",
+};
+
+import { Demo } from "@/components/demos";
+import { FullStackAuditDemo } from "@/components/demos/intersections/full-stack-audit";
+
+<Demo
+  title="Find all 20 craft failures"
+  caption="Click on any element you think contains a failure. Each click reveals what's wrong and how to fix it."
+>
+  <FullStackAuditDemo />
+</Demo>
+
+## How to use this exercise
+
+Approach it like a code review, domain by domain.
+
+### Pass 1: Typography
+
+Scan every piece of text:
+
+- **Straight quotes** in rendered copy. Should be curly.
+- **Faux styles**. Bold or italic without a true font file. The browser synthesises distorted letterforms.
+- **Letterspacing on body text**. Positive letter-spacing helps uppercase, harms lowercase.
+- **Proportional figures in tabular data**. Use `font-variant-numeric: tabular-nums` so digits align.
+- **Flat heading hierarchy**. Can you distinguish h2 from h3 instantly?
+- **Widows**. A single word alone on the final line.
+- **Non-breaking spaces**. "10 MB" should use a non-breaking space.
+
+### Pass 2: Animation
+
+Interact with every animated element:
+
+- **ease-in on entrances**. Entrances use ease-out. ease-in is for exits.
+- **ease-in-out on popovers**. Perceptible start delay. Use ease-out.
+- **Missing prefers-reduced-motion**. Every animation needs a reduced-motion check.
+
+### Pass 3: Craft
+
+Inspect interaction details:
+
+- **Missing focus-visible styles**. Tab through everything. Can you see focus?
+- **Missing alt text**. Decorative images: `alt=""`. Meaningful images: descriptive text.
+- **Missing autocomplete**. Email fields need `autocomplete="email"`.
+- **No loading delay**. Spinner appears instantly on fast responses.
+- **Pure #000000 black**. Near-black (#0a0a0a, #111) is easier on the eye.
+- **Redundant borders**. Bottom border on one item _and_ top border on the next.
+
+### Pass 4: Copywriting
+
+Read every word:
+
+- **Generic CTAs**. "Submit" tells nothing. "Start free trial" is specific.
+- **Generic empty states**. "No results found" is a dead end.
+- **CTA before headline**. Context, then value, then action.
+- **"Click here" link text**. Describe the destination.
+
+## The real audit
+
+Close this page. Open your own product. Run the same four passes.

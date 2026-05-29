@@ -1,0 +1,80 @@
+export const metadata = {
+  alternates: { canonical: "/docs/pagination" },
+  description: "Previous/next navigation between documents.",
+  title: "Pagination",
+};
+
+import { PaginationDemo } from "@/components/docs/demos/pagination-demo";
+
+# Pagination
+
+Previous/next navigation between documents, a Previous-minimal + Next-card
+layout. Router-agnostic: pass `href` items with a `linkComponent` (e.g.
+`next/link`) or `onClick` items for in-place callbacks. Used in the
+[`document-overlay`](/docs/document-overlay) footer.
+
+<Preview center>
+  <PaginationDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="pagination" />
+
+## Usage
+
+```tsx
+import Link from "next/link";
+import { Pagination } from "@/components/canvas/pagination";
+
+// Link items (router-aware)
+<Pagination
+  linkComponent={Link}
+  next={{ href: "/spacing", title: "Spacing systems" }}
+  previous={{ href: "/layout", title: "Layout & grids" }}
+/>
+
+// Callback items (e.g. inside an overlay)
+<Pagination
+  next={{ onClick: () => go("spacing"), title: "Spacing systems" }}
+  previous={{ onClick: () => go("layout"), title: "Layout & grids" }}
+/>
+```
+
+Each item is `{ title, description? }` plus **either** `href` **or** `onClick`.
+When both `previous` and `next` are present, `previous` renders as a compact
+control and `next` as a full card; with only one, it renders as a single card.
+
+## Props
+
+<PropsTable
+  rows={[
+    {
+      name: "previous",
+      type: "PaginationItem | null",
+      description: "The previous item, or null to hide it.",
+    },
+    {
+      name: "next",
+      type: "PaginationItem | null",
+      description: "The next item, or null to hide it.",
+    },
+    {
+      name: "linkComponent",
+      type: "ElementType",
+      default: '"a"',
+      description: "Component used for `href` items (e.g. next/link).",
+    },
+    {
+      name: "ariaLabel",
+      type: "string",
+      default: '"Pagination"',
+      description: "Accessible label for the nav landmark.",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Extra classes for the nav container.",
+    },
+  ]}
+/>

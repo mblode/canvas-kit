@@ -1,0 +1,175 @@
+export const lessonMeta = {
+  title: "Spatial & directional motion",
+  module: "animation",
+  order: 6,
+  duration: "10 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  CenterOriginPopover,
+  TriggerOriginPopover,
+  NonDirectionalTabs,
+  DirectionalTabs,
+  CrossFadePageTransition,
+  DirectionalPageTransition,
+} from "@/components/demos/animation/spatial-judgement-options";
+
+## Transform-origin: the anchor point
+
+The default `center center` is correct for modals. Wrong for almost everything else.
+
+```css
+/* Dropdown below a button */
+.dropdown {
+  transform-origin: top center;
+}
+
+/* Context menu from right-click point */
+.context-menu {
+  transform-origin: var(--click-x) var(--click-y);
+}
+
+/* Left-docked sidebar */
+.sidebar {
+  transform-origin: left center;
+}
+```
+
+<JudgementExercise
+  id="spatial-transform-origin"
+  category="Animation"
+  question="Open each popover. Which feels spatially connected to its trigger?"
+  optionA={<CenterOriginPopover />}
+  optionB={<TriggerOriginPopover />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A scales from <code>center center</code>. The popover materialises from
+      thin air. B scales from <code>top center</code>, aligned with the trigger
+      button. iOS's share sheet animates from the share button. macOS Spotlight
+      scales from the menu bar. The pattern is universal: overlays emerge from
+      their trigger.
+    </>
+  }
+/>
+
+## Directional tab indicators
+
+Motion's `layoutId` makes this straightforward:
+
+```tsx
+{
+  tabs.map((tab) => (
+    <button key={tab.id} onClick={() => setActive(tab.id)}>
+      {tab.label}
+      {active === tab.id && (
+        <motion.div
+          layoutId="tab-indicator"
+          className="absolute inset-x-0 bottom-0 h-0.5 bg-primary"
+          transition={{ type: "spring", stiffness: 500, damping: 40 }}
+        />
+      )}
+    </button>
+  ));
+}
+```
+
+<JudgementExercise
+  id="spatial-directional-tabs"
+  category="Animation"
+  question="Switch between tabs in both. Which communicates navigation direction?"
+  optionA={<NonDirectionalTabs />}
+  optionB={<DirectionalTabs />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A fades between tabs. The user must read the content to know which
+      direction they moved. B slides content in from the direction of the
+      selected tab. Forward tabs slide from right; backward from left. The
+      direction encodes navigation information the user registers before reading
+      anything.
+    </>
+  }
+/>
+
+## Continuity: shared elements across states
+
+When an element exists in both "before" and "after," morph it in place. A card's image expands to fill the detail hero.
+
+## Emerge from trigger
+
+Overlays animate _from the element that opened them_.
+
+## Scale starting values
+
+`scale: 0` looks cartoonish. `scale: 0.99` is imperceptible. Sweet spot: **0.85 to 0.95**.
+
+- **Modals**: `scale: 0.95`
+- **Popovers**: `scale: 0.9`
+- **Tooltips**: `scale: 0.85`
+- **Buttons (press)**: `scale: 0.97`
+
+## Direction and user flow
+
+- **Forward** (drilling deeper): enters from right, exits left.
+- **Backward** (going up): enters from left, exits right.
+- **Vertical lists**: expanded panels push down, collapsed pull up.
+- **Mobile sheets**: enter from bottom, exit downward.
+
+<JudgementExercise
+  id="spatial-page-transition"
+  category="Animation"
+  question="Navigate between pages in each. Which reinforces where you came from?"
+  optionA={<CrossFadePageTransition />}
+  optionB={<DirectionalPageTransition />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A cross-fades between pages. The user must read the content to know which
+      direction they moved. B slides content with directional blur: forward
+      navigation enters from the right, backward from the left. Direction
+      encodes spatial information the user registers before reading. The blur
+      softens the transition at the edges, preventing a hard-cut appearance.
+    </>
+  }
+/>
+
+## CSS entry animations with @starting-style
+
+```css
+dialog[open] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 250ms ease-out,
+    transform 250ms ease-out;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+```
+
+For removal via `display: none`, use `transition-behavior: allow-discrete`:
+
+```css
+.menu {
+  display: block;
+  opacity: 1;
+  transition:
+    opacity 200ms,
+    display 200ms allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+.menu[hidden] {
+  display: none;
+  opacity: 0;
+}
+```
+
+Ships in Chromium and Safari. Firefox is on track.

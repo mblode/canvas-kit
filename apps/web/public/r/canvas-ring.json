@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "canvas-ring",
+  "title": "Canvas ring",
+  "description": "The selection/drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card.",
+  "registryDependencies": [
+    "https://course.blode.co/r/canvas-vars.json"
+  ],
+  "files": [
+    {
+      "path": "components/canvas-kit/canvas-ring.tsx",
+      "content": "import type * as React from \"react\";\n\ninterface CanvasRingProps {\n  /** Render the ring. When false, nothing is drawn. */\n  active: boolean;\n  /** `selection` uses the marquee colour, `drag` the drag-ring colour. */\n  variant?: \"selection\" | \"drag\";\n  /** Inset in px (negative pulls the ring outside the card). */\n  inset?: number;\n  /** Border thickness in px. */\n  thickness?: number;\n  /** Corner radius in px. */\n  radius?: number;\n}\n\n/**\n * The absolutely-positioned ring drawn around a canvas card when it is\n * selected or being dragged. Shared by canvas-card, document-card and\n * folder-card so the selection/drag visuals stay in lockstep.\n */\nexport const CanvasRing = ({\n  active,\n  variant = \"selection\",\n  inset = -6,\n  thickness = 2.5,\n  radius = 20,\n}: CanvasRingProps) => {\n  if (!active) {\n    return null;\n  }\n\n  const color =\n    variant === \"drag\" ? \"var(--canvas-drag-ring)\" : \"var(--canvas-selection)\";\n\n  const style: React.CSSProperties = {\n    border: `${thickness}px solid ${color}`,\n    borderRadius: `${radius}px`,\n    inset: `${inset}px`,\n  };\n\n  return <div className=\"pointer-events-none absolute\" style={style} />;\n};\n",
+      "type": "registry:component",
+      "target": "components/canvas/canvas-ring.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

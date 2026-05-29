@@ -1,0 +1,144 @@
+export const lessonMeta = {
+  title: "Easing",
+  module: "animation",
+  order: 3,
+  duration: "12 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  EaseInTooltip,
+  EaseOutTooltip,
+  FastDropdown,
+  LinearToggle,
+  SlowDropdown,
+  SpringToggle,
+} from "@/components/demos/animation/easing-judgement-options";
+
+<Slide id="easing-intro" demoState={{ preset: "ease-out" }}>
+
+An easing curve maps time to progress. Linear means constant speed. A steep-then-flat curve means fast start, gentle landing.
+
+</Slide>
+
+<Slide id="easing-why-ease-in" demoState={{ preset: "ease-in" }}>
+
+## Why ease-in feels wrong
+
+**Never use ease-in for entrances.**
+
+Ease-in starts slow and accelerates. The first 100-200ms show almost no movement after a click.
+
+</Slide>
+
+<JudgementExercise
+  id="easing-tooltip-ease"
+  category="Animation"
+  question="Hover each button. Which tooltip entrance feels right?"
+  optionA={<EaseInTooltip />}
+  optionB={<EaseOutTooltip />}
+  correctAnswer="b"
+  explanation={
+    <>
+      B uses <code>ease-out</code>: the tooltip moves immediately and
+      decelerates into place. A uses <code>ease-in</code>, so the first 100ms
+      are nearly static before the tooltip accelerates into view. Entrances
+      should respond instantly; the slow start of ease-in reads as lag, not
+      polish.
+    </>
+  }
+/>
+
+<Slide id="easing-three-named-curves" demoState={{ preset: "Enter" }}>
+
+## The three named curves
+
+### Enter (ease-out)
+
+```css
+transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+```
+
+Elements appearing. Tooltips, popovers, dropdowns, modals.
+
+### Move (ease-in-out)
+
+```css
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+```
+
+Elements changing position. Tab indicator sliding. Sidebar resizing. List reordering.
+
+### Exit (ease-in)
+
+```css
+transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+```
+
+Elements leaving. The _only_ valid use of ease-in.
+
+</Slide>
+
+<Slide id="easing-custom-vs-defaults" demoState={{ preset: "ease" }}>
+
+## Custom curves vs. browser defaults
+
+| Keyword       | cubic-bezier           | Use case                                     |
+| ------------- | ---------------------- | -------------------------------------------- |
+| `linear`      | `(0, 0, 1, 1)`         | Colour fades, opacity changes, progress bars |
+| `ease`        | `(0.25, 0.1, 0.25, 1)` | Generic default, rarely optimal              |
+| `ease-in`     | `(0.42, 0, 1, 1)`      | Exits only                                   |
+| `ease-out`    | `(0, 0, 0.58, 1)`      | Entrances                                    |
+| `ease-in-out` | `(0.42, 0, 0.58, 1)`   | Symmetric moves                              |
+
+The built-in curves are conservative. Use keywords for prototyping, replace with explicit cubic-bezier values before shipping.
+
+Vercel uses `cubic-bezier(0.22, 1, 0.36, 1)` for popovers. Tailwind UI uses `cubic-bezier(0, 0, 0.2, 1)` for entries.
+
+</Slide>
+
+<JudgementExercise
+  id="easing-toggle-curve"
+  category="Animation"
+  question="Toggle each switch. Which feels like a physical control?"
+  optionA={<LinearToggle />}
+  optionB={<SpringToggle />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A linear curve is mechanical: the knob moves at constant speed and stops
+      abruptly. B uses a spring, which overshoots slightly and settles. The same
+      behaviour as a physical toggle with mass. For tactile controls (switches,
+      drag handles, dismissals), springs read as alive in a way no cubic-bezier
+      ever does.
+    </>
+  }
+/>
+
+<JudgementExercise
+  id="easing-dropdown-duration"
+  category="Animation"
+  question="Open each dropdown. Which feels responsive?"
+  optionA={<SlowDropdown />}
+  optionB={<FastDropdown />}
+  correctAnswer="b"
+  explanation={
+    <>
+      Both use <code>ease-out</code>, so the curve is the same. Only the
+      duration differs. A runs for 500ms; B runs for 200ms. Small UI elements
+      that travel short distances need short durations. The 300ms budget for
+      most UI transitions exists because anything longer reads as sluggish, not
+      luxurious.
+    </>
+  }
+/>
+
+<Slide id="easing-skip-entirely" demoState={{ preset: "linear" }}>
+
+## When to skip easing entirely
+
+`opacity`, `color`, and `background-color` changes work best with `linear`. Progress bars with easing look dishonest.
+
+Easing for spatial motion. Linear for non-spatial changes.
+
+</Slide>

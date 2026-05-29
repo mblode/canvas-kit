@@ -1,0 +1,83 @@
+export const metadata = {
+  alternates: { canonical: "/docs/use-draggable" },
+  description:
+    "Pointer-based drag offset tracking with a tap/drag threshold, scale-aware for use inside a zoomed canvas.",
+  title: "useDraggable",
+};
+
+import { UseDraggableDemo } from "@/components/docs/demos/use-draggable-demo";
+
+# useDraggable
+
+Tracks a pointer drag and exposes a CSS `transform` offset. It distinguishes a
+tap from a drag with a small threshold (so a click still registers), and divides
+movement by the rendered scale so dragging feels 1:1 even inside a zoomed
+canvas. Mouse and pen drag; touch is reserved for canvas pan/zoom.
+
+<Preview center>
+  <UseDraggableDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="use-draggable" />
+
+## Usage
+
+```tsx
+const { ref, dragging, transform, onPointerDown, onPointerMove, onPointerUp } =
+  useDraggable();
+
+return (
+  <div
+    onPointerDown={onPointerDown}
+    onPointerMove={onPointerMove}
+    onPointerUp={onPointerUp}
+    ref={ref}
+    style={{ cursor: dragging ? "grabbing" : "grab", transform }}
+  >
+    Drag me
+  </div>
+);
+```
+
+`onPointerUp` returns `true` if the gesture was a drag and `false` if it was a
+tap, handy for firing a click action only when the element wasn't moved.
+
+## Returns
+
+<PropsTable
+  rows={[
+    {
+      name: "ref",
+      type: "Ref<HTMLDivElement>",
+      description: "Attach to the draggable element.",
+    },
+    {
+      name: "transform",
+      type: "string | undefined",
+      description:
+        "The current translate, for the element's `style.transform`.",
+    },
+    {
+      name: "dragging",
+      type: "boolean",
+      description: "True while an active drag is in progress.",
+    },
+    {
+      name: "onPointerDown",
+      type: "(e) => void",
+      description: "Pointer-down handler, starts tracking.",
+    },
+    {
+      name: "onPointerMove",
+      type: "(e) => void",
+      description: "Pointer-move handler, updates the offset.",
+    },
+    {
+      name: "onPointerUp",
+      type: "() => boolean",
+      description: "Pointer-up handler, returns whether it was a drag.",
+    },
+  ]}
+/>

@@ -1,0 +1,105 @@
+export const lessonMeta = {
+  title: "Brand & identity",
+  module: "typography",
+  order: 11,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+
+Stripe uses GT America. Linear uses Inter. Apple uses San Francisco. You recognise each from a single paragraph.
+
+## Logo typeface
+
+The logo typeface is the one whose letter shapes look best _for your brand name_. A gorgeous lowercase `g` is wasted on a name that doesn't contain one.
+
+- **Set your name in thirty or forty candidates** at the size it appears most often. Eliminate quickly.
+- **Focus on the characters you actually use.** A five-letter name might hinge on one `a` or one `R`.
+- **Favour distinctive glyphs** over generic ones.
+
+<GoodBad
+  bad={
+    <div className="flex items-center justify-center py-4">
+      <span
+        className="text-2xl font-semibold"
+        style={{ fontFamily: "Arial, sans-serif" }}
+      >
+        acme corp
+      </span>
+    </div>
+  }
+  good={
+    <div className="flex items-center justify-center py-4">
+      <span
+        className="text-2xl font-semibold tracking-tight"
+        style={{ fontFamily: "Georgia, serif" }}
+      >
+        Acme Corp
+      </span>
+    </div>
+  }
+  badLabel="Generic, no capitalisation"
+  goodLabel="Considered face, consistent caps"
+/>
+
+## Brand capitalisation
+
+Pick one. Enforce it everywhere.
+
+- **Initial cap** (_Acme_): simplest, most readable.
+- **All caps** (_ACME_): works for short names with letterspacing. Not for names longer than two words.
+- **Mid-word cap** (_AcmeCorp_): only if the brand has always used it.
+
+Skip `.com` in brand names. It dates the brand.
+
+The real rule: **consistency**. If the brand is "Acme" on the website, it should not be "ACME" in the app and "acme" in emails.
+
+## Cross-medium consistency
+
+- **Web**: WOFF2, variable fonts, self-hosted or Google Fonts.
+- **Print**: OTF/TTF, embedded in PDFs.
+- **Mobile**: bundled into the binary.
+- **Email**: fallback stacks required.
+- **Video**: large sizes expose quality issues invisible at body size.
+
+Helvetica on the web, Georgia in emails, and system fonts in the app sends one message: _we didn't think about this_.
+
+## Licensing
+
+- **Desktop**: design tools and print output.
+- **Webfont**: `@font-face` on websites, priced by pageview tier.
+- **App**: embedding in native mobile or desktop apps.
+- **Server**: server-side rendering or PDF generation.
+
+Google Fonts and open-source libraries are free for all uses. Premium foundries charge per format and tier.
+
+Don't use pirated fonts. Pirated files are often incomplete, missing kerning tables, OpenType features, or entire character sets.
+
+## Making body text distinctive
+
+Most projects default to Inter, system-ui, Helvetica, or Roboto. Find a face that reads well at body sizes, ships the weights you need, and isn't the same one your closest competitors use.
+
+## The one distinctive move
+
+Every project needs at least one typographic choice that separates it from template defaults:
+
+- A headline typeface nobody else in your space uses.
+- Letterspaced small caps for section labels.
+- Oldstyle figures in running text.
+- A branded colour for `h2` headings.
+
+One deliberate choice, applied consistently, does more than six half-committed ones.
+
+<Callout type="tip">
+  Pick one typographic move. Protect it across every redesign. Brand equity in
+  type is built through repetition, not variety.
+</Callout>
+
+<Exercise
+  id="typo-brand-typeface-test"
+  title="Test your brand name in 10 typefaces"
+>
+  Set your brand name (or your product's name) in 10 different system typefaces
+  at display size. Screenshot each. Pick the three where your _specific letters_
+  look most distinctive. Not the three that look best in general.
+</Exercise>

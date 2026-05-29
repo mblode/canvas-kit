@@ -1,0 +1,160 @@
+export const lessonMeta = {
+  title: "Stagger & entrance sequences",
+  module: "animation",
+  order: 11,
+  duration: "8 min",
+};
+
+import { Demo } from "@/components/demos";
+import { StaggerDemo } from "@/components/demos/animation";
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  TightStagger,
+  SlowStagger,
+} from "@/components/demos/animation/stagger-judgement-options";
+
+Total duration is what the user perceives, not per-item delay. 5 cards at 50ms each = 250ms: orchestrated. At 160ms each = 800ms: a broken loader.
+
+<Demo
+  title="Stagger playground"
+  caption="Adjust delay per item. Watch the total duration. Once it exceeds 300ms, the sequence starts to feel like loading."
+>
+  <StaggerDemo />
+</Demo>
+
+<JudgementExercise
+  id="stagger-budget"
+  category="Animation"
+  question="Replay each list. Which feels orchestrated vs. which feels like loading?"
+  optionA={<TightStagger />}
+  optionB={<SlowStagger />}
+  correctAnswer="a"
+  explanation={
+    <>
+      A staggers 5 items at 40ms each: 200ms total, within the 300ms budget. It
+      reads as orchestrated. B staggers 12 items at 60ms each: 720ms total. The
+      last items arrive late. The user waits for your stagger to finish. If the
+      total exceeds 300ms, reduce the delay or cap the staggered items.
+    </>
+  }
+/>
+
+## Section-level stagger
+
+Per-section delay: **80-120ms**. Three sections = 160-240ms total.
+
+```tsx
+<motion.div
+  initial="hidden"
+  animate="visible"
+  variants={{
+    visible: {
+      transition: { staggerChildren: 0.1 },
+    },
+    hidden: {},
+  }}
+>
+  {sections.map((section) => (
+    <motion.section
+      key={section.id}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+        },
+      }}
+    />
+  ))}
+</motion.div>
+```
+
+Don't stagger more than 4-5 sections.
+
+## Word-level stagger
+
+Right for hero headlines. Wrong for body text or repeated UI.
+
+Per-word delay: **40-80ms**. A five-word headline at 60ms = 240ms. A twelve-word sentence at 60ms = 660ms. Too slow.
+
+```tsx
+const words = "Motion is communication".split(" ");
+
+<motion.h1 variants={{ visible: { transition: { staggerChildren: 0.06 } } }}>
+  {words.map((word, i) => (
+    <motion.span
+      key={i}
+      className="inline-block mr-2"
+      variants={{
+        hidden: { opacity: 0, y: 12, filter: "blur(4px)" },
+        visible: {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+        },
+      }}
+    >
+      {word}
+    </motion.span>
+  ))}
+</motion.h1>;
+```
+
+Keep blur subtle (4-6px). Note `inline-block`: `transform` doesn't work on inline elements.
+
+## Character-level stagger
+
+Almost always wrong. A 20-character string at 30ms per character is 600ms.
+
+Exception: very short strings (3-5 characters) in decorative contexts.
+
+## List item stagger
+
+Stagger only the first 5-8 items. The rest appear simultaneously.
+
+```tsx
+variants={{
+  visible: {
+    transition: {
+      staggerChildren: 0.04,
+      // Stop staggering after the 6th child
+      delayChildren: 0,
+    },
+  },
+}}
+
+// In the item variant, cap the delay
+const itemVariant = {
+  hidden: { opacity: 0, y: 12 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: Math.min(i * 0.04, 0.24), // Cap at 240ms
+      duration: 0.3,
+    },
+  }),
+};
+```
+
+## Contextual icon swaps
+
+Bookmark outline to filled. Play to pause. Cross-fade with subtle scale and blur. 150ms total.
+
+```tsx
+<AnimatePresence mode="wait">
+  <motion.div
+    key={isBookmarked ? "filled" : "outline"}
+    initial={{ opacity: 0, scale: 0.8, filter: "blur(2px)" }}
+    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+    exit={{ opacity: 0, scale: 0.8, filter: "blur(2px)" }}
+    transition={{ duration: 0.15 }}
+  >
+    {isBookmarked ? <BookmarkFilled /> : <BookmarkOutline />}
+  </motion.div>
+</AnimatePresence>
+```
+
+`mode="wait"` ensures the outgoing icon exits before the incoming enters.

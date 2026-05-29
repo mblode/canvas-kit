@@ -1,0 +1,213 @@
+export const lessonMeta = {
+  title: "Component patterns",
+  module: "animation",
+  order: 7,
+  duration: "15 min",
+};
+
+<Slide id="patterns-button" demoState={{ pattern: "button" }}>
+
+## Buttons
+
+Scale to `0.97` on `:active`. 50-80ms, ease-out.
+
+```css
+.button {
+  transition: transform 80ms ease-out;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+```
+
+No springs on buttons in product UI. No background-color animation on press. No transition on disabled states.
+
+</Slide>
+
+<Slide id="patterns-popover" demoState={{ pattern: "popover" }}>
+
+## Popovers and dropdowns
+
+**Enter**: Scale 0.9 to 1, opacity 0 to 1. 150-200ms. Transform-origin: edge nearest the trigger.
+
+**Exit**: Opacity to 0, scale to 0.95. 100-150ms. Faster than entrance.
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  exit={{ opacity: 0, scale: 0.95 }}
+  transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
+  style={{ transformOrigin: "top center" }}
+/>
+```
+
+Don't use `translateY` for popovers. Scale from the trigger point. _Do_ use `translateY` for nav dropdowns, where "dropping down" is the right metaphor.
+
+</Slide>
+
+<Slide id="patterns-drawer" demoState={{ pattern: "drawer" }}>
+
+## Tooltips
+
+**Enter**: Opacity 0 to 1, scale 0.85 to 1. 100-150ms. Slight `translateY` (4px toward trigger).
+
+**Exit**: Opacity to 0. 75-100ms. No scale on exit.
+
+**Enter delay**: 300-500ms prevents flickering across toolbars. Once one tooltip is visible, the next appears instantly.
+
+## Drawers and sheets
+
+`translateX` (side drawers) or `translateY` (bottom sheets).
+
+**Enter**: 250-350ms. `cubic-bezier(0.32, 0.72, 0, 1)` or spring `{ stiffness: 400, damping: 40 }`.
+
+**Exit**: 200-250ms. `cubic-bezier(0.4, 0, 1, 1)`.
+
+Pair with a backdrop at `opacity: 0.5`. Don't scale drawers. A drawer slides on one rail.
+
+</Slide>
+
+<Slide id="patterns-modal" demoState={{ pattern: "modal" }}>
+
+## Modals and dialogs
+
+**Enter**: Scale 0.95 to 1, opacity 0 to 1. 200-300ms. `translateY` 8-12px upward. Transform-origin: centre or trigger position.
+
+**Exit**: Opacity to 0, scale to 0.95. 150-200ms. Slight `translateY` downward.
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, scale: 0.95, y: 12 }}
+  animate={{ opacity: 1, scale: 1, y: 0 }}
+  exit={{ opacity: 0, scale: 0.95, y: -4 }}
+  transition={{
+    duration: 0.25,
+    ease: [0.22, 1, 0.36, 1],
+  }}
+/>
+```
+
+</Slide>
+
+<Slide id="patterns-toast" demoState={{ pattern: "toast" }}>
+
+## Toasts and notifications
+
+**Enter**: Translate from off-screen. 200-250ms. Spring `{ stiffness: 400, damping: 30 }`.
+
+**Exit**: Translate back or fade with scale to 0.95. 150-200ms.
+
+Slides in from the edge it lives on. Stagger multiple toasts with layout animations.
+
+</Slide>
+
+<Slide id="patterns-hover" demoState={{ pattern: "hover" }}>
+
+## Hover effects with CSS
+
+```css
+.card {
+  transition:
+    transform 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
+}
+```
+
+`transform` and `box-shadow` only. Don't scale cards above `1.02`. For list items, `transition: background-color 100ms ease` beats a transform.
+
+</Slide>
+
+<Slide id="patterns-text-swap" demoState={{ pattern: "text-swap" }}>
+
+## Text state swaps
+
+Save. Saving. Saved. A three-phase swap: old text exits, container holds, new text enters.
+
+```tsx
+<AnimatePresence mode="wait">
+  <motion.span
+    key={label}
+    initial={{ opacity: 0, scale: 0.96, filter: "blur(4px)" }}
+    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+    exit={{ opacity: 0, scale: 0.96, filter: "blur(4px)" }}
+    transition={{ duration: 0.15 }}
+  />
+</AnimatePresence>
+```
+
+`mode="wait"` finishes the exit before starting the enter. Without it, both labels render simultaneously.
+
+</Slide>
+
+<Slide id="patterns-error-shake" demoState={{ pattern: "error-shake" }}>
+
+## Error shake
+
+```tsx
+<motion.div
+  animate={error ? { x: [0, -6, 6, -4, 4, -2, 2, 0] } : { x: 0 }}
+  transition={{ duration: 0.4, ease: "easeOut" }}
+>
+  <input />
+</motion.div>
+```
+
+Decaying oscillation, 400ms total. Pair with a red ring. One shake per error event.
+
+</Slide>
+
+<Slide id="patterns-badge" demoState={{ pattern: "badge" }}>
+
+## Notification badge
+
+Two-stage entrance: slide in, then pop to full size with overshoot.
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, scale: 0.8, y: -8 }}
+  animate={{
+    opacity: 1,
+    scale: [0.8, 1.15, 1],
+    y: 0,
+  }}
+  transition={{
+    duration: 0.35,
+    scale: { duration: 0.4, times: [0, 0.6, 1] },
+  }}
+/>
+```
+
+`times` controls where each keyframe lands: start at 0.8, overshoot to 1.15 at 60%, settle at 1.
+
+</Slide>
+
+<Slide id="patterns-checkmark" demoState={{ pattern: "checkmark" }}>
+
+## Success checkmark
+
+A static checkmark says "done." A drawn checkmark says "just now."
+
+```tsx
+<motion.circle
+  initial={{ pathLength: 0 }}
+  animate={{ pathLength: 1 }}
+  transition={{ duration: 0.5 }}
+/>
+<motion.path
+  d="M16 24l6 6 10-12"
+  initial={{ pathLength: 0 }}
+  animate={{ pathLength: 1 }}
+  transition={{ delay: 0.3, duration: 0.4 }}
+/>
+```
+
+Circle first, checkmark 300ms later. Add slight rotation (-10 to 0 degrees) and it feels written rather than displayed.
+
+</Slide>

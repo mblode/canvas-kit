@@ -1,0 +1,89 @@
+export const lessonMeta = {
+  title: "Developing animation taste",
+  module: "animation",
+  order: 1,
+  duration: "10 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  BouncyDeleteConfirmation,
+  CrispDeleteConfirmation,
+  PlayfulSettingsToggle,
+  PlayfulPaymentButton,
+} from "@/components/demos/animation/taste-judgement-options";
+
+Taste is not subjective preference. It's trained instinct. The kind that flinches at a bouncy modal on a delete confirmation.
+
+## The intent test
+
+Before choosing parameters, ask: _what is the user trying to do?_
+
+Apple Maps shows the active route without unlocking the phone. It inferred the driver wants directions. Vercel's env input detects a pasted `.env` block and offers to parse it. It inferred someone pasting multiple lines isn't filling one field.
+
+Motion should match predicted intent, not the literal event. A settings gear opens fast, from the trigger, no drama. A milestone after weeks of work gets confetti and personality.
+
+Same product. Same library. Different motion.
+
+## Interaction metaphors
+
+Every gesture has a physical-world metaphor:
+
+- **Swipe** = page turn. Directional, reveals what's underneath.
+- **Pinch** = precision zoom. Same motor pattern as picking up a small object.
+- **Long press** = careful selection. Weight and commitment.
+- **Drag** = physical manipulation. Must feel attached to your finger. Any lag shatters it.
+
+A swipe that fades instead of sliding breaks the page-turn metaphor. A drag that doesn't track the pointer breaks direct manipulation.
+
+## The weight of the action
+
+<JudgementExercise
+  id="taste-delete-spring"
+  category="Animation"
+  question="Click Delete on each. Which spring matches the weight of the action?"
+  optionA={<BouncyDeleteConfirmation />}
+  optionB={<CrispDeleteConfirmation />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A uses a bouncy spring. The confirmation dialog playfully overshoots into
+      view. For a destructive action, this is tonally wrong. Bounce signals
+      "fun" and "lightweight." Deletion is neither. B uses a critically damped
+      spring: fast, decisive, no overshoot. The motion matches the gravity of
+      the action.
+    </>
+  }
+/>
+
+Heavy actions (delete, payment, account changes) get critically damped springs. Fast, no overshoot. Light actions (toggling a preference, dismissing a tooltip) can afford more personality.
+
+<JudgementExercise
+  id="taste-context-mismatch"
+  category="Animation"
+  question="Both buttons use the same bouncy spring. Which context is appropriate?"
+  optionA={<PlayfulSettingsToggle />}
+  optionB={<PlayfulPaymentButton />}
+  correctAnswer="a"
+  explanation={
+    <>
+      Same spring parameters. Different contexts. A dark mode toggle is
+      low-stakes and reversible, so a playful bounce fits. A payment button
+      carries real consequences. The bounce undermines trust. Context determines
+      whether the same animation is appropriate or jarring.
+    </>
+  }
+/>
+
+## The novelty tax
+
+Every "creative" animation carries a learning cost. Josh Miller from The Browser Company calls this the _novelty tax_. People can only absorb so much new behaviour before they give up.
+
+Novel animations must be learnable within one interaction. If a user has to do it twice to understand the response, it's too clever. Standard patterns are free. Every departure costs attention.
+
+## How to train
+
+1. **Pick one product per week.** Use it slowly. Trigger every interaction. Notice what animates and what stays still.
+2. **Name what you see.** "The popover scales from 0.95 with a 200ms ease-out." Naming forces precision.
+3. **Compare two apps doing the same thing.** iOS Notes vs Bear. Linear vs Jira. The gap is taste. Name it.
+4. **Slow it down.** Screen-record, play at 0.25x. A dropped frame or mismatched curve becomes obvious.

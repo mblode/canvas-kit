@@ -1,0 +1,108 @@
+export const metadata = {
+  alternates: { canonical: "/docs/use-canvas" },
+  description:
+    "The infinite-canvas engine: pan, wheel/pinch zoom, spacebar grab, marquee selection and fit-to-content.",
+  title: "useCanvas",
+};
+
+import { CanvasDemo } from "@/components/docs/demos/canvas-demo";
+
+# useCanvas
+
+The engine behind the [`canvas`](/docs/canvas) component. It tracks a camera
+(`x`, `y`, `scale`) and wires up pan, wheel + pinch zoom, spacebar grab, marquee
+selection, keyboard zoom shortcuts and fit-to-content, all via
+`requestAnimationFrame`, with no dependencies. Most of the time you'll use
+`<Canvas>` rather than the hook directly.
+
+<Preview>
+  <CanvasDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="use-canvas" />
+
+## Usage
+
+```tsx
+const { containerRef, contentRef, cursorMode, handlers, initialStyle } =
+  useCanvas({ initial: { scale: 0.85, x: 0, y: 0 } });
+
+return (
+  <div className="fixed inset-0" ref={containerRef} {...handlers}>
+    <div className="origin-top-left" ref={contentRef} style={initialStyle}>
+      {children}
+    </div>
+  </div>
+);
+```
+
+## Options
+
+<PropsTable
+  rows={[
+    {
+      name: "initial",
+      type: "Partial<{ x; y; scale }>",
+      description: "Starting camera. Scale defaults to 0.85, x/y to 0.",
+    },
+    {
+      name: "onCameraSettle",
+      type: "(state) => void",
+      description: "Fires after pan/zoom settles, with the final camera.",
+    },
+    {
+      name: "onSelectionChange",
+      type: "(rect | null) => void",
+      description: "Fires while a marquee is being dragged.",
+    },
+    {
+      name: "onSelectionEnd",
+      type: "(rect | null) => void",
+      description: "Fires when the marquee gesture ends.",
+    },
+  ]}
+/>
+
+## Returns
+
+<PropsTable
+  rows={[
+    {
+      name: "containerRef",
+      type: "Ref<HTMLDivElement>",
+      description: "Attach to the fixed viewport element.",
+    },
+    {
+      name: "contentRef",
+      type: "Ref<HTMLDivElement>",
+      description: "Attach to the transformed content layer.",
+    },
+    {
+      name: "handlers",
+      type: "PointerEventHandlers",
+      description: "Spread onto the container to enable pan/zoom/select.",
+    },
+    {
+      name: "initialStyle",
+      type: "CSSProperties",
+      description: "Initial transform for the content layer.",
+    },
+    {
+      name: "cursorMode",
+      type: '"default" | "grab" | "grabbing" | "crosshair"',
+      description: "Current cursor state for the viewport.",
+    },
+    {
+      name: "animateTo",
+      type: "(target, duration?) => void",
+      description: "Animate the camera to a target state.",
+    },
+    {
+      name: "fitToContent",
+      type: "() => void",
+      description: "Frame all `[data-card-id]` children in the viewport.",
+    },
+  ]}
+/>

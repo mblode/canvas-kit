@@ -1,0 +1,43 @@
+export const metadata = {
+  alternates: { canonical: "/docs/canvas-board" },
+  description:
+    "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data.",
+  title: "Canvas board",
+};
+
+import { CanvasBoardDemo } from "@/components/docs/demos/canvas-board-demo";
+
+# Canvas board
+
+A complete, self-contained block that composes the [`canvas`](/docs/canvas),
+[`canvas-card`](/docs/canvas-card) and [`folder-card`](/docs/folder-card) with
+sample folders and data. Install it to get everything wired up at once, then
+swap in your own content.
+
+<Preview>
+  <CanvasBoardDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="canvas-board" />
+
+This pulls in the Canvas, cards, folders, hooks and the `canvas-vars` theme
+automatically.
+
+## Usage
+
+`CanvasBoard` takes no props, it renders full-bleed (`fixed inset-0`) and
+manages its own selection and peek state. Drop it on a page:
+
+```tsx
+import { CanvasBoard } from "@/components/canvas/canvas-board";
+
+export default function Page() {
+  return <CanvasBoard />;
+}
+```
+
+It ships with a `canvas-board-data.ts` file (`sampleFolders` and
+`previewGradients`), edit that, or copy `CanvasBoard` as a starting point and
+compose the primitives with your own data.

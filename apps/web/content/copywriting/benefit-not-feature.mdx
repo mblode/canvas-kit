@@ -1,0 +1,90 @@
+export const lessonMeta = {
+  title: "Benefit not feature",
+  module: "copywriting",
+  order: 4,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+
+**Feature:** what the product has. **Benefit:** what changes for the user. **Outcome:** the user's life after the change.
+
+For every feature, ask:
+
+1. **What can the user do now?** The benefit.
+2. **What changes in their day?** The outcome.
+
+```
+Feature:  256-bit encryption
+Benefit:  Your data stays private
+Outcome:  Share sensitive files without worrying about breaches
+```
+
+## The translation table
+
+| Feature                        | Benefit                                            | Outcome                                      |
+| ------------------------------ | -------------------------------------------------- | -------------------------------------------- |
+| Real-time database sync        | Users always see current data                      | No more "why is this wrong?" support tickets |
+| Role-based access controls     | Each team member gets exactly the access they need | Audits pass on the first try                 |
+| Offline-first architecture     | Works when the internet doesn't                    | Field teams stop losing work mid-session     |
+| Automated changelog generation | Ship without writing release notes                 | 30 minutes back every release cycle          |
+
+## Catch the feature-leading phrases
+
+<GoodBad
+  bad={
+    <div className="space-y-2 text-sm">
+      <p>"Featuring real-time sync."</p>
+      <p>"With built-in changelog generation."</p>
+      <p>"Now with AI-powered search."</p>
+    </div>
+  }
+  good={
+    <div className="space-y-2 text-sm">
+      <p>"Edit on one device, see it on all of them."</p>
+      <p>"Your release notes write themselves."</p>
+      <p>"Now you can find anything in under a second."</p>
+    </div>
+  }
+  badLabel="Feature-leading"
+  goodLabel="Outcome-leading"
+/>
+
+"Featuring," "With built-in," and "Now with" are structural tells. Turn "Now with X" into "Now you can Y."
+
+## The disguised feature
+
+"Easy onboarding" is still a product property. The reader asks: "what does my first hour look like?"
+
+<GoodBad
+  bad={
+    <div className="space-y-2 text-sm">
+      <p>"Easy onboarding"</p>
+      <p>"Intuitive interface"</p>
+      <p>"Scalable architecture"</p>
+    </div>
+  }
+  good={
+    <div className="space-y-2 text-sm">
+      <p>"Be live in your first session"</p>
+      <p>"Find anything in two clicks"</p>
+      <p>"Handles 10 users or 10,000 without config changes"</p>
+    </div>
+  }
+  badLabel="Feature disguised as benefit"
+  goodLabel="Actual benefit"
+/>
+
+Test: does the sentence describe a product property or a change in the user's day?
+
+## Outcomes that are too generic
+
+"You'll be more productive" could mean anything. "Ship Friday without anxiety" puts the reader in a scene. "Cut report time from 2 hours to 20 minutes" is proof.
+
+Specific outcomes contain a number, a time, or a scenario.
+
+## When features can lead
+
+In reference docs and comparison tables, features belong. "Supports SAML SSO. Exports to CSV." The reader is already shopping.
+
+For technical audiences, "WebSocket connections" needs no rewrite. The rule hits hardest on hero copy and landing pages.

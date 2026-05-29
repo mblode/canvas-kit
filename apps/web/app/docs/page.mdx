@@ -1,0 +1,55 @@
+export const metadata = {
+  alternates: { canonical: "/docs" },
+  description:
+    "An infinite canvas as composable shadcn parts: pan, zoom, drag and peek.",
+  title: "Overview",
+};
+
+import { CanvasBoardDemo } from "@/components/docs/demos/canvas-board-demo";
+
+# Canvas Kit
+
+The infinite-canvas UI from [course.blode.co](https://course.blode.co), packaged
+as a [shadcn registry](https://ui.shadcn.com/docs/registry) you can install into
+any React + Tailwind v4 project. Plain DOM and `requestAnimationFrame`, no
+canvas engine, no WebGL.
+
+<Preview>
+  <CanvasBoardDemo />
+</Preview>
+
+## Install everything
+
+The `canvas-board` block pulls in the Canvas, cards, folders and sample data,
+the fastest way to see it all working:
+
+<CommandTabs name="canvas-board" />
+
+Prefer to add pieces individually? Every item is installable on its own, see
+[Installation](/docs/installation) and the per-component pages in the sidebar.
+
+## What's included
+
+| Item                                           | Type      | What it is                                                 |
+| ---------------------------------------------- | --------- | ---------------------------------------------------------- |
+| [`canvas-vars`](/docs/canvas-vars)             | theme     | `--canvas-*` CSS variables (light + dark)                  |
+| [`use-canvas`](/docs/use-canvas)               | hook      | Pan / zoom / grab / marquee / fit-to-content engine        |
+| [`use-draggable`](/docs/use-draggable)         | hook      | Scale-aware pointer drag with a tap/drag threshold         |
+| [`use-canvas-state`](/docs/use-canvas-state)   | hook      | Persists camera + peeked folder to `localStorage`          |
+| [`circular-progress`](/docs/circular-progress) | ui        | SVG progress dial used on folder fronts                    |
+| [`canvas`](/docs/canvas)                       | component | The full-bleed viewport                                    |
+| [`canvas-card`](/docs/canvas-card)             | component | Positioned card, optionally a router-aware link            |
+| [`document-card`](/docs/document-card)         | component | Draggable document card with an `onOpen` payload           |
+| [`folder-card`](/docs/folder-card)             | component | The signature folder: tap to peek into a masonry           |
+| [`canvas-board`](/docs/canvas-board)           | block     | A complete, self-contained demo composing all of the above |
+
+## Principles
+
+- **No engine.** Everything is DOM + CSS transforms driven by
+  `requestAnimationFrame`. Cards are real, accessible elements.
+- **Composable.** Install only what you need; each item declares its own
+  dependencies and pulls them in automatically.
+- **Motion is information.** Peek, drag and zoom communicate structure, they're
+  not decoration.
+
+Open the [live demo](/demo) for the full-bleed experience.

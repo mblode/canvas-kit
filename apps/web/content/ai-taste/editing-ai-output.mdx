@@ -1,0 +1,71 @@
+export const lessonMeta = {
+  title: "Editing AI output",
+  module: "ai-taste",
+  order: 3,
+  duration: "8 min",
+};
+
+import { Callout } from "@/components/demos";
+
+The quality of an AI-generated interface is determined by the edit, not the generation.
+
+## Delete before you add
+
+AI generates too much. Too many sections, too many words, too many effects. The first editing pass is always subtraction.
+
+For every element on the page, ask: _if I remove this, does the page get worse?_ Not sure? Remove it. You'll know within seconds whether it was load-bearing.
+
+Sections AI adds that rarely survive editing:
+
+- **"Trusted by" logo strips** with placeholder logos.
+- **Testimonial carousels** with generic praise.
+- **Feature grids** listing capabilities nobody asked about.
+- **Secondary CTAs** that dilute the primary action.
+- **Decorative dividers** between every section.
+
+## The three-pass edit
+
+### Pass 1: Structure
+
+One primary action per page. Eye flows top to bottom without getting stuck.
+
+Delete the bottom third. Most AI pages are 30-40% too long. Combine sections that make the same point twice. Promote the most important content to the top.
+
+### Pass 2: Typography and spacing
+
+Swap the default font. Tighten heading `line-height`. Open up body `line-height`. Check that heading sizes create clear jumps (not `18→20→22`, but `16→24→36`). Add whitespace between sections. AI underestimates how much breathing room a page needs.
+
+### Pass 3: Details
+
+Hover states. Focus styles. Active states. Transitions on interactive elements. `border-radius` consistency. Shadow refinement. Loading states. Empty states.
+
+AI skips these because they're invisible in a screenshot. They're not invisible to a user.
+
+<Callout type="tip">
+  The three-pass edit takes 20-40 minutes. If AI generated the page in 3
+  minutes, the edit takes 10x longer. Still the fastest way to ship something
+  worth using.
+</Callout>
+
+## AI-generated CSS to fix on sight
+
+| Pattern                                        | Problem                                    | Fix                                            |
+| ---------------------------------------------- | ------------------------------------------ | ---------------------------------------------- |
+| `rounded-3xl` or `rounded-full` on cards       | Over-rounded, looks inflated               | `rounded-lg` or `rounded-xl` max               |
+| `shadow-2xl`                                   | Floating, disconnected from surface        | Two-layer shadow: tight contact + wide ambient |
+| `bg-gradient-to-r from-purple-500 to-blue-500` | Default AI gradient                        | Solid colour from your palette, or remove      |
+| `text-center` on everything                    | No hierarchy, no reading direction         | Left-align body text                           |
+| `gap-4` everywhere                             | Uniform spacing kills rhythm               | Vary spacing by content relationship           |
+| `font-bold` on multiple elements per section   | Nothing stands out when everything is bold | One bold element per visual group              |
+
+## The editing mindset
+
+Sand it, feel the grain, get a splinter, sand again, and repeat until smooth.
+
+The question is never "did AI add this?" The question is "does this earn its pixels?"
+
+## Common mistakes
+
+- **Editing the prompt instead of the output.** Prompt engineering is useful, but slower than editing HTML. Get the structure from the AI, then fix it by hand.
+- **Asking AI to "make it more unique."** The model's idea of unique is adding effects. Unique is removing everything that doesn't serve the product.
+- **Skipping pass 3.** Structure and typography get 80% of the way. The detail pass is the difference between "good" and "someone cared."

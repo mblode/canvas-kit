@@ -1,0 +1,140 @@
+export const lessonMeta = {
+  title: "Display & headlines",
+  module: "typography",
+  order: 12,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+import { DisplayHeadlineTuner } from "@/components/demos/typography/display-headline-tuner";
+
+Set a body typeface at 72px and look at the letterspacing. Too loose. The letters float apart instead of forming a word. Everything about body text reverses at display sizes.
+
+<DisplayHeadlineTuner />
+
+## Display cuts
+
+Many professional typefaces ship in multiple **optical sizes**: variants drawn for specific size ranges.
+
+- **Text / Regular**: body sizes (12–18px). Wider spacing, open counters, sturdy strokes.
+- **Display / Headline**: large sizes (24px+). Tighter spacing, finer details, higher contrast.
+- **Caption / Micro**: tiny sizes (10px and below). Even wider spacing, heavier strokes.
+
+Never set body copy in a Display cut. The tight spacing and fine details break down small.
+
+<GoodBad
+  bad={
+    <div className="flex items-center justify-center py-4">
+      <span className="text-4xl font-bold tracking-normal">
+        Display Headline
+      </span>
+    </div>
+  }
+  good={
+    <div className="flex items-center justify-center py-4">
+      <span className="text-4xl font-semibold tracking-tight">
+        Display Headline
+      </span>
+    </div>
+  }
+  badLabel="Body tracking at display size"
+  goodLabel="Tightened tracking for display"
+/>
+
+## Negative tracking
+
+```css
+.headline {
+  font-size: 3rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+```
+
+Start with `-0.01em` and increase until the letters feel connected without touching. Display cuts need less adjustment.
+
+## Line height for headlines
+
+As size goes up, line height comes down:
+
+- **Body text (16–20px):** `line-height: 1.45–1.5`
+- **Large headings (28–48px):** `line-height: 1.15–1.25`
+- **Display / hero text (48px+):** `line-height: 1.0–1.15`
+
+Colour shifts at display sizes too. A heading in the same black as body text looks heavier because there is more ink per square centimetre. Lighten it.
+
+Only go below 1.0 when you're certain ascenders and descenders won't collide.
+
+## Swashes and discretionary ligatures
+
+OpenType features that are wrong for body text come alive at display sizes:
+
+- **Swashes (`swsh`)**: ornate alternates with flourishes.
+- **Discretionary ligatures (`dlig`)**: decorative pairs like `st`, `ct`, `Th`.
+- **Stylistic alternates (`salt`, `ss01`–`ss20`)**: alternate letter designs.
+
+```css
+.display-heading {
+  font-feature-settings: "kern", "liga", "clig", "calt", "dlig", "swsh";
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+```
+
+Use swashes on specific letters, not entire words. A swashed `Q` is elegant. Every letter swashed is a circus.
+
+## Drop caps
+
+A **drop cap** is an oversized initial letter at the start of a chapter or article. CSS offers `initial-letter`:
+
+```css
+.article > p:first-of-type::first-letter {
+  initial-letter: 3; /* spans 3 lines */
+  font-weight: 700;
+  margin-right: 0.1em;
+}
+```
+
+Three lines is traditional. Two feels subtle. Four or more dominates the paragraph.
+
+## Initial small caps
+
+```css
+.article > p:first-of-type::first-line {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.05em;
+}
+```
+
+Verify `smcp` support first. Falls apart with pseudo small caps (scaled-down uppercase).
+
+## Breaking the grid
+
+Large display type is one of the few contexts where breaking the layout grid works. If you break it, break it the same way every time.
+
+The most common display mistake: not enough whitespace. Give type room.
+
+<Depth level="deep-dive" title="initial-letter browser support">
+
+`initial-letter` works in Safari and Chrome 110+. For broader support, use a float:
+
+```css
+.article > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.1em;
+  font-weight: 700;
+}
+```
+
+The float approach works everywhere but requires manual tuning of `font-size` and `line-height`.
+
+</Depth>
+
+<Exercise id="typo-display-tuning" title="Tune your largest headline">
+  Find the largest heading in your project. Add `letter-spacing: -0.02em` and
+  `line-height: 1.1`. Compare before and after. Then check: is the heading
+  weight heavier than the body? Consider dropping it one step (Bold to Semibold,
+  or Semibold to Regular).
+</Exercise>

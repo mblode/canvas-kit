@@ -1,0 +1,102 @@
+export const lessonMeta = {
+  title: "Stealing taste at scale",
+  module: "ai-taste",
+  order: 5,
+  duration: "10 min",
+};
+
+import { Exercise, ExerciseHint, ExerciseSolution } from "@/components/demos";
+
+Borrowing without understanding produces the same result as AI: a surface-level copy that falls apart under scrutiny.
+
+Stealing taste means extracting the _decisions_ behind a design. Not the pixels. The reasoning. Why 40px of padding instead of 24? Why `font-weight: 800` on the heading but `400` on the subhead? Why no border on the cards?
+
+## What to study
+
+Look for interfaces where restraint is the dominant quality:
+
+**Linear.** Hierarchy without colour. `font-weight: 500` vs `400` and `font-size: 13px` vs `12px` do the work. Sidebar items use ~28px row height with 8px horizontal padding. Monospace accents (`font-family: 'JetBrains Mono'`) for identifiers.
+
+**Stripe.** Developer content that reads as editorial. Section spacing of 96-128px, body `line-height: 1.7`, warm gray palette (`hsl(220, 9%, 46%)`). Code blocks sit inline with prose. Same vertical rhythm, no visual break.
+
+**Notion.** Chrome disappears at rest. Toolbars use `opacity: 0` with `opacity: 1` on container hover, `transition: opacity 150ms`. No borders, no cards, no shadows. Whitespace _is_ the structure.
+
+**Raycast.** Speed as a design principle. Result rows appear in under 50ms, `transition-duration: 100ms` on highlights, 6-8 results visible per keystroke with no layout shift.
+
+**Zed / Things 3 / ElevenLabs.** The interface recedes behind the task. Minimal colour palettes (3-4 tokens), tight interaction states, no decorative effects.
+
+## What to extract
+
+For each reference, document concrete values, not impressions.
+
+### Typography
+
+- Heading-to-body size ratio. Well-designed products use 2x or larger.
+- Weight variation across hierarchy levels. Not everything needs `font-bold`.
+- `letter-spacing` on headings. Negative tracking at large sizes looks typeset.
+- Body `line-height`. 1.5-1.7 for comfortable reading.
+
+### Spacing
+
+- Section gap. 80-120px between major sections.
+- Card padding. Usually 24-32px, not the 16px AI defaults to.
+- Whether spacing is consistent or varies by context.
+
+### Colour
+
+- Active colours in use. Usually 3-5, not 8-10.
+- Contrast ratio between primary text and background.
+- How colour communicates state: hover, active, disabled, error.
+- Warm or cool palette. Sets emotional tone.
+
+### Interaction
+
+- Transition speed. 100-200ms for micro-interactions, 200-400ms for layout changes.
+- Easing curve. `ease-out` for entrances, `ease-in` for exits.
+- What happens on hover, focus, active.
+- What's _not_ animated. Restraint in motion is harder to learn than motion itself.
+
+## The replication method
+
+1. Find a UI that's irrationally tasteful.
+2. Right-click, inspect, and copy every computed value.
+3. Rebuild it from scratch. Pixel for pixel, value for value.
+4. Screen-record the interactions and go frame by frame.
+5. Study the delta: where do your instincts differ from theirs?
+6. Adapt the _principles_ to your product, not the pixels.
+
+<Exercise>
+Choose a card component from Linear, Stripe, or Vercel. Rebuild it from scratch. Match every measurement, colour, shadow, and interaction state. Then answer:
+
+1. What spacing values did they use? Are they on a 4px grid?
+2. How many font sizes and weights are in the card?
+3. What happens on hover? How long is the transition?
+4. What did they _not_ include that you would have added?
+
+<ExerciseHint>
+  Use DevTools to inspect computed styles. Pay attention to the values you
+  assumed were different from what they actually are.
+</ExerciseHint>
+
+<ExerciseSolution>
+The original uses fewer font sizes, more whitespace, and subtler shadows than expected. Most replications reveal 2-3 font sizes (not 5), 16-24px padding (not 12), and a single-layer shadow (not `shadow-2xl`). The restraint is the design.
+</ExerciseSolution>
+</Exercise>
+
+## From replication to adaptation
+
+Replication trains perception. Adaptation trains judgment.
+
+1. Keep the spacing system and rhythm.
+2. Swap in your typeface and colour palette.
+3. Adjust density for your content type. Data-heavy products need tighter spacing than marketing pages.
+4. Add your interaction layer: hover states, transitions, focus styles.
+
+The result should feel like _your_ product designed by someone who studied the reference.
+
+## Common mistakes
+
+- **Studying screenshots instead of code.** Screenshots show the output. Code shows the system. Inspect the CSS.
+- **Copying visual style without understanding density.** Linear's density works because of its content type. A marketing page at Linear's density feels cramped.
+- **Studying only one product.** Cross-referencing three products reveals the shared principles that transcend any single aesthetic.
+- **Skipping the replication step.** You can't steal taste by looking. You steal it by rebuilding and noticing what you got wrong.

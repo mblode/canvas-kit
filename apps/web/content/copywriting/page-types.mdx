@@ -1,0 +1,175 @@
+export const lessonMeta = {
+  title: "Page types",
+  module: "copywriting",
+  order: 9,
+  duration: "12 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+
+## Homepage: one segment
+
+Pick the **highest-value segment**. Others get sub-pages.
+
+Early-stage: the segment that pays. Late-stage: the segment that retains.
+
+### Required sections
+
+| Section      | Job                                                         |
+| ------------ | ----------------------------------------------------------- |
+| Hero         | Headline + subhead + primary CTA. Lead with the user's Why. |
+| Social proof | 3 to 5 logos or one credibility stat. Above the fold.       |
+| Problem      | Show you understand their day. Specific, not abstract.      |
+| Solution     | 3 to 5 outcomes. One per benefit; not a feature list.       |
+| How it works | 3 to 4 steps. Process clarity reduces anxiety.              |
+| Testimonials | Specific outcomes beat generic praise.                      |
+| Final CTA    | Restate the value prop. Repeat the primary CTA.             |
+
+### Framework
+
+**Why/How/What.** The reader knows nothing yet, so lead with Why. Avoid AIDA. Homepage visitors arrived intentionally.
+
+### The hero is the whole page
+
+If it needs scrolling to make sense, you've lost.
+
+<GoodBad
+  bad={
+    <div className="space-y-1 text-sm">
+      <p className="font-semibold">"Acme: The All-in-One Workspace"</p>
+      <p className="text-muted-foreground">
+        "We built Acme to help teams work better."
+      </p>
+    </div>
+  }
+  good={
+    <div className="space-y-1 text-sm">
+      <p className="font-semibold">
+        "Stop switching between 5 tools to get one answer."
+      </p>
+      <p className="text-muted-foreground">
+        "Every metric your board asks about, live, on one screen."
+      </p>
+    </div>
+  }
+  badLabel="Generic homepage hero"
+  goodLabel="Segment-specific hero"
+/>
+
+## Landing page: message match
+
+One action. One traffic source. Ad says "Cut your AWS bill in half." Landing page opens with "Welcome to CloudSave." Gone in three seconds.
+
+- Ad: _Cut your AWS bill in half._
+- Hero: _Cut your AWS bill in half, without changing your stack._
+
+### Framework by traffic temperature
+
+| Traffic        | Definition                  | Framework                          |
+| -------------- | --------------------------- | ---------------------------------- |
+| Cold           | No context, paid search     | AIDA                               |
+| Problem-aware  | Knows the pain, ad named it | PAS                                |
+| Solution-aware | Comparing alternatives      | StoryBrand or differentiation copy |
+
+### Required sections
+
+| Section             | Job                                                 |
+| ------------------- | --------------------------------------------------- |
+| Hero                | Headline (message match) + subhead + primary CTA    |
+| Social proof        | 3 to 5 logos or one credibility stat above the fold |
+| Problem / Pain      | Show you understand their world. Be specific.       |
+| Solution / Benefits | 3 to 5 outcomes, one per benefit                    |
+| How it works        | 3 to 4 scannable steps                              |
+| Testimonials        | Specific outcomes beat "X is great"                 |
+| Final CTA           | Restate value prop, repeat the CTA                  |
+
+### One CTA, repeated
+
+Same CTA at top, middle, bottom.
+
+<GoodBad
+  bad={
+    <div className="flex flex-col items-center gap-1.5 text-sm">
+      <button
+        type="button"
+        className="rounded bg-foreground px-3 py-1.5 text-xs font-medium text-background"
+      >
+        Sign up
+      </button>
+      <button
+        type="button"
+        className="rounded bg-foreground px-3 py-1.5 text-xs font-medium text-background"
+      >
+        Book a demo
+      </button>
+      <button
+        type="button"
+        className="rounded bg-foreground px-3 py-1.5 text-xs font-medium text-background"
+      >
+        Watch video
+      </button>
+      <button
+        type="button"
+        className="rounded bg-foreground px-3 py-1.5 text-xs font-medium text-background"
+      >
+        Read docs
+      </button>
+      <p className="text-xs text-muted-foreground">
+        Four CTAs. The reader clicks none.
+      </p>
+    </div>
+  }
+  good={
+    <div className="flex flex-col items-center gap-1.5 text-sm">
+      <button
+        type="button"
+        className="rounded bg-foreground px-3 py-1.5 text-xs font-medium text-background"
+      >
+        See your savings estimate free
+      </button>
+      <p className="text-xs text-muted-foreground">
+        One CTA. Repeated three times down the page.
+      </p>
+    </div>
+  }
+  badLabel="Scattered intent"
+  goodLabel="Single focus"
+/>
+
+## Pricing page: clarity, not motivation
+
+### Requirements
+
+| Requirement          | What it means                                                        |
+| -------------------- | -------------------------------------------------------------------- |
+| Clear plan names     | "Starter, Pro, Enterprise" works. "Spark, Blaze, Supernova" does not |
+| Lead with inclusions | List what they get, not what they lose                               |
+| Highlight one plan   | Visually emphasise the recommended tier                              |
+| Answer "what if"     | Switching, limits, contracts, trial cards                            |
+| Show the price       | "$29/month" is clear. "Save 60%" requires math                       |
+
+### Common failures
+
+Re-selling the product on the pricing page wastes time. Show what $29 gets them.
+
+"Advanced RBAC" means nothing. "Control who sees what" means everything.
+
+"Contact us" when prices were expected sends the reader to a competitor.
+
+## Feature page: one outcome
+
+Connect one feature to one outcome. "Automated changelog generation" is the feature. "30 minutes back every release cycle" is the outcome. Lead with the outcome.
+
+| Section             | Job                                    |
+| ------------------- | -------------------------------------- |
+| Problem headline    | The specific pain this feature solves  |
+| Feature explanation | 2 to 3 sentences in plain language     |
+| Benefit             | What changes for the user              |
+| Proof               | Screenshot, demo, stat, or testimonial |
+| CTA                 | Try the feature or see it in context   |
+
+## About page: customer as hero
+
+Every paragraph must pass the "so what?" test. "We got tired of broken deploys" only works when the next sentence is "so you never have to babysit yours."
+
+Show faces and names. Skip the org chart. End with a CTA that points to the product.

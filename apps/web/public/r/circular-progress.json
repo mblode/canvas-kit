@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "circular-progress",
+  "title": "Circular progress",
+  "description": "Accessible SVG circular progress dial used on folder fronts.",
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/circular-progress.tsx",
+      "content": "import type * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst CircularProgress = ({\n  value,\n  strokeWidth = 4,\n  hideText = false,\n  className,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  value: number;\n  strokeWidth?: number;\n  hideText?: boolean;\n}) => {\n  const clamped = Math.min(100, Math.max(0, value));\n  const size = 40;\n  const radius = (size - strokeWidth) / 2;\n  const circumference = 2 * Math.PI * radius;\n  const offset = circumference - (clamped / 100) * circumference;\n\n  return (\n    <div\n      className={cn(\n        \"relative inline-flex items-center justify-center\",\n        className\n      )}\n      {...props}\n    >\n      <progress className=\"sr-only\" max={100} value={clamped}>\n        {Math.round(clamped)}%\n      </progress>\n      <svg viewBox={`0 0 ${size} ${size}`} className=\"-rotate-90 size-full\">\n        <circle\n          cx={size / 2}\n          cy={size / 2}\n          r={radius}\n          fill=\"none\"\n          stroke=\"currentColor\"\n          strokeWidth={strokeWidth}\n          className=\"opacity-10\"\n        />\n        <circle\n          cx={size / 2}\n          cy={size / 2}\n          r={radius}\n          fill=\"none\"\n          stroke=\"currentColor\"\n          strokeWidth={strokeWidth}\n          strokeLinecap=\"round\"\n          strokeDasharray={circumference}\n          strokeDashoffset={offset}\n          className=\"transition-[stroke-dashoffset] duration-300 ease-out\"\n        />\n      </svg>\n      {!hideText && (\n        <span className=\"absolute text-[0.625rem] font-medium leading-none\">\n          {Math.round(clamped)}%\n        </span>\n      )}\n    </div>\n  );\n};\n\nexport { CircularProgress };\n",
+      "type": "registry:ui",
+      "target": "components/ui/circular-progress.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,195 @@
+export const lessonMeta = {
+  title: "Settings page",
+  module: "walkthroughs",
+  order: 3,
+  duration: "20 min",
+};
+
+## The starting point
+
+```tsx
+<div className="p-6">
+  <h1 className="text-xl font-bold">Settings</h1>
+  <div className="mt-6 border-b pb-6">
+    <h3 className="font-bold">Profile</h3>
+    <div className="mt-4 space-y-4">
+      <input placeholder="Name" className="w-full rounded border p-2" />
+      <input placeholder="Email" className="w-full rounded border p-2" />
+      <input placeholder="Website" className="w-full rounded border p-2" />
+    </div>
+  </div>
+  <div className="mt-6 border-b pb-6">
+    <h3 className="font-bold">Notification preferences</h3>
+    <label className="flex items-center gap-2">
+      <input type="checkbox" /> Email notifications
+    </label>
+    <label className="flex items-center gap-2">
+      <input type="checkbox" /> Marketing emails
+    </label>
+  </div>
+  <div className="mt-6">
+    <h3 className="font-bold text-red-500">Danger zone</h3>
+    <button className="mt-4 rounded bg-red-500 px-4 py-2 text-white">
+      Delete Account
+    </button>
+  </div>
+</div>
+```
+
+Count the problems.
+
+## Layer 1: Copywriting
+
+### Section headings
+
+**Before:** "Profile" | **After:** "Public profile". Now the user knows _who sees this data_.
+**Before:** "Notification preferences" | **After:** "What we send you".
+**Before:** "Danger zone" | **After:** "Delete your account". Name the action, skip the theatrics.
+
+### Toggle labels
+
+**Before:** "Email notifications" | **After:** "Send me email when someone replies"
+**Before:** "Marketing emails" | **After:** "Send me product updates and tips"
+
+### Delete button
+
+**Before:** "Delete Account" | **After:** "Permanently delete my account and all data"
+
+### Helper text
+
+Every field should say why it collects data. Below email: "We'll use this for sign-in and account recovery." Below website: "Shown on your public profile."
+
+## Layer 2: Typography
+
+### Heading hierarchy
+
+The original jumps from `h1` to `h3`.
+
+```tsx
+<h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
+<h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
+  Public profile
+</h2>
+```
+
+Section headers are small and uppercase wayfinding labels. Field labels use `text-sm font-medium`. Hierarchy from treatment, not raw pixels.
+
+### Separator audit
+
+Replace `border-b` on every section with `space-y-10`. Save the single `border-t` for the destructive action. That separation is load-bearing.
+
+## Layer 3: Craft
+
+### Labels and autocomplete
+
+```tsx
+<label htmlFor="email" className="text-sm font-medium">Email address</label>
+<input id="email" name="email" type="email" inputMode="email" autoComplete="email" />
+```
+
+### Inline validation
+
+```tsx
+<input
+  type="email"
+  onBlur={(e) => {
+    if (!e.target.validity.valid) setEmailError("Enter a valid email address");
+  }}
+  aria-describedby={emailError ? "email-error" : undefined}
+  aria-invalid={!!emailError}
+/>;
+{
+  emailError && (
+    <p id="email-error" className="mt-1 text-sm text-destructive">
+      {emailError}
+    </p>
+  );
+}
+```
+
+### Save button
+
+```tsx
+<button
+  type="submit"
+  disabled={isPending}
+  className="inline-flex h-9 items-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground disabled:opacity-50"
+>
+  {isPending && <Spinner className="size-4 animate-spin" />}
+  Save changes
+</button>
+```
+
+Never swap the label to "Saving..." The user shouldn't wonder which button they pressed.
+
+### Destructive action
+
+```tsx
+<section className="mt-10 border-t pt-10">
+  <h2 className="text-sm font-medium tracking-widest uppercase text-destructive">
+    Delete your account
+  </h2>
+  <p className="mt-2 text-sm text-muted-foreground">
+    This permanently deletes your account, profile, and all data. This cannot be
+    undone.
+  </p>
+  <button
+    onClick={() => setShowConfirm(true)}
+    className="mt-4 h-9 rounded-md bg-destructive px-4 text-sm font-medium text-destructive-foreground"
+  >
+    Permanently delete my account and all data
+  </button>
+</section>
+```
+
+## Layer 4: Animation
+
+### Save feedback
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{ opacity: 1, scale: 1 }}
+  exit={{ opacity: 0 }}
+  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+>
+  <Check className="size-4 text-emerald-500" />
+</motion.div>
+```
+
+### Toggle animation
+
+```tsx
+<motion.span
+  className="block size-4 rounded-full bg-white shadow-sm"
+  animate={{ x: isOn ? 18 : 0 }}
+  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+/>
+```
+
+### Async loading
+
+```tsx
+<motion.section
+  initial={{ opacity: 0, y: 8 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+/>
+```
+
+### Reduced motion
+
+```tsx
+const prefersReduced = useReducedMotion();
+
+<motion.span
+  animate={{ x: isOn ? 18 : 0 }}
+  transition={
+    prefersReduced
+      ? { duration: 0 }
+      : { type: "spring", stiffness: 500, damping: 35 }
+  }
+/>;
+```
+
+The toggle still moves (it communicates state) but instantly.

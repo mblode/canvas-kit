@@ -1,0 +1,100 @@
+export const lessonMeta = {
+  title: "Mobile resilience",
+  module: "craft",
+  order: 4,
+  duration: "8 min",
+};
+
+## Safe areas
+
+```css
+.app {
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+}
+```
+
+For full-bleed backgrounds, use `viewport-fit=cover` and apply safe-area padding to the content layer:
+
+```html
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+/>
+```
+
+```css
+.background {
+  /* full-bleed, extends behind the notch */
+}
+.content {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+```
+
+`max(1rem, env(...))` ensures minimum padding even on devices without insets.
+
+Fixed elements at the bottom need explicit inset handling:
+
+```css
+.bottom-bar {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.fab {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+```
+
+Without this, the home indicator covers your UI.
+
+## Never disable zoom
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+```
+
+No `maximum-scale`. No `user-scalable=no`. If your layout breaks under zoom, the layout is the bug.
+
+### Test under zoom
+
+1. Pinch to 200-300% on a phone.
+2. Tap form fields, buttons, and links.
+3. Overlapping elements, hidden content, or frozen scrolling are bugs.
+
+On desktop: Cmd+= to zoom. Anything that clips or overflows is a layout failure.
+
+## `100dvh`, not `100vh`
+
+`100vh` includes browser chrome on mobile. `100dvh` adjusts as browser chrome shows and hides:
+
+```css
+.full-screen {
+  min-height: 100dvh;
+}
+```
+
+Use `min-height`, not `height`. Content that exceeds the viewport should scroll, not clip.
+
+## `text-size-adjust`
+
+Mobile Safari auto-scales text in narrow columns:
+
+```css
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+```
+
+## Common mistakes
+
+- **No safe-area inset on fixed bottom elements.** Submit button hidden behind the home indicator.
+- **`user-scalable=no` from old templates.** Audit the viewport meta tag.
+- **`100vh` on mobile layouts.** Overflows behind browser chrome. Use `100dvh`.
+- **Forms that break under zoom.** Fixed buttons floating on fields, tooltips clipping.
+- **Side insets forgotten.** Horizontal safe areas show in landscape.
+- **`height: 100dvh` without `min-height`.** Content clips instead of scrolling.

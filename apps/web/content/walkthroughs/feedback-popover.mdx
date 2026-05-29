@@ -1,0 +1,131 @@
+export const lessonMeta = {
+  title: "Feedback popover",
+  module: "walkthroughs",
+  order: 2,
+  duration: "20 min",
+};
+
+## The starting point
+
+```tsx
+<div className="relative">
+  <button onClick={() => setOpen(!open)}>Feedback</button>
+  {open && (
+    <div className="absolute top-full mt-2 w-80 rounded-lg border bg-card p-4 shadow-lg">
+      <textarea placeholder="What's on your mind?" />
+      <button>Send</button>
+    </div>
+  )}
+</div>
+```
+
+## Step 1: Spatial origin
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  exit={{ opacity: 0, scale: 0.95 }}
+  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+  style={{ transformOrigin: "top left" }}
+  className="absolute top-full left-0 mt-2 w-80 rounded-lg border bg-card p-4 shadow-lg"
+>
+```
+
+`transformOrigin: "top left"` because the trigger is above-left. Scale from 0.9 (not 0). Exit at 0.95 (asymmetric).
+
+## Step 2: Spring physics
+
+Replace the easing curve with a snappy spring. Springs retarget smoothly on rapid toggles instead of restarting.
+
+```tsx
+transition={{ type: "spring", stiffness: 500, damping: 40 }}
+```
+
+No bounce. The spring's value is interruptibility, not overshoot.
+
+## Step 3: Stagger the content
+
+```tsx
+<motion.div
+  initial="hidden"
+  animate="visible"
+  variants={{
+    visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
+    hidden: {},
+  }}
+>
+  <motion.h3 variants={itemVariants}>Send feedback</motion.h3>
+  <motion.textarea variants={itemVariants} />
+  <motion.div variants={itemVariants} className="flex justify-end gap-2">
+    <button>Cancel</button>
+    <button>Send</button>
+  </motion.div>
+</motion.div>
+```
+
+`delayChildren: 0.1` waits for the popover to mostly finish its entrance.
+
+```tsx
+const itemVariants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+```
+
+## Step 4: Focus management
+
+```tsx
+const popoverRef = useRef<HTMLDivElement>(null);
+const triggerRef = useRef<HTMLButtonElement>(null);
+
+useEffect(() => {
+  if (open) {
+    const timer = setTimeout(() => {
+      popoverRef.current?.querySelector("textarea")?.focus();
+    }, 120);
+    return () => clearTimeout(timer);
+  }
+  triggerRef.current?.focus();
+}, [open]);
+```
+
+120ms puts focus transfer at roughly 60% of the spring settle time.
+
+## Step 5: Reduced motion
+
+```tsx
+const shouldReduce = useReducedMotion();
+
+<motion.div
+  initial={shouldReduce ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
+  animate={shouldReduce ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+  exit={shouldReduce ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+  transition={
+    shouldReduce
+      ? { duration: 0.1 }
+      : { type: "spring", stiffness: 500, damping: 40 }
+  }
+/>;
+```
+
+## Step 6: Swipe to dismiss on mobile
+
+```tsx
+<motion.div
+  drag="y"
+  dragConstraints={{ top: 0, bottom: 0 }}
+  dragElastic={0.3}
+  onDragEnd={(_, info) => {
+    if (info.offset.y > 80 || info.velocity.y > 500) {
+      setOpen(false);
+    }
+  }}
+>
+```
+
+Both distance (80px) and velocity (500px/s) thresholds matter. Distance alone misses quick flicks. Velocity alone misses slow deliberate drags. `dragElastic: 0.3` provides rubber-band resistance.

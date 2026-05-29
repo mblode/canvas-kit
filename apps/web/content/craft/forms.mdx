@@ -1,0 +1,159 @@
+export const lessonMeta = {
+  title: "Forms",
+  module: "craft",
+  order: 5,
+  duration: "12 min",
+};
+
+import { FormUxLab } from "@/components/demos/craft/form-ux-lab";
+
+Most form abandonment isn't about the number of fields. It's about the wrong keyboard appearing, autocomplete not firing, or an error message that says "invalid input" instead of what to fix.
+
+## Labels are not optional
+
+Every input needs a visible label. Placeholders vanish on typing.
+
+```html
+<label for="email">Email address</label>
+<input
+  id="email"
+  type="email"
+  name="email"
+  autocomplete="email"
+  inputmode="email"
+/>
+```
+
+- **`<label for="...">`** binds label to input.
+- **`type="email"`** changes mobile keyboard and enables browser validation.
+- **`name="email"`** for form submission and password manager matching.
+- **`autocomplete="email"`** enables autofill. Spec values: `email`, `name`, `current-password`, `new-password`, `street-address`, `tel`, `cc-number`, `one-time-code`.
+- **`inputmode="email"`** controls keyboard without changing validation.
+
+No room for a visible label? Use a visually-hidden one.
+
+## Placeholders are examples, not labels
+
+Show the _shape_ of the answer, not a paraphrase of the label:
+
+```html
+<input placeholder="jane@example.com" />
+<input placeholder="+61 4 1234 5678" />
+<input placeholder="DD / MM / YYYY" />
+```
+
+WCAG requires 4.5:1 on placeholder text. Most designs fail this:
+
+```css
+::placeholder {
+  color: var(--text-secondary);
+  opacity: 1; /* Firefox defaults to 0.5 */
+}
+```
+
+## Autocomplete
+
+Use exact spec values. `autocomplete="new-password"` triggers password generation. `autocomplete="current-password"` triggers saved credentials. Wrong values mean wrong autofills.
+
+Never use `autocomplete="off"` on auth fields.
+
+## `inputmode` for the right keyboard
+
+- `inputmode="numeric"`: number pad. Amounts, verification codes.
+- `inputmode="decimal"`: number pad with decimal. Currency.
+- `inputmode="tel"`: phone keypad.
+- `inputmode="email"`: @ and . prominent.
+- `inputmode="url"`: / and .com.
+- `inputmode="search"`: search/return key.
+
+`type="number"` adds spinners. `inputmode="numeric"` gives the keyboard without spinners.
+
+## Enter-to-submit
+
+Single-line forms submit on Enter by default when `<button type="submit">` exists inside `<form>`. React `onClick`-only handlers break this.
+
+```tsx
+<form onSubmit={handleSubmit}>
+  <input type="text" />
+  <button type="submit">Search</button>
+</form>
+```
+
+Multi-line: Enter inserts newline, Cmd/Ctrl+Enter submits.
+
+## Inline errors
+
+- **On keystroke:** No. "Email is invalid" while typing is hostile.
+- **On blur:** Validate when the user leaves the field.
+- **On submit:** Required-field and cross-field checks.
+
+On failure, focus the first error. Be specific: "Email is required", not "Invalid input."
+
+Keep submit enabled. Show all errors on click. Disable only during the request.
+
+## Submission state
+
+1. **Disable** the button to prevent double-clicks.
+2. **Keep the original label.** Add a spinner alongside it.
+3. On success, **restore** the button and confirm.
+4. On failure, **restore** the button and surface an actionable error.
+
+```tsx
+<button type="submit" disabled={submitting}>
+  {submitting && <Spinner />}
+  Save
+</button>
+```
+
+Don't swap the label to _Saving…_. The button jumps width and translations break.
+
+Collect form data first, then disable, then send. Warn on navigation with unsaved changes:
+
+```ts
+window.addEventListener("beforeunload", (e) => {
+  if (formIsDirty) e.preventDefault();
+});
+```
+
+## Mobile font size: the 16px rule
+
+iOS Safari zooms the page when input font-size is below 16px.
+
+```css
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+```
+
+Override on desktop only:
+
+```css
+@media (min-width: 1024px) {
+  .input {
+    font-size: 14px;
+  }
+}
+```
+
+Tailwind `text-sm` is 14px. The most common offender.
+
+<FormUxLab />
+
+## Never block paste
+
+Validate _after_ paste:
+
+```tsx
+<input onChange={(e) => setValue(e.target.value.replace(/\s/g, "").trim())} />
+```
+
+## Common mistakes
+
+- **Placeholder as only label.** Vanishes on typing.
+- **Wrong `autocomplete` values.** Browser saves email as wrong-site username.
+- **`onPaste={(e) => e.preventDefault()}`** on password fields. Breaks managers.
+- **`text-sm` on inputs without mobile override.** iOS zooms.
+- **Disabled submit until form is "complete."** User can't discover missing fields.
+- **Spellcheck on email/code fields.** Add `spellcheck="false"` and `autocapitalize="off"`.

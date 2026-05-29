@@ -1,0 +1,95 @@
+export const lessonMeta = {
+  title: "Polish: the last 5%",
+  module: "craft",
+  order: 9,
+  duration: "10 min",
+};
+
+Users can't name what's wrong, but they stop trusting the product.
+
+## Image outlines on white backgrounds
+
+White-edged images bleed into near-white backgrounds.
+
+```css
+img {
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+  outline-offset: -1px;
+}
+```
+
+`outline` instead of `border` because outlines don't take up layout space. `outline-offset: -1px` pulls it inside the image edge.
+
+In dark mode, flip the colour:
+
+```css
+:root {
+  --image-outline: rgba(0, 0, 0, 0.1);
+}
+[data-theme="dark"] {
+  --image-outline: rgba(255, 255, 255, 0.1);
+}
+
+img {
+  outline: 1px solid var(--image-outline);
+  outline-offset: -1px;
+}
+```
+
+Skip for full-bleed heroes, images with dark borders, and decorative illustrations.
+
+## Shadow refinement
+
+Two layers: a tight contact shadow and a wider ambient shadow:
+
+```css
+.card {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+}
+```
+
+For hover elevation:
+
+```css
+.card:hover {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+}
+```
+
+Dark mode shadows need different treatment. `rgba(0,0,0,x)` shadows are invisible on dark backgrounds. Use border-based elevation or subtle ambient glow (`rgba(255,255,255,0.03)`).
+
+Most borders shouldn't exist.
+
+## The separator audit
+
+Every border should justify itself. Could spacing or a background tint replace it?
+
+Where borders earn their keep:
+
+- Between unrelated regions (sidebar / main content).
+- On clickable cards, so the user sees boundaries.
+- On input fields.
+
+Where borders are noise:
+
+- **Card with shadow.** The shadow already separates it.
+- **Grouped, indented list items.** Per-item dividers fragment the grouping.
+- **Header with a coloured background.** The colour _is_ the separator.
+- **Stacked dividers.** Two separators at similar contrast read as a tangle.
+
+## Navigation chrome hierarchy
+
+Primary navigation is visually strongest. Secondary chrome (breadcrumbs, local tabs) recedes. Fix with contrast reduction: lighter text, thinner borders, less padding on secondary chrome.
+
+## Common mistakes
+
+- **`border` instead of `outline` for image anchoring.** Layout shifts.
+- **Heavy outlines** (`rgba(0,0,0,0.3)+`). Reads as a frame, not an anchor.
+- **Single-layer shadows with high spread.** Looks like a grey box.
+- **Top and bottom border on every section.** Doubles thickness at boundaries.
+- **High-contrast borders by default.** Use `rgba(0,0,0,0.08)`, not `#000`.
+- **Borders that vanish in dark mode.** Pair with a light-on-dark token.

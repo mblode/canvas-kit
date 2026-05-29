@@ -1,0 +1,58 @@
+export const lessonMeta = {
+  title: "When to animate",
+  module: "animation",
+  order: 2,
+  duration: "10 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  AnimatedSearchResults,
+  InstantSearchResults,
+} from "@/components/demos/animation/when-to-animate-judgement-options";
+
+## The frequency test
+
+| Frequency           | Examples                                           | Decision                   |
+| ------------------- | -------------------------------------------------- | -------------------------- |
+| 100+ times a day    | Keyboard shortcuts, command palette, arrow-key nav | **Never animate.**         |
+| Tens of times a day | Hover effects, list navigation, link rollovers     | Remove or radically reduce |
+| Occasional          | Modals, drawers, tooltips, toasts                  | Standard animation         |
+| Rare or first-time  | Onboarding, success states, milestones             | Room for delight           |
+
+## The four purposes of motion
+
+If it doesn't fit one of these four, cut it.
+
+**Feedback**: confirms an action. Button scales on press. Toggle slides.
+
+**Orientation**: shows spatial relationships. Drawer slides from its edge. Popover scales from its trigger.
+
+**Continuity**: preserves context across state changes. Tab indicator slides between tabs. Shared element morphs from list to detail.
+
+**Delight**: adds personality. Confetti on a milestone. Spring overshoot on a badge. Only works because it's rare.
+
+<JudgementExercise
+  id="when-to-animate-search"
+  category="Animation"
+  question="Type in both search inputs. Which results feel more responsive?"
+  optionA={<AnimatedSearchResults />}
+  optionB={<InstantSearchResults />}
+  correctAnswer="b"
+  explanation={
+    <>
+      A animates each result with a 250ms stagger. For a high-frequency action
+      like typing, the animation reads as lag. B shows results instantly. The
+      user typed, they know what follows. Apple's Spotlight, Linear's cmd-K, and
+      Vercel's search all use instant results. Save animation for rare moments.
+    </>
+  }
+/>
+
+## Common mistakes
+
+**Animating everything because the design system has a transition token.** Tokens are tools, not requirements.
+
+**Page navigation with a 600ms transition.** 200ms max. A shared-element transition on key content beats animating the entire viewport.
+
+**Animating focus rings or text selection.** Set `transition: none` on focus-visible outlines.

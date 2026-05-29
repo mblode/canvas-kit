@@ -1,0 +1,72 @@
+export const lessonMeta = {
+  title: "Duration & asymmetric timing",
+  module: "animation",
+  order: 4,
+  duration: "10 min",
+};
+
+import { Demo } from "@/components/demos";
+import { DurationComparison } from "@/components/demos/animation";
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  SymmetricModal,
+  AsymmetricModal,
+} from "@/components/demos/animation/duration-judgement-options";
+
+## Duration by component type
+
+| Component                     | Enter duration | Exit duration | Notes                              |
+| ----------------------------- | -------------- | ------------- | ---------------------------------- |
+| Button press / micro-feedback | 50-100ms       | 50-80ms       | Must feel instant                  |
+| Tooltip                       | 100-150ms      | 75-100ms      | Fast in, faster out                |
+| Popover / dropdown            | 150-200ms      | 100-150ms     | Emerges from trigger               |
+| Toast / notification          | 200-250ms      | 150-200ms     | Slides from edge                   |
+| Modal / dialog                | 200-350ms      | 150-200ms     | Scale + opacity                    |
+| Drawer / sheet                | 250-350ms      | 200-250ms     | Slides across significant distance |
+| Page transition               | 150-250ms      | 100-150ms     | Keep it tight                      |
+
+Nothing exceeds 400ms.
+
+<Demo
+  title="Duration comparison"
+  caption="Adjust enter/exit timing and compare how symmetric vs. asymmetric durations feel."
+>
+  <DurationComparison />
+</Demo>
+
+<JudgementExercise
+  id="duration-symmetric-vs-asymmetric"
+  category="Animation"
+  question="Open and close each modal. Which dismissal feels more responsive?"
+  optionA={<SymmetricModal />}
+  optionB={<AsymmetricModal />}
+  correctAnswer="b"
+  explanation={
+    <>
+      Both enter at 250ms. A exits at 250ms (symmetric). B exits at 150ms
+      (asymmetric). The user already saw the content, they want it gone. A
+      slower exit reads as sluggish on dismissal. The 1.5:1 to 2:1 enter/exit
+      ratio is the fix.
+    </>
+  }
+/>
+
+## Enter slow, exit fast
+
+**1.5:1 to 2:1**. Enter at 250ms, exit at 150ms. A drawer enters at 300ms, exits at 180ms.
+
+## The 300ms budget
+
+Total animation time for any single interaction: 300ms max.
+
+5 items staggered at 50ms = 250ms total. An 800ms stagger looks like a broken loader.
+
+## Duration and distance
+
+More distance needs more time, but not linearly. A drawer sliding 300px: ~300ms. A tooltip appearing 8px below its trigger: 100ms. A panel sliding 600px: ~350ms, not 600ms.
+
+Double the distance, add 30-50% more duration.
+
+## When to skip duration entirely
+
+Toggle states, checkbox fills, colour transitions on hover, focus-visible outlines.

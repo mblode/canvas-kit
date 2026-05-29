@@ -1,0 +1,102 @@
+export const lessonMeta = {
+  title: "The last mile",
+  module: "ai-taste",
+  order: 6,
+  duration: "10 min",
+};
+
+import { Callout } from "@/components/demos";
+
+AI generates the 80%. The last 20% is what users remember.
+
+Every AI-generated page is missing the same things: favicons, OG images, keyboard shortcuts, loading skeletons, error states with personality, hover transitions. The things that only exist because someone thought about them.
+
+## Metadata and identity
+
+| Detail                               | Why it matters                                                |
+| ------------------------------------ | ------------------------------------------------------------- |
+| Favicon (light + dark mode SVG)      | The tab bar is the most persistent brand surface              |
+| Open Graph image                     | How the product looks when shared on Slack, Twitter, LinkedIn |
+| `<title>` that's useful, not generic | "Dashboard | Acme" beats "Acme" beats "Home"                  |
+| `theme-color` meta tag               | Tints the browser chrome on mobile                            |
+| `apple-touch-icon`                   | Home screen icon on iOS                                       |
+
+## Interaction states
+
+AI generates the default state. Not the other four:
+
+| State    | What to check                                                     |
+| -------- | ----------------------------------------------------------------- |
+| Hover    | Does every interactive element change on hover?                   |
+| Focus    | Is the focus ring visible, styled, and following `border-radius`? |
+| Active   | Does the button depress or shift on click?                        |
+| Disabled | Is it visually distinct from enabled? Is the cursor set?          |
+| Loading  | Skeleton, spinner, or progress bar. Not a blank space             |
+
+## Keyboard support
+
+| Pattern    | Minimum bar                                     |
+| ---------- | ----------------------------------------------- |
+| Tab order  | Follows visual order, skips decorative elements |
+| Escape     | Closes modals, drawers, popovers                |
+| Enter      | Submits forms, activates focused buttons        |
+| Arrow keys | Navigates tabs, menus, radio groups             |
+
+Can the primary task be completed without touching the mouse? If not, that's a bug.
+
+## Responsive refinement
+
+AI generates for one breakpoint. Check three:
+
+| Breakpoint     | Common AI failures                                           |
+| -------------- | ------------------------------------------------------------ |
+| Mobile (375px) | Text too small, touch targets too close, horizontal overflow |
+| Tablet (768px) | Awkward column count (3 → 2 looks weird at some widths)      |
+| Wide (1440px+) | Content stretches, `line-length` exceeds 80ch                |
+
+## Micro-transitions
+
+Elements that benefit from a transition:
+
+```css
+.button {
+  transition: background-color 150ms ease-out;
+}
+.card {
+  transition: box-shadow 200ms ease-out;
+}
+.link {
+  transition: color 100ms ease-out;
+}
+.input {
+  transition: border-color 150ms ease-out;
+}
+.accordion {
+  transition: grid-template-rows 200ms ease-out;
+}
+```
+
+Do _not_ animate: text colour in body copy, layout shifts, scrollbar appearance.
+
+<Callout type="tip">
+  Test every transition with `prefers-reduced-motion`. If a user has motion
+  sensitivity, every transition should disappear or reduce to an opacity fade.
+</Callout>
+
+## The 15-minute polish pass
+
+After the three-pass edit from the previous lesson, run this final checklist.
+
+1. **Tab through the page.** Fix broken focus order. Style the focus ring.
+2. **Resize to 375px.** Fix overflow, touch targets, text size.
+3. **Hover every interactive element.** Add missing hover states.
+4. **Check the tab title and favicon.** Replace defaults.
+5. **Inspect the `<head>`.** Add `og:image`, `theme-color`, `apple-touch-icon`.
+6. **Trigger every error state.** Submit empty forms. Disconnect wifi. Load with slow 3G.
+7. **Test with keyboard only.** Escape closes overlays. Enter submits.
+
+## Common mistakes
+
+- **Treating polish as optional.** It's not the cherry on top. It's the structural integrity of the user's trust.
+- **Polishing visuals before fixing interactions.** A beautiful button that isn't keyboard-accessible is worse than an ugly one that is.
+- **Adding polish in the prompt.** "Add hover states to all buttons" works for buttons. It misses links, cards, nav items, and every other interactive element. The last mile is manual.

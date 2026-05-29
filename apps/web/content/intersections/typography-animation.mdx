@@ -1,0 +1,37 @@
+export const lessonMeta = {
+  title: "Typography × animation",
+  module: "intersections",
+  order: 1,
+  duration: "10 min",
+};
+
+import { Demo } from "@/components/demos";
+import { TypographyMotionDemo } from "@/components/demos/intersections/typography-motion";
+
+Set a bold and a light headline to the same 300ms ease-out. The bold one looks slower.
+
+## Weight changes perceived speed
+
+Heavy glyphs occupy more pixels. The eye tracks larger objects as slower.
+
+<Demo title="Same animation, three typographic treatments">
+  <TypographyMotionDemo />
+</Demo>
+
+All three columns use identical animation parameters. Typography does work animation cannot.
+
+## Word-level stagger requires hierarchy
+
+"Ship products users love." Four words. Word-level stagger works.
+
+"The all-in-one platform for building and deploying modern web applications." Staggered word by word, that's a 600ms drip-feed the reader could scan in two seconds. Past six or seven words, switch to line-level or section-level.
+
+## Display cuts change entrance sequencing
+
+A text-optical-size font at 48px looks soft and over-spaced during animation. The eye catches imperfections faster during transitions.
+
+A display-cut font at 48px arrives looking _finished_. For hero entrances, use the display optical size.
+
+## Light fonts tolerate faster animations
+
+300-weight at 200ms feels crisp. 700-weight at 200ms feels abrupt. The visual mass doesn't settle. Heavy typeface, slower animations. Light weight, faster animations.

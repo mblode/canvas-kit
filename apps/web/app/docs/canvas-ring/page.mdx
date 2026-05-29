@@ -1,0 +1,87 @@
+export const metadata = {
+  alternates: { canonical: "/docs/canvas-ring" },
+  description:
+    "The selection/drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card.",
+  title: "Canvas ring",
+};
+
+import { CanvasRingDemo } from "@/components/docs/demos/canvas-ring-demo";
+
+# Canvas ring
+
+The absolutely-positioned ring drawn around a canvas card when it is
+**selected** or being **dragged**. It is shared by
+[`canvas-card`](/docs/canvas-card), [`document-card`](/docs/document-card) and
+[`folder-card`](/docs/folder-card) so the selection and drag visuals stay in
+lockstep across every card type.
+
+<Preview center>
+  <CanvasRingDemo />
+</Preview>
+
+The `selection` variant uses `--canvas-selection`; the `drag` variant uses
+`--canvas-drag-ring`. Both come from [`canvas-vars`](/docs/canvas-vars), so the
+ring follows your theme automatically.
+
+## Installation
+
+<CommandTabs name="canvas-ring" />
+
+## Usage
+
+Render it inside a `relative` container, the ring positions itself with
+`inset`, so a negative value pulls it just outside the card. Drive `active` from
+your selection or drag state.
+
+```tsx
+import { CanvasRing } from "@/components/canvas/canvas-ring";
+
+<div className="relative rounded-2xl border bg-background p-5">
+  <CanvasRing active={selected} inset={-4} thickness={2} />
+  {/* card content */}
+</div>;
+```
+
+To match the drag affordance instead, switch the variant:
+
+```tsx
+<CanvasRing active={isDragging} variant="drag" />
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    {
+      name: "active",
+      type: "boolean",
+      required: true,
+      description: "Render the ring. When false, nothing is drawn.",
+    },
+    {
+      name: "variant",
+      type: '"selection" | "drag"',
+      default: '"selection"',
+      description:
+        "`selection` uses the marquee colour, `drag` the drag-ring colour.",
+    },
+    {
+      name: "inset",
+      type: "number",
+      default: "-6",
+      description: "Inset in px (negative pulls the ring outside the card).",
+    },
+    {
+      name: "thickness",
+      type: "number",
+      default: "2.5",
+      description: "Border thickness in px.",
+    },
+    {
+      name: "radius",
+      type: "number",
+      default: "20",
+      description: "Corner radius in px.",
+    },
+  ]}
+/>

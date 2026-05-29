@@ -1,0 +1,131 @@
+export const lessonMeta = {
+  title: "Visual slop signals",
+  module: "ai-taste",
+  order: 2,
+  duration: "10 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import { JudgementSeries } from "@/components/demos/judgement-series";
+import {
+  DefaultFontCard,
+  ChosenFontCard,
+  GradientHero,
+  RestrainedHero,
+  PredictableLayout,
+  IntentionalLayout,
+  GlowButton,
+  CleanButton,
+} from "@/components/demos/ai-taste/slop-signals";
+
+Four signals that mark an interface as AI-generated. Any one is forgivable. Two together and users sense it. Three and the product feels disposable.
+
+## Signal 1: Default fonts
+
+AI reaches for Inter, the system font stack, or whatever sans-serif appears most in its training data. The typeface carries no opinion. It says nothing about the product.
+
+The fix is not picking a trendy font. It's picking _a_ font, chosen for a reason. Even if the reason is "it has real small caps" or "the italics have personality."
+
+<JudgementSeries id="slop-fonts" title="Which card feels considered?">
+  <JudgementExercise
+    id="slop-font-choice"
+    category="Typography"
+    question="Which card has a typeface that was chosen, not defaulted?"
+    optionA={<DefaultFontCard />}
+    optionB={<ChosenFontCard />}
+    correctAnswer="b"
+    explanation={
+      <>
+        A uses the system font stack. It's legible but says nothing. B uses a
+        typeface selected for the product, the weight distribution, the
+        x-height, and the character feel intentional. The difference is whether
+        someone made a decision or accepted a default.
+      </>
+    }
+  />
+</JudgementSeries>
+
+## Signal 2: Purple-on-white gradients
+
+The model's favourite palette: purple to blue, on white. Sometimes purple to pink. It's the statistical average of "modern SaaS" and the reason every AI-generated landing page looks related.
+
+Gradient backgrounds aren't the problem. _Unmotivated_ gradients are. A gradient should come from your colour system, not from the model's training data.
+
+<JudgementSeries id="slop-gradients" title="Which hero feels owned?">
+  <JudgementExercise
+    id="slop-gradient-choice"
+    category="Craft"
+    question="Which hero background feels like it belongs to a specific product?"
+    optionA={<GradientHero />}
+    optionB={<RestrainedHero />}
+    correctAnswer="b"
+    explanation={
+      <>
+        A is the default AI gradient, purple to blue, no relationship to the
+        product's identity. B uses colour with intent: a restrained palette tied
+        to the brand. The hero should feel like it belongs to <em>this</em>{" "}
+        product, not every product.
+      </>
+    }
+  />
+</JudgementSeries>
+
+## Signal 3: Predictable layouts
+
+Three-column feature grid. Icon + heading + paragraph, repeated three times. Centred text. Equal spacing everywhere. No hierarchy between sections.
+
+AI produces symmetrical layouts because symmetry is the most common pattern. But good design uses _asymmetry_ to create hierarchy. The most important thing should be biggest. Secondary content should recede. Rhythm should vary.
+
+<JudgementSeries id="slop-layouts" title="Which layout has hierarchy?">
+  <JudgementExercise
+    id="slop-layout-choice"
+    category="Craft"
+    question="Which layout guides the eye to what matters most?"
+    optionA={<PredictableLayout />}
+    optionB={<IntentionalLayout />}
+    correctAnswer="b"
+    explanation={
+      <>
+        A gives equal weight to three items, the user doesn't know where to
+        look first. B establishes a clear primary element with supporting
+        details that recede. Hierarchy is a decision about importance, and AI
+        doesn't make those decisions.
+      </>
+    }
+  />
+</JudgementSeries>
+
+## Signal 4: Excess glow and decoration
+
+Drop shadows with high spread. Glowing borders. Blur effects stacked on blur effects. Prompt "make this more polished" and the model adds a `shadow-2xl`, a gradient border, and a `backdrop-blur-xl`. It heard "more" and delivered more, more effects, more noise, more visual clutter.
+
+Restraint is the hardest thing to prompt for. It's easier to add than to remove, so AI adds. Your job is to subtract.
+
+<JudgementSeries id="slop-glow" title="Which button reads as confident?">
+  <JudgementExercise
+    id="slop-glow-choice"
+    category="Craft"
+    question="Which button feels more trustworthy?"
+    optionA={<GlowButton />}
+    optionB={<CleanButton />}
+    correctAnswer="b"
+    explanation={
+      <>
+        A uses a glowing box-shadow, a gradient background, and rounded-full,
+        the AI triple threat. B uses a solid background, a tight shadow, and
+        confidence through simplicity. Effects should solve a problem (depth,
+        separation, feedback), not decorate.
+      </>
+    }
+  />
+</JudgementSeries>
+
+## The compound effect
+
+One default font is a minor miss. But a default font _plus_ a purple gradient _plus_ a three-column grid _plus_ glowing buttons is a signature. It signals "nobody reviewed this." Users don't articulate it that way. They just leave.
+
+## Common mistakes
+
+- **Replacing AI defaults with _different_ defaults.** Switching from Inter to Poppins doesn't fix the problem. The fix is choosing a typeface for a reason.
+- **Adding more effects to "make it unique."** Uniqueness comes from restraint and intent, not from stacking CSS filters.
+- **Treating the four signals as a checklist.** The point isn't to avoid these four things. It's to make _decisions_ instead of accepting defaults.

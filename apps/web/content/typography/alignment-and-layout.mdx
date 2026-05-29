@@ -1,0 +1,142 @@
+export const lessonMeta = {
+  title: "Alignment & layout",
+  module: "typography",
+  order: 9,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos/good-bad";
+import { AlignmentLayoutLab } from "@/components/demos/typography/alignment-layout-lab";
+
+The word _Typography_ sits alone on the second line. One word, stranded. That's a widow.
+
+<AlignmentLayoutLab />
+
+## Widows and orphans
+
+A **widow** is a single word stranded on the last line of a paragraph or headline. An **orphan** is a single line stranded at the top or bottom of a column.
+
+### Headlines: fix them
+
+Insert a non-breaking space between the last two words:
+
+```html
+<h1>Getting Started with Web&nbsp;Typography</h1>
+```
+
+Or use `text-wrap: balance` to redistribute words across lines:
+
+```css
+h1 {
+  text-wrap: balance;
+}
+```
+
+`text-wrap: pretty` is the milder version for body text. It prevents single-word last lines.
+
+<GoodBad
+  bad={
+    <div className="max-w-[280px]">
+      <p className="text-lg font-semibold">
+        Getting Started with Web Typography
+      </p>
+      <p className="text-xs text-muted-foreground mt-1">
+        "Typography" stranded alone on the last line
+      </p>
+    </div>
+  }
+  good={
+    <div className="max-w-[280px]">
+      <p className="text-lg font-semibold" style={{ textWrap: "balance" }}>
+        Getting Started with Web Typography
+      </p>
+      <p className="text-xs text-muted-foreground mt-1">
+        text-wrap: balance redistributes the words
+      </p>
+    </div>
+  }
+  badLabel="Widow"
+  goodLabel="Balanced"
+/>
+
+### Body paragraphs: don't fight it
+
+Responsive layouts reflow constantly. Reserve manual fixes for headlines, navigation, and cards.
+
+## Hanging punctuation
+
+**Hanging punctuation** pulls punctuation marks (opening quotes, commas, hyphens, periods) _outside_ the text column so the visible edges stay optically aligned.
+
+CSS has `hanging-punctuation: first last;`, but only Safari supports it. Workarounds: negative `text-indent` for blockquotes, manual hanging for display headlines. Apply to **blockquotes and large display text** only.
+
+## Justified text
+
+**Justified text** aligns flush on both edges by varying word spaces. Books are justified because typesetting software hyphenates well. Browsers do not. Without good hyphenation, the browser stretches word spaces:
+
+- **Rivers**: vertical streams of whitespace running down the column.
+- **Stretched lines** with awkward gaps.
+- **Compressed lines** where long words force spaces to shrink.
+
+Justification needs all three:
+
+- **Long line lengths** (60+ characters). Short measures amplify rivers.
+- **Strong hyphenation.** `hyphens: auto` plus the correct `lang` on `<html>`.
+- **16px or larger font size.** Small text exaggerates gaps.
+
+<Callout type="rule">
+  Missing any one of these three produces rivers. Without all three, use
+  `text-align: left`.
+</Callout>
+
+```css
+article.justified {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  max-width: 65ch;
+}
+html {
+  lang: "en";
+}
+```
+
+Never use `letter-spacing` to fill justified lines. Never justify narrow columns, navigation, buttons, or short blocks.
+
+## Centre alignment
+
+Centre alignment works for short lines: a card title, a hero tagline, a caption. Beyond two or three lines the eye has no left edge to return to.
+
+## Practical defaults
+
+```css
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+.prose {
+  max-width: 65ch;
+  margin-inline: auto;
+}
+```
+
+<Depth level="deep-dive" title="Hanging punctuation workarounds">
+
+`hanging-punctuation: first last` only works in Safari. For other browsers:
+
+- **Blockquotes**: use `text-indent: -0.4em` to pull the opening quote into the margin.
+- **Display headlines**: wrap the opening quote in a `<span>` with a negative margin.
+- **Pull quotes**: position the quote mark absolutely in the left margin.
+
+Skip body text until browser support catches up.
+
+</Depth>
+
+<Exercise id="typo-text-wrap" title="Add text-wrap and non-breaking spaces">
+  Add `text-wrap: balance` to your `h1`, `h2`, `h3` elements and `text-wrap:
+  pretty` to your body paragraphs. Then find one `&amp;nbsp;` opportunity (a
+  number with a unit, or the last two words of a headline) and add it.
+</Exercise>

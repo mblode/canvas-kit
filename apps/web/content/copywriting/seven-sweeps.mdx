@@ -1,0 +1,86 @@
+export const lessonMeta = {
+  title: "The seven sweeps",
+  module: "copywriting",
+  order: 8,
+  duration: "12 min",
+};
+
+import { Demo } from "@/components/demos";
+import { SweepRunner } from "@/components/demos/copywriting/sweep-runner";
+
+Seven passes, one lens each.
+
+## Sweep 1: Clarity
+
+No sentence should require a re-read. Flag nested clauses, ambiguous pronouns, undefined jargon.
+
+`[VAGUE]` for ambiguous claims. `[JARGON]` for unexplained terms.
+
+## Sweep 2: Voice and tone
+
+Catch formality shifts between sections. `[VOICE-SHIFT]` where register breaks.
+
+## Sweep 3: So what
+
+Read each sentence. Ask "so what?" No answer? Cut.
+
+`[DEAD-WEIGHT]` for zero-value sentences. `[FEATURE-NOT-BENEFIT]` for missing outcomes.
+
+## Sweep 4: Prove it
+
+Every claim: how would you verify it?
+
+`[TELL-NOT-SHOW]` for unearned adjectives. `[NO-PROOF]` for claims without numbers or references.
+
+## Sweep 5: Specificity
+
+`[GENERIC]` for vague claims. "Teams" becomes "5-person engineering teams at Series A startups."
+
+## Sweep 6: Emotion
+
+`[FLAT]` where emotional weight is missing. Spec sheets can be neutral. Heroes and CTAs cannot.
+
+## Sweep 7: Zero risk
+
+`[FRICTION]` for unclear commitments and missing reassurance.
+
+## Worked example
+
+Start: "Our platform is designed to help teams collaborate more effectively."
+
+Sweep 3: "Collaborate more effectively" answers no question the reader asked. `[DEAD-WEIGHT]`
+
+Sweep 4: "more effectively" is unearned. No number, no proof. `[TELL-NOT-SHOW]`
+
+Sweep 5: "teams." Which teams? How large? `[GENERIC]`
+
+Rewrite: "Engineering teams of 5 to 15 ship code reviews in half the time."
+
+<Demo
+  title="Sweep runner"
+  caption="Load sample copy and run each of the 7 sweeps in sequence. Each sweep highlights different issues."
+>
+  <SweepRunner />
+</Demo>
+
+## Why the order matters
+
+1. **Clarity** makes it understandable.
+2. **Voice** makes it consistent.
+3. **So what** removes dead weight.
+4. **Prove it** backs claims.
+5. **Specificity** replaces generic with concrete.
+6. **Emotion** adds temperature.
+7. **Zero risk** removes last barriers.
+
+Flag everything before rewriting. Resolve after all seven.
+
+## Quick-pass version
+
+Three sweeps: **Clarity**, **So what**, **Prove it**. Ten minutes.
+
+## Word-level cuts
+
+Kill on sight: "very," "really," "truly," "just," "simply," "easily," "actually," "basically," "essentially."
+
+Front-load the key claim. Cut openings that start with "There is," "It is," or "We believe."

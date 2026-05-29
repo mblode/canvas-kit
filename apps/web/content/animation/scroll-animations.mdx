@@ -1,0 +1,172 @@
+export const lessonMeta = {
+  title: "Scroll animations",
+  module: "animation",
+  order: 12,
+  duration: "12 min",
+};
+
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import {
+  StayVisibleScroll,
+  ReverseScroll,
+} from "@/components/demos/animation/scroll-judgement-options";
+
+Scroll-driven animation ties motion to scroll position instead of a clock.
+
+If it doesn't serve orientation, feedback, or continuity, remove it.
+
+## CSS scroll-driven animations
+
+### Scroll progress timeline
+
+```css
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title {
+  animation: fade-in linear both;
+  animation-timeline: scroll();
+  animation-range: 0% 30%;
+}
+```
+
+`animation-range: 0% 30%` means the animation completes at 30% scroll depth.
+
+### View progress timeline
+
+```css
+.card {
+  animation: fade-in linear both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 100%;
+}
+```
+
+`entry 0%` = first touches the viewport. `entry 100%` = fully visible.
+
+## IntersectionObserver patterns
+
+```typescript
+const observer = new IntersectionObserver(
+  (entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    }
+  },
+  { threshold: 0.2 }
+);
+
+document.querySelectorAll("[data-animate]").forEach((el) => {
+  observer.observe(el);
+});
+```
+
+Paired with CSS:
+
+```css
+[data-animate] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 400ms ease-out,
+    transform 400ms ease-out;
+}
+
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+```
+
+## Parallax
+
+```css
+.parallax-container {
+  perspective: 1px;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.parallax-bg {
+  transform: translateZ(-1px) scale(2);
+}
+```
+
+`scale(2)` compensates for size reduction from the Z-axis offset.
+
+**Use for:** Hero sections, landing pages. **Skip on:** Content-heavy pages, documentation, dashboards, mobile.
+
+## Performance
+
+**Only animate `transform` and `opacity`.**
+
+**Batch JavaScript scroll handlers** with `requestAnimationFrame`:
+
+```typescript
+let ticking = false;
+
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      updateParallax();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+```
+
+## Accessibility
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .parallax-bg {
+    transform: none;
+  }
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  * {
+    animation-timeline: initial !important;
+  }
+}
+```
+
+<JudgementExercise
+  id="scroll-once-vs-reverse"
+  category="Animation"
+  question="Scroll down then back up in each panel. Which behaviour feels reliable?"
+  optionA={<StayVisibleScroll />}
+  optionB={<ReverseScroll />}
+  correctAnswer="a"
+  explanation={
+    <>
+      A uses <code>once: true</code>, so the card animates in when scrolled into
+      view and stays visible. B uses <code>once: false</code>, so the card
+      disappears on scroll-back and re-animates. Reversing entrance animations
+      makes the page feel unreliable. The user is navigating, not rewinding a
+      timeline. Once revealed, content should stay.
+    </>
+  }
+/>
+
+## Common mistakes
+
+**Scroll-jacking.** Hijacking native scroll breaks back/forward, bookmarks, find-on-page, and screen readers.
+
+**Hiding content behind scroll.** Reveal content already in the DOM with `opacity: 0`, not dynamically injected content.
+
+**Momentum scroll on mobile.** iOS fires scroll events at irregular intervals. Keep mobile scroll animations to IntersectionObserver triggers, not continuous scrubbing.

@@ -1,0 +1,73 @@
+export const lessonMeta = {
+  title: "Animation × craft",
+  module: "intersections",
+  order: 3,
+  duration: "10 min",
+};
+
+A drawer opens with a beautiful spring curve. The user closes it with Escape. Focus goes nowhere. Keyboard cursor stranded at page top.
+
+## Focus management after animated transitions
+
+Modal opens with a spring. Focus should move to the first focusable element inside. But when? Too early and screen readers announce invisible content. Too late and keyboard users interact behind the modal.
+
+Move focus at 60-70% through the transition, when the element first hits its target position, before overshoot.
+
+For exits, focus _must_ return to the trigger element _after_ the exit animation completes. Mid-animation restoration flashes the focus ring while the drawer is still visible.
+
+```tsx
+// After exit animation completes
+onAnimationComplete={() => {
+  triggerRef.current?.focus();
+}}
+```
+
+## Loading-state timing
+
+Under 200ms: no indicator. 200-500ms: subtle state change (dim the button, show a checkmark). Past 500ms: spinner.
+
+Match loading delay to your transition system. If the UI uses 200ms ease-out, set the spinner delay to 200ms.
+
+```css
+.spinner {
+  animation: spin 1s linear infinite;
+  animation-delay: 200ms;
+  animation-fill-mode: backwards; /* Hidden during delay */
+}
+```
+
+## Overscroll-behavior and gesture interactions
+
+`overscroll-behavior: contain` prevents scroll chaining. Essential for modals, drawers, and any overlay with scrollable content. Without it, swiping a drawer closed might scroll the page behind it.
+
+```css
+.drawer-content {
+  overscroll-behavior: contain;
+  touch-action: pan-y; /* Allow vertical scrolling within */
+}
+```
+
+## Animation without focus management is incomplete
+
+The full popover lifecycle:
+
+1. User clicks the trigger.
+2. Popover enters with ease-out, scaling from 95% to 100%.
+3. Focus moves to the first item.
+4. User selects an option or presses Escape.
+5. Popover exits with ease-in, scaling to 95%.
+6. Focus returns to the trigger.
+7. Screen reader announces the state change.
+
+Steps 2 and 5 are animation. Steps 3, 6, and 7 are craft. Remove animation: still works. Remove craft: broken.
+
+## The coordination pattern
+
+Every animated component needs four answers:
+
+1. **Where does focus go when this appears?** First focusable element. Close button. Input field.
+2. **Where does focus go when this disappears?** Back to the trigger.
+3. **What happens to scroll context?** Background scroll locked? Does the component itself scroll?
+4. **What does a screen reader hear?** The role, label, and state change.
+
+If any answer is "I don't know," the component is incomplete.

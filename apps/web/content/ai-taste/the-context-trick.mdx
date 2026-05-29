@@ -1,0 +1,75 @@
+export const lessonMeta = {
+  title: "The context trick",
+  module: "ai-taste",
+  order: 4,
+  duration: "8 min",
+};
+
+import { GoodBad } from "@/components/demos";
+
+Better references beat better prompts.
+
+## Why prompts plateau
+
+"Make it look premium" is not actionable. The model doesn't know what premium means to you. It knows what premium meant to the average of its training data: purple gradients and glowing borders.
+
+More detailed prompts help (`use a 4px grid, tight heading line-height`), but you're fighting the model's defaults one property at a time. There's a faster way.
+
+## Reference-driven generation
+
+Show the model what good looks like. Copy the computed styles from an interface you admire. Paste them into the prompt. The model now has constraints instead of adjectives.
+
+<GoodBad
+  badLabel="Prompt-driven"
+  goodLabel="Reference-driven"
+  bad={
+    <div className="space-y-2 text-sm">
+      <div className="font-medium">The prompt</div>
+      <p className="text-muted-foreground">
+        "Build a modern, premium SaaS landing page with a clean hero section,
+        feature grid, and testimonials. Use a professional colour scheme."
+      </p>
+      <div className="font-medium pt-2">The result</div>
+      <p className="text-muted-foreground">
+        Generic. The model interpreted "premium" as "more effects."
+      </p>
+    </div>
+  }
+  good={
+    <div className="space-y-2 text-sm">
+      <div className="font-medium">The context</div>
+      <p className="text-muted-foreground">
+        Computed styles from Linear's homepage. Specific font sizes, line
+        heights, spacing values, colour tokens. Plus: "Match this visual density
+        and restraint."
+      </p>
+      <div className="font-medium pt-2">The result</div>
+      <p className="text-muted-foreground">
+        Specific. The output inherits the intentionality of the reference.
+      </p>
+    </div>
+  }
+/>
+
+## How to capture references
+
+Open DevTools, select the element, copy the computed styles. Font family, size, weight, `line-height`, padding, margin, colour, `border-radius`, `box-shadow`.
+
+Or use a tool like Style Capture: point, click, copy. One clipboard paste gives the model the full computed CSS, the HTML structure, and Tailwind equivalents.
+
+## Building a reference library
+
+Organise references by component type:
+
+- **Hero sections**: heading size relative to subhead, whitespace above and below
+- **Navigation**: item count, contrast between active and inactive, spacing
+- **Cards**: shadow depth, corner radius, padding ratios, border treatment
+- **Forms**: label positioning, input height, error state treatment
+
+Pull references _before_ you prompt. The AI becomes a tool for assembling references, not generating defaults.
+
+## Common mistakes
+
+- **Capturing screenshots instead of values.** Screenshots show _what_ looks good. Computed values show _why_.
+- **Using one reference for everything.** Mix references: the typography from one product, the spacing from another, the colour approach from a third.
+- **Prompting with adjectives.** "Clean, modern, premium" produces the training-data average. Computed styles produce something specific.

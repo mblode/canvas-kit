@@ -1,0 +1,97 @@
+export const metadata = {
+  alternates: { canonical: "/docs/document-card" },
+  description:
+    "A draggable document card with title, excerpt and metadata that emits a generic onOpen payload.",
+  title: "Document card",
+};
+
+import { DocumentCardDemo } from "@/components/docs/demos/document-card-demo";
+
+# Document card
+
+A draggable card representing a document, title, optional excerpt, duration and
+meta. Drag it (mouse/pen), marquee-select it, or click without dragging to fire
+`onOpen` with a payload that includes the card's `sourceRect` (useful for
+shared-element open animations).
+
+<Preview>
+  <DocumentCardDemo />
+</Preview>
+
+## Installation
+
+<CommandTabs name="document-card" />
+
+## Usage
+
+```tsx
+import { DocumentCard } from "@/components/canvas/document-card";
+
+<DocumentCard
+  cardId="doc-1"
+  duration="6 min"
+  excerpt="A short summary…"
+  meta="Foundations"
+  onOpen={(state) => open(state)}
+  title="Layout & grids"
+  x={70}
+  y={70}
+/>;
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    {
+      name: "x",
+      type: "number",
+      required: true,
+      description: "Left position on the canvas, in px.",
+    },
+    {
+      name: "y",
+      type: "number",
+      required: true,
+      description: "Top position on the canvas, in px.",
+    },
+    {
+      name: "title",
+      type: "string",
+      required: true,
+      description: "Document title.",
+    },
+    {
+      name: "cardId",
+      type: "string",
+      required: true,
+      description: "Stable id for selection and the onOpen payload.",
+    },
+    {
+      name: "excerpt",
+      type: "string",
+      description: "Short summary line.",
+    },
+    {
+      name: "duration",
+      type: "string",
+      description: "Small label, e.g. a reading time.",
+    },
+    {
+      name: "meta",
+      type: "string",
+      description: "Right-aligned label, e.g. a category.",
+    },
+    {
+      name: "selected",
+      type: "boolean",
+      description: "Draws the selection ring.",
+    },
+    {
+      name: "onOpen",
+      type: "(state: DocumentOpenState) => void",
+      description:
+        "Fires on a click (not a drag) with `{ cardId, title, sourceRect }`.",
+    },
+  ]}
+/>

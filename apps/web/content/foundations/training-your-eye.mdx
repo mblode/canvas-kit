@@ -1,0 +1,164 @@
+export const lessonMeta = {
+  title: "Training your eye",
+  module: "foundations",
+  order: 2,
+  duration: "8 min",
+};
+
+import { SpotDifference } from "@/components/demos/foundations/spot-difference";
+import { JudgementExercise } from "@/components/demos/judgement-exercise";
+import { JudgementSeries } from "@/components/demos/judgement-series";
+import {
+  EaseInHoverButton,
+  EaseOutHoverButton,
+  InstantModal,
+  LabeledForm,
+  OpenLineHeight,
+  OutcomeCta,
+  PlaceholderForm,
+  SmartQuotesHeading,
+  SpringModal,
+  StraightQuotesHeading,
+  SubmitCta,
+  TightLineHeight,
+} from "@/components/demos/foundations/judgement-options";
+
+A developer sees a component that renders correctly. A designer sees a heading in the wrong weight, 14px padding on one side and 16 on the other, `ease-in` where it should be `ease-out`. Not talent. Trained perception.
+
+Once trained, it doesn't turn off. Misaligned icons in banking apps. Straight quotes on billboards. Inconsistent border-radius everywhere.
+
+<SpotDifference />
+
+## How designers actually see
+
+Designers don't run checklists. They pattern-match against thousands of examples stored as intuition. A misaligned element doesn't trigger "that's 2 pixels off." It triggers a feeling: _something is wrong here_.
+
+"Having an eye" means violations register as discomfort before you can name the problem.
+
+## Train your eye across all four pillars
+
+<JudgementSeries id="training-your-eye-mixed" title="Pick the stronger option">
+  <JudgementExercise
+    id="tye-typography-quotes"
+    category="Typography"
+    question="Which heading reads as professionally typeset?"
+    optionA={<StraightQuotesHeading />}
+    optionB={<SmartQuotesHeading />}
+    correctAnswer="b"
+    explanation={
+      <>
+        B uses curly quotes (<code>“ ”</code>) and a true apostrophe (
+        <code>’</code>). A leaves the ASCII straight quotes that come out of a
+        keyboard. Straight quotes are a typewriter artifact. Every typeset book,
+        magazine, and well-built product replaces them. Once you see straight
+        quotes in a headline, the entire page reads as unfinished.
+      </>
+    }
+  />
+  <JudgementExercise
+    id="tye-animation-ease"
+    category="Animation"
+    question="Hover each button. Which feels more responsive?"
+    optionA={<EaseInHoverButton />}
+    optionB={<EaseOutHoverButton />}
+    correctAnswer="b"
+    explanation={
+      <>
+        B uses <code>ease-out</code>: fast start, slow finish. The element
+        responds the instant you hover, then settles. A uses{" "}
+        <code>ease-in</code>, which lags before it accelerates. The first 100ms
+        register as broken. Reserve <code>ease-in</code> for exits only.
+      </>
+    }
+  />
+  <JudgementExercise
+    id="tye-craft-form"
+    category="Craft"
+    question="Which form is easier to fill out correctly?"
+    optionA={<PlaceholderForm />}
+    optionB={<LabeledForm />}
+    correctAnswer="b"
+    explanation={
+      <>
+        Placeholder-only labels disappear the moment a user starts typing. They
+        tax short-term memory, fail screen readers, and make error correction
+        harder. Visible labels stay visible. Use the placeholder for an example
+        value, not the label itself.
+      </>
+    }
+  />
+  <JudgementExercise
+    id="tye-copy-cta"
+    category="Copywriting"
+    question="Which CTA gets clicked?"
+    optionA={<SubmitCta />}
+    optionB={<OutcomeCta />}
+    correctAnswer="b"
+    explanation={
+      <>
+        “Submit” describes the form mechanic; the user doesn't care how the
+        system feels. “Start building free” names the outcome and removes the
+        cost barrier in five words. CTAs should complete the sentence “If I
+        click this, I will…” The reader should know exactly what they're
+        committing to.
+      </>
+    }
+  />
+  <JudgementExercise
+    id="tye-typography-leading"
+    category="Typography"
+    question="Which paragraph is comfortable to read?"
+    optionA={<TightLineHeight />}
+    optionB={<OpenLineHeight />}
+    correctAnswer="b"
+    explanation={
+      <>
+        A uses <code>line-height: 1.2</code>, the default for headings, but
+        punishing for body copy. B uses <code>1.5</code>, which gives the eye
+        room to find the next line. Body text wants 1.4–1.6; headings tighten
+        down to 1.0–1.2. The default <code>1</code> from a CSS reset is almost
+        never right for paragraphs.
+      </>
+    }
+  />
+  <JudgementExercise
+    id="tye-animation-modal"
+    category="Animation"
+    question="Open each modal. Which entrance feels intentional?"
+    optionA={<InstantModal />}
+    optionB={<SpringModal />}
+    correctAnswer="b"
+    explanation={
+      <>
+        A pops in with no animation. The modal teleports, and the user loses the
+        connection between their click and the new state. B uses a small spring
+        scale from 0.92 to 1.0, which signals cause-and-effect without slowing
+        anyone down. Modals don't need long entrances; they need any entrance at
+        all.
+      </>
+    }
+  />
+</JudgementSeries>
+
+## The developer blind spots
+
+**Typography is invisible.** Line-height too tight, heading and body weights too similar, straight quotes everywhere.
+
+**Spacing is "close enough."** 4 pixels of padding difference: invisible in code review, obvious on screen.
+
+**Motion is binary.** Things animate or they don't. The curve, the duration scaling with distance rarely get the same scrutiny as the logic that triggers them.
+
+**Copy is someone else's problem.** "Submit" stays "Submit." The words _are_ the interface.
+
+## Practice: the 5-second scan
+
+1. Open a page. Five-second timer.
+2. Look away when it ends.
+3. Write down everything that felt _wrong_. Not broken, just off.
+4. Reopen. Verify each item.
+
+The gap between what you caught and what you missed is your perception gap. Run this weekly.
+
+## The progression
+
+See problems when pointed out. Notice them unprompted. Stop _creating_ them, because the wrong option feels wrong before you finish typing.

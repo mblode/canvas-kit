@@ -1,0 +1,152 @@
+export const lessonMeta = {
+  title: "Hero section",
+  module: "walkthroughs",
+  order: 1,
+  duration: "25 min",
+};
+
+## The starting point
+
+```tsx
+<section className="flex items-center justify-center px-6 py-24">
+  <div className="text-center">
+    <h1 className="text-4xl font-bold">
+      Build Better Websites with Our Platform
+    </h1>
+    <p className="mt-4 text-gray-500">
+      Our innovative solution helps you create beautiful, fast, and reliable
+      websites with ease. Get started today and see the difference.
+    </p>
+    <button className="mt-8 rounded bg-blue-600 px-4 py-2 text-white">
+      Learn More
+    </button>
+  </div>
+</section>
+```
+
+Count the problems.
+
+## Layer 1: Copywriting
+
+### Fix the headline
+
+**Before:** "Build Better Websites with Our Platform"
+**After:** "Ship interfaces your users actually notice"
+
+### Fix the subheadline
+
+**Before:** "Our innovative solution helps you create beautiful, fast, and reliable websites with ease."
+**After:** "The thousand small decisions (the right easing curve, the curly apostrophe, the CTA that says exactly what happens next) are the difference between forgettable and remarkable."
+
+### Fix the CTA
+
+**Before:** "Learn More"
+**After:** "Start the course, free"
+
+## Layer 2: Typography
+
+### Eyebrow text
+
+```tsx
+<p className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
+  A course in obsessive attention to detail
+</p>
+```
+
+### Headline sizing
+
+```tsx
+<h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
+```
+
+### Subheadline typography
+
+```tsx
+<p className="text-muted-foreground mt-6 text-lg leading-8 text-balance">
+```
+
+### Proper punctuation
+
+```tsx
+{/* Not: "decisions - the right" (hyphen) */}
+{/* Not: "decisions -- the right" (double hyphen) */}
+{/* Correct: */}
+decisions&thinsp;&mdash;&thinsp;the right
+```
+
+## Layer 3: Craft
+
+### Spacing system
+
+```tsx
+<section className="flex flex-1 flex-col items-center justify-center px-6 py-24 sm:py-32">
+  <div className="mx-auto max-w-2xl text-center">
+```
+
+### Button styling
+
+```tsx
+<a
+  href="/foundations/the-one-percent"
+  className="inline-flex h-11 items-center justify-center rounded-lg bg-primary px-6 font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90"
+>
+  Start the course, free
+</a>
+```
+
+`<a>`, not `<button>`. `h-11` is a 44px touch target.
+
+### Secondary action
+
+```tsx
+<div className="mt-10 flex items-center justify-center gap-4">
+  <a href="/foundations/the-one-percent" className="...primary styles...">
+    Start the course, free
+  </a>
+  <a
+    href="#structure"
+    className="text-muted-foreground text-sm hover:text-foreground"
+  >
+    See the syllabus
+  </a>
+</div>
+```
+
+Primary has a background, secondary is text-only.
+
+## Layer 4: Animation
+
+### Stagger entrance
+
+```tsx
+<motion.p
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+  className="text-sm tracking-widest uppercase text-muted-foreground"
+>
+  A course in obsessive attention to detail
+</motion.p>
+<motion.h1
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+  className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl"
+>
+  Ship interfaces your users actually notice
+</motion.h1>
+```
+
+### Reduced motion
+
+```tsx
+const prefersReduced = useReducedMotion();
+
+<motion.h1
+  initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  ...
+>
+```
+
+When `initial` is `false`, motion/react skips the entrance entirely.

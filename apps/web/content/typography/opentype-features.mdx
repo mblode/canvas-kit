@@ -1,0 +1,119 @@
+export const lessonMeta = {
+  title: "OpenType features",
+  module: "typography",
+  order: 7,
+  duration: "10 min",
+};
+
+import { OpenTypePlayground } from "@/components/demos/typography/opentype-playground";
+
+Most fonts ship with dozens of features you're not using. Ligatures, tabular figures, small caps. The difference between a font _being available_ and a font _looking right_.
+
+<OpenTypePlayground />
+
+## The body-text essentials
+
+Enable these four for running text:
+
+```css
+body {
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures contextual;
+  /* or, explicit */
+  font-feature-settings: "kern", "liga", "clig", "calt";
+}
+```
+
+- **`kern`**: adjusts space between letter pairs (`AV`, `To`, `Wa`).
+- **`liga`**: standard ligatures (`fi`, `fl`, `ff`, `ffi`, `ffl`).
+- **`clig`**: contextual ligatures.
+- **`calt`**: contextual alternates.
+
+Most browsers enable these by default. Explicit declarations guard against inconsistencies. Prefer `font-variant-*` over `font-feature-settings` since changing one feature in `font-feature-settings` resets the others.
+
+## Ligatures in detail
+
+OpenType groups ligatures into four categories:
+
+- **Standard (`liga`)**: everyday set (`fi`, `fl`). Always on for body.
+- **Contextual (`clig`)**: substitutions based on surrounding context. On for body.
+- **Discretionary (`dlig`)**: decorative pairs (`st`, `ct`, `Th`). Off for body, on for headlines.
+- **Historical (`hlig`)**: long-_s_ ligatures and archaic forms. Off unless the design calls for it.
+
+```css
+body {
+  font-feature-settings: "liga", "clig", "calt";
+}
+h1 {
+  font-feature-settings: "liga", "dlig", "clig", "calt";
+}
+```
+
+## Code block typography
+
+Ligatures harm code. They collapse `fi` into one glyph and transform `!=` into a combined symbol:
+
+```css
+code,
+pre {
+  font-variant-ligatures: none;
+  font-feature-settings:
+    "liga" 0,
+    "clig" 0,
+    "calt" 0;
+}
+```
+
+Choose a monospace face with distinct `0`/`O`, `l`/`1`/`I` glyphs: JetBrains Mono, Fira Code (ligatures off), Cascadia Code, Berkeley Mono. Set code `line-height` at 1.5–1.7.
+
+## Small caps
+
+True small caps are _drawn_ at the optical size of lowercase, not shrunk. A real small-cap `H` has the stroke weight of a lowercase `h`. Pseudo small caps (scaled-down uppercase) are too thin.
+
+```css
+.abbr {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.05em;
+}
+```
+
+Use for abbreviations (NATO, HTML, BBC), short labels, and editorial credits. Verify the font ships `smcp` first. Many free fonts omit it.
+
+## Tabular vs. proportional figures
+
+**Tabular figures** give every digit the same width:
+
+```css
+.data-table td {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+```
+
+Use tabular figures for tables, prices, dashboards, and animated counters. **Proportional figures** (variable widths) for body text.
+
+## Oldstyle vs. lining figures
+
+**Oldstyle figures** have ascenders and descenders, like lowercase letters. **Lining figures** sit on the baseline at cap height.
+
+```css
+body {
+  font-variant-numeric: oldstyle-nums; /* prose */
+}
+.btn,
+h1,
+table {
+  font-variant-numeric: lining-nums; /* UI / headings / data */
+}
+```
+
+If `font-variant-numeric: oldstyle-nums` produces no visible change, the font doesn't support it.
+
+## Other features worth knowing
+
+- **`dlig`**: discretionary ligatures. Display only.
+- **`swsh`**: swashes. Ornate alternates, display only.
+- **`salt` / `ss01`–`ss20`**: stylistic alternates and sets. Alternate letter shapes the designer offers.
+- **`c2sc`**: uppercase to small caps. Pair with `smcp` to convert all caps.
+- **`onum` / `lnum`**: oldstyle and lining figures.
+- **`tnum` / `pnum`**: tabular and proportional figures.
