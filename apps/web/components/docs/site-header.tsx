@@ -4,7 +4,6 @@ import { DocsMobileNav } from "@/components/docs/docs-mobile-nav";
 import { GitHubLink } from "@/components/docs/github-link";
 import { MainNav } from "@/components/docs/main-nav";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { siteConfig } from "@/lib/docs/site";
 
 export const SiteHeader = () => (
@@ -26,10 +25,6 @@ export const SiteHeader = () => (
         <MainNav className="hidden lg:flex" items={siteConfig.navItems} />
         <div className="ml-auto flex items-center gap-1.5">
           <GitHubLink />
-          <Separator orientation="vertical" />
-          <Button asChild className="h-8 px-2.5" size="sm" variant="ghost">
-            <Link href="/">Course</Link>
-          </Button>
         </div>
       </div>
     </div>

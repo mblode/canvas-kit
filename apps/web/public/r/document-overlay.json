@@ -3,8 +3,13 @@
   "name": "document-overlay",
   "title": "Document overlay",
   "description": "A full-screen document reader that scales up from a source card and scales back into it on close. Content-agnostic, pass the document as children and optional prev/next controls via a footer slot.",
-  "dependencies": ["motion", "blode-icons-react"],
-  "registryDependencies": ["https://canvas.blode.co/r/canvas-vars.json"],
+  "dependencies": [
+    "motion",
+    "blode-icons-react"
+  ],
+  "registryDependencies": [
+    "https://canvas.blode.co/r/canvas-vars.json"
+  ],
   "files": [
     {
       "path": "components/canvas-kit/document-overlay.tsx",

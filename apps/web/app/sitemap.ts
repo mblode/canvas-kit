@@ -35,12 +35,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
       url: BASE_URL,
     },
-    {
-      changeFrequency: "monthly" as const,
-      lastModified: new Date(),
-      priority: 0.6,
-      url: `${BASE_URL}/demo`,
-    },
     ...modulePages,
     ...lessonPages,
     ...docsPages,

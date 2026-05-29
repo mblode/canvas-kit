@@ -65,7 +65,7 @@ export const CanvasBoardDemo = () => {
           y={-20}
         >
           <div className="p-5">
-            <h2 className="font-semibold text-canvas-fg text-sm">Canvas Kit</h2>
+            <h2 className="font-semibold text-canvas-fg text-sm">Canvas kit</h2>
             <p className="mt-1.5 text-canvas-fg/55 text-xs leading-relaxed">
               Pan with two fingers or scroll. Pinch or ⌘/Ctrl + scroll to zoom.
               Drag the folders, click to peek, then open a card to read it.

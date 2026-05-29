@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { siteConfig } from "@/lib/docs/site";
 import { cn } from "@/lib/utils";
 
 /** Hamburger-triggered docs nav for small screens (hidden at lg+). */
@@ -30,7 +31,7 @@ export const DocsMobileNav = ({ className }: { className?: string }) => {
       </SheetTrigger>
       <SheetContent className="w-72 max-w-[80vw]" side="left">
         <SheetHeader>
-          <SheetTitle>Canvas Kit</SheetTitle>
+          <SheetTitle>{siteConfig.name}</SheetTitle>
         </SheetHeader>
         <div className="overflow-y-auto px-4 pb-8">
           <DocsNavList onNavigate={() => setOpen(false)} />

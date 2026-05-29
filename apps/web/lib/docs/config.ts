@@ -60,7 +60,7 @@ const gettingStarted: DocsNavGroup = {
       title: "Overview",
     },
     {
-      description: "Add Canvas Kit to a React + Tailwind v4 project.",
+      description: "Add Canvas kit to a React + Tailwind v4 project.",
       href: "/docs/installation",
       slug: "installation",
       title: "Installation",

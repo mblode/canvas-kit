@@ -1,4 +1,4 @@
-<h1 align="center">Canvas Kit</h1>
+<h1 align="center">Canvas kit</h1>
 <p align="center">An infinite-canvas shadcn registry — pan, zoom, drag and folder cards, no canvas engine</p>
 
 ## Installation

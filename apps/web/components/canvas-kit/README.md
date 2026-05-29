@@ -1,4 +1,4 @@
-# Canvas Kit
+# Canvas kit
 
 The infinite-canvas UI from [course.blode.co](https://course.blode.co), packaged
 as a [shadcn registry](https://ui.shadcn.com/docs/registry) you can install into

@@ -55,7 +55,7 @@ export const sampleFolders: CanvasBoardFolder[] = [
 ];
 
 const makeBody = (title: string): string =>
-  `${title} is one of the building blocks of the craft. This is sample content for the Canvas Kit demo, install the registry to wire your own documents into the overlay. Pan the canvas, peek a folder, and open any card to read it full-screen; the back arrow scales it right back into the card it came from.`;
+  `${title} is one of the building blocks of the craft. This is sample content for the Canvas kit demo, install the registry to wire your own documents into the overlay. Pan the canvas, peek a folder, and open any card to read it full-screen; the back arrow scales it right back into the card it came from.`;
 
 /** Sample document bodies for the board demo, keyed by folder item id. */
 export const sampleDocuments: Record<string, { body: string; title: string }> =

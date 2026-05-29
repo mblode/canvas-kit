@@ -3,7 +3,9 @@
   "name": "folder-card",
   "title": "Folder card",
   "description": "The signature draggable folder: tap to peek open into a staggered masonry of preview cards (render-prop driven), with a progress dial.",
-  "dependencies": ["motion"],
+  "dependencies": [
+    "motion"
+  ],
   "registryDependencies": [
     "utils",
     "https://canvas.blode.co/r/use-draggable.json",
