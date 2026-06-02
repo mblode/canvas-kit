@@ -23,7 +23,7 @@ type ManagerId = (typeof MANAGERS)[number]["id"];
  * localStorage.
  */
 export const CommandTabs = ({ name }: { name: string }) => {
-  const url = `https://canvas.blode.co/r/${name}.json`;
+  const item = `@canvas/${name}`;
   const [value, setValue] = useState<ManagerId>("npm");
   const [hasCopied, setHasCopied] = useState(false);
 
@@ -47,7 +47,7 @@ export const CommandTabs = ({ name }: { name: string }) => {
   }, []);
 
   const prefix = MANAGERS.find((m) => m.id === value)?.prefix ?? "npx";
-  const activeCommand = `${prefix} shadcn@latest add ${url}`;
+  const activeCommand = `${prefix} shadcn@latest add ${item}`;
 
   const copyCommand = useCallback(async () => {
     try {
@@ -86,7 +86,7 @@ export const CommandTabs = ({ name }: { name: string }) => {
         <div className="overflow-hidden rounded-[14px] bg-white dark:bg-[#0B0C0E]">
           <div className="overflow-x-auto">
             {MANAGERS.map((manager) => {
-              const command = `${manager.prefix} shadcn@latest add ${url}`;
+              const command = `${manager.prefix} shadcn@latest add ${item}`;
               return (
                 <TabsContent
                   className="mt-0 px-4 py-3.5"

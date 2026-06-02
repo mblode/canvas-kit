@@ -16,6 +16,17 @@ adding a component is a single command.
 - A project initialised with `shadcn` (a `components.json` at the root). If you
   haven't, run `npx shadcn@latest init` first.
 
+## Register the registry (once)
+
+Add the `@canvas` namespace to your project so you can install items by name:
+
+```bash
+npx shadcn@latest registry add @canvas=https://canvas.blode.co/r/{name}.json
+```
+
+Prefer not to register it? Every command below also works with the full URL,
+e.g. `npx shadcn@latest add https://canvas.blode.co/r/folder-card.json`.
+
 ## Install a component
 
 Every item resolves its own dependencies, installing `folder-card`, for
