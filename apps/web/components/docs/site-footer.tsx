@@ -2,14 +2,21 @@ import { siteConfig } from "@/lib/docs/site";
 
 export const SiteFooter = () => (
   <footer className="container-wrapper flex flex-col items-center justify-center gap-2 px-4 pt-16 pb-10 text-muted-foreground text-sm sm:px-6">
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1.5">
       Crafted by
       <a
-        className="font-medium transition-colors hover:text-foreground"
+        className="inline-flex items-center gap-1.5 font-medium transition-colors hover:text-foreground"
         href={siteConfig.links.author}
-        rel="noopener noreferrer"
-        target="_blank"
+        rel="author"
       >
+        {/* oxlint-disable-next-line next/no-img-element -- small static external avatar; next/image not worth the config */}
+        <img
+          alt="Matthew Blode"
+          className="rounded-full"
+          height={20}
+          src="https://matthewblode.com/avatar-sm.png"
+          width={20}
+        />
         Matthew Blode
       </a>
     </div>

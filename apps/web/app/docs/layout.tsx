@@ -1,6 +1,5 @@
 import { DocsPager } from "@/components/docs/docs-pager";
 import { DocsSidebar } from "@/components/docs/docs-sidebar";
-import { SiteFooter } from "@/components/docs/site-footer";
 import { SiteHeader } from "@/components/docs/site-header";
 import { TableOfContents } from "@/components/docs/table-of-contents";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -55,8 +54,6 @@ export default function DocsLayout({
           </SidebarProvider>
         </div>
       </main>
-
-      <SiteFooter />
     </div>
   );
 }

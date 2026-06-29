@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
+import { SiteFooter } from "@/components/docs/site-footer";
 import { JsonLd } from "@/components/json-ld";
 import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 
@@ -84,6 +85,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <SiteFooter />
         {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
