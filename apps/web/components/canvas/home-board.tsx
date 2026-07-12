@@ -96,9 +96,9 @@ export const HomeBoard = () => {
           <div className="p-5">
             <h2 className="font-semibold text-canvas-fg text-sm">Canvas kit</h2>
             <p className="mt-1.5 text-canvas-fg/55 text-xs leading-relaxed">
-              An infinite canvas as composable shadcn parts. Drag a folder,
-              peek inside, then open any card to read what it is and jump
-              straight to its docs. Pan with scroll, ⌘/Ctrl + scroll to zoom.
+              An infinite canvas as composable shadcn parts. Drag a folder, peek
+              inside, then open any card to read what it is and jump straight to
+              its docs. Pan with scroll, ⌘/Ctrl + scroll to zoom.
             </p>
             <Link
               className="mt-3 inline-flex items-center gap-1 font-medium text-canvas-fg/70 text-xs transition-colors hover:text-canvas-fg"

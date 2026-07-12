@@ -30,7 +30,7 @@ const hexToRgb = (hex: string): RGB | null => {
 
 const srgbChannelToLinear = (channel: number): number => {
   const c = channel / 255;
-  return c <= 0.039_28 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
 };
 
 const relativeLuminance = ({ r, g, b }: RGB): number => {

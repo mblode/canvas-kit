@@ -53,8 +53,7 @@ function markComplete(slug: string) {
   if (current.has(slug)) {
     return;
   }
-  const next = new Set(current);
-  next.add(slug);
+  const next = new Set([...current, slug]);
   cachedRaw = JSON.stringify([...next]);
   cachedSet = next;
   localStorage.setItem(STORAGE_KEY, cachedRaw);

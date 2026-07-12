@@ -73,7 +73,7 @@ const DepthCollapsible = ({
 
 export const Depth = ({ level, title, children, className }: DepthProps) => {
   if (level === "essential") {
-    return <>{children}</>;
+    return children;
   }
 
   return (

@@ -3,9 +3,7 @@
   "name": "canvas-ring",
   "title": "Canvas ring",
   "description": "The selection/drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card.",
-  "registryDependencies": [
-    "https://canvas.blode.co/r/canvas-vars.json"
-  ],
+  "registryDependencies": ["https://canvas.blode.co/r/canvas-vars.json"],
   "files": [
     {
       "path": "components/canvas-kit/canvas-ring.tsx",

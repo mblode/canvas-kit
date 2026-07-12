@@ -3,9 +3,7 @@
   "name": "canvas-board",
   "title": "Canvas board",
   "description": "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data, install this to get everything at once.",
-  "dependencies": [
-    "motion"
-  ],
+  "dependencies": ["motion"],
   "registryDependencies": [
     "https://canvas.blode.co/r/canvas.json",
     "https://canvas.blode.co/r/canvas-card.json",

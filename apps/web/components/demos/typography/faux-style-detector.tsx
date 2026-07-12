@@ -108,11 +108,11 @@ export const FauxStyleDetector = () => {
             </div>
             <p className="text-sm text-muted-foreground">
               True bold uses a dedicated bold font file designed by a type
-              designer, strokes are optically adjusted so thick and thin
-              strokes stay balanced. Faux bold (simulated by the browser or by
-              stroke hacks) uniformly thickens every stroke, producing muddy
-              joints and uneven counters. Look closely at curves and letter
-              joints to spot the difference.
+              designer, strokes are optically adjusted so thick and thin strokes
+              stay balanced. Faux bold (simulated by the browser or by stroke
+              hacks) uniformly thickens every stroke, producing muddy joints and
+              uneven counters. Look closely at curves and letter joints to spot
+              the difference.
             </p>
           </div>
         )}

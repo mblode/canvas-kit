@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils";
 const VARIANTS = ["selection", "drag"] as const;
 
 export const CanvasRingDemo = () => {
-  const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("selection");
+  const [variant, setVariant] =
+    useState<(typeof VARIANTS)[number]>("selection");
 
   return (
     <div className="flex flex-col items-center gap-8">

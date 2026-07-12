@@ -55,6 +55,7 @@ const Toggle = ({ kind }: { kind: "linear" | "spring" }) => {
       type="button"
       role="switch"
       aria-checked={on}
+      aria-label={`Toggle ${kind}`}
       onClick={() => setOn((v) => !v)}
       className={`relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full transition-colors ${on ? "bg-foreground" : "bg-muted"}`}
     >

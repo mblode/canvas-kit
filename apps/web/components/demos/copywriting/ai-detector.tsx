@@ -293,7 +293,7 @@ const HighlightedText = ({
     parts.push(<span key={`text-${lastIndex}`}>{text.slice(lastIndex)}</span>);
   }
 
-  return <>{parts}</>;
+  return parts;
 };
 
 const humanScoreColor = (score: number): string => {

@@ -204,7 +204,7 @@ export const SpotDifference = () => {
                 Build faster apps
               </h4>
               <p className="mb-4 mt-1.5 text-sm text-muted-foreground">
-                {"“Build faster” with our platform."}
+                “Build faster” with our platform.
               </p>
               <ul className="mb-5 space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-center gap-2">

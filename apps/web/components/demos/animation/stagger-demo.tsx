@@ -64,7 +64,7 @@ export const StaggerDemo = ({ className }: { className?: string }) => {
       </div>
 
       {/* Stats */}
-      <div className="flex items-center gap-4 text-xs" role="status">
+      <output className="flex items-center gap-4 text-xs">
         <span className="text-muted-foreground">
           {items.length} items x {delayPerItem}ms ={" "}
           <span
@@ -81,7 +81,7 @@ export const StaggerDemo = ({ className }: { className?: string }) => {
             Over 300ms budget
           </span>
         )}
-      </div>
+      </output>
 
       {/* Animation area */}
       <div className="min-h-[280px] overflow-hidden rounded-lg border border-border bg-muted/30 p-6">

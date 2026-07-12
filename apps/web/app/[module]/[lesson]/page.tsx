@@ -87,7 +87,12 @@ export default async function LessonPage({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", item: BASE_URL, name: SITE_NAME, position: 1 },
+            {
+              "@type": "ListItem",
+              item: BASE_URL,
+              name: SITE_NAME,
+              position: 1,
+            },
             {
               "@type": "ListItem",
               item: `${BASE_URL}/${module}`,

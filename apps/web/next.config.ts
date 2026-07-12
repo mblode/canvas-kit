@@ -4,7 +4,7 @@ import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async headers() {
+  headers() {
     return [
       {
         headers: [
@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
   },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactCompiler: true,
+  // TS 7's compiler API moved to typescript/unstable/*, which Next's inline type
+  // check can't load. Type safety is enforced via `tsc --noEmit` (check-types).
+  typescript: { ignoreBuildErrors: true },
 };
 
 const withMDX = createMDX({

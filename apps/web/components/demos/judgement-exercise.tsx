@@ -24,7 +24,6 @@ export const JudgementExercise = ({
   optionB,
   correctAnswer,
   explanation,
-  category,
 }: JudgementExerciseProps) => {
   const { hydrated, getAnswer, recordAnswer, resetAnswer } =
     useJudgementProgress();

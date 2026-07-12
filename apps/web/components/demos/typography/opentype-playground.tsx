@@ -123,8 +123,8 @@ export const OpenTypePlayground = () => {
             </div>
             <p className="text-sm text-muted-foreground">
               Small caps work best for abbreviations and short labels. True
-              small caps are drawn at the correct optical weight, pseudo
-              small caps (scaled-down uppercase) look too thin.
+              small caps are drawn at the correct optical weight, pseudo small
+              caps (scaled-down uppercase) look too thin.
             </p>
           </div>
         )}

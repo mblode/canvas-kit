@@ -180,6 +180,9 @@ export const EasingCurveEditor = ({ className }: { className?: string }) => {
         setter((p) => ({ ...p, y: Math.max(p.y - step, -0.5) }));
         break;
       }
+      default: {
+        break;
+      }
     }
   };
 

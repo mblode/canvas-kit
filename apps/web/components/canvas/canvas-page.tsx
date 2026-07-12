@@ -64,7 +64,7 @@ const CanvasEntrance = ({
   skipAnimation: boolean;
 }) => {
   if (skipAnimation) {
-    return <>{children}</>;
+    return children;
   }
   return (
     <motion.div
