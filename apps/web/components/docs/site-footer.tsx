@@ -9,12 +9,12 @@ export const SiteFooter = () => (
         href={siteConfig.links.author}
         rel="author"
       >
-        {/* oxlint-disable-next-line next/no-img-element -- small static external avatar; next/image not worth the config */}
+        {/* oxlint-disable-next-line next/no-img-element -- self-hosted 20px avatar, plain img avoids next/image overhead */}
         <img
           alt="Matthew Blode"
           className="rounded-full"
           height={20}
-          src="https://matthewblode.com/avatar-sm.png"
+          src="/avatar-sm.png"
           width={20}
         />
         Matthew Blode
