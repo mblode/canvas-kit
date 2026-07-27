@@ -1,9 +1,14 @@
 import { ImageResponse } from "next/og";
 
-import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
+import {
+  OG_IMAGE_ALT,
+  OG_IMAGE_SIZE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+} from "@/lib/constants";
 
-export const alt = `${SITE_NAME}: an infinite-canvas shadcn registry`;
-export const size = { height: 630, width: 1200 };
+export const alt = OG_IMAGE_ALT;
+export const size = OG_IMAGE_SIZE;
 export const contentType = "image/png";
 
 export default function OpengraphImage() {

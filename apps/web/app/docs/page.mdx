@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "An infinite canvas as composable shadcn parts: pan, zoom, drag and peek.",
+    "Canvas kit is an infinite canvas built as composable shadcn parts: pan, zoom, drag, peek and select, in plain DOM with no canvas engine.",
+  path: "/docs",
   title: "Overview",
-};
+});
 
 import { CanvasBoardDemo } from "@/components/docs/demos/canvas-board-demo";
 

@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/folder-card" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "The signature draggable folder: tap to peek open into a staggered masonry of preview cards, with a progress dial.",
+    "The signature draggable folder. Tap to peek it open into a staggered masonry of preview cards, driven by a render prop, with a progress dial.",
+  path: "/docs/folder-card",
   title: "Folder card",
-};
+});
 
 import { FolderCardDemo } from "@/components/docs/demos/folder-card-demo";
 

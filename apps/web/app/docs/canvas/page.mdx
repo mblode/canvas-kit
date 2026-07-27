@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/canvas" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "The infinite-canvas viewport: pan, zoom, grab and marquee selection on a fixed full-bleed surface.",
+    "The infinite-canvas viewport. A fixed, full-bleed surface that pans, zooms with wheel and pinch, grabs on spacebar and marquee-selects its children.",
+  path: "/docs/canvas",
   title: "Canvas",
-};
+});
 
 import { CanvasDemo } from "@/components/docs/demos/canvas-demo";
 

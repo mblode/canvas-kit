@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/canvas-card" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "An absolutely-positioned card for the canvas, optionally a router-agnostic link with a selection ring.",
+    "An absolutely-positioned card for the canvas surface, optionally a router-agnostic link, with a selection ring and drag-aware pointer handling.",
+  path: "/docs/canvas-card",
   title: "Canvas card",
-};
+});
 
 import { CanvasCardDemo } from "@/components/docs/demos/canvas-card-demo";
 

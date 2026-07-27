@@ -12,6 +12,7 @@ import {
 } from "@/content/course";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import { readLessonMarkdown } from "@/lib/mdx-to-markdown";
+import { pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
 
@@ -30,21 +31,12 @@ export const generateMetadata = async ({
     return {};
   }
 
-  const title = `${data.title} | ${mod.title}`;
-  const url = `${BASE_URL}/${module}/${lesson}`;
-
-  return {
-    alternates: { canonical: `/${module}/${lesson}` },
-    description: data.description,
-    openGraph: {
-      description: data.description,
-      images: ["/opengraph-image"],
-      title,
-      type: "article",
-      url,
-    },
-    title,
-  };
+  return pageMetadata({
+    description: data.seoDescription,
+    path: `/${module}/${lesson}`,
+    title: `${data.title} | ${mod.title}`,
+    type: "article",
+  });
 };
 
 export default async function LessonPage({

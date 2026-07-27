@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/use-canvas" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "The infinite-canvas engine: pan, wheel/pinch zoom, spacebar grab, marquee selection and fit-to-content.",
+    "The infinite-canvas engine: wheel and pinch zoom, pan, spacebar grab, marquee selection and fit-to-content, all on requestAnimationFrame.",
+  path: "/docs/use-canvas",
   title: "useCanvas",
-};
+});
 
 import { CanvasDemo } from "@/components/docs/demos/canvas-demo";
 

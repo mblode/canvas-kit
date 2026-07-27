@@ -1,8 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/installation" },
-  description: "Add Canvas kit to a React + Tailwind v4 project.",
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  description:
+    "Add Canvas kit to a React 19 and Tailwind v4 project with the shadcn CLI. Register the registry once, then install any component by name.",
+  path: "/docs/installation",
   title: "Installation",
-};
+});
 
 # Installation
 

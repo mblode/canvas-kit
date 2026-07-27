@@ -1,8 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/circular-progress" },
-  description: "An accessible SVG circular progress dial.",
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  description:
+    "An accessible SVG progress dial used on folder fronts. Size and stroke width are props, and the value is exposed to screen readers.",
+  path: "/docs/circular-progress",
   title: "Circular progress",
-};
+});
 
 import { CircularProgressDemo } from "@/components/docs/demos/circular-progress-demo";
 

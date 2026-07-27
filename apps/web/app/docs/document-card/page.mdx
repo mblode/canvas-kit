@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/document-card" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "A draggable document card with title, excerpt and metadata that emits a generic onOpen payload.",
+    "A draggable document card with a title, excerpt and metadata row that emits a generic onOpen payload, so it works with any data shape.",
+  path: "/docs/document-card",
   title: "Document card",
-};
+});
 
 import { DocumentCardDemo } from "@/components/docs/demos/document-card-demo";
 

@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/use-draggable" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "Pointer-based drag offset tracking with a tap/drag threshold, scale-aware for use inside a zoomed canvas.",
+    "Pointer-based drag offset tracking with a tap and drag threshold, scale-aware so the pointer stays glued to the card inside a zoomed canvas.",
+  path: "/docs/use-draggable",
   title: "useDraggable",
-};
+});
 
 import { UseDraggableDemo } from "@/components/docs/demos/use-draggable-demo";
 

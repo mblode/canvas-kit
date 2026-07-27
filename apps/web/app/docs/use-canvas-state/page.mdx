@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/use-canvas-state" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "Persists camera position and the peeked folder to localStorage under a configurable key.",
+    "Persists the camera position and the currently peeked folder to localStorage under a configurable key, so the board survives a page reload.",
+  path: "/docs/use-canvas-state",
   title: "useCanvasState",
-};
+});
 
 import { UseCanvasStateDemo } from "@/components/docs/demos/use-canvas-state-demo";
 

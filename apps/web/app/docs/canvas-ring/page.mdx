@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/canvas-ring" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "The selection/drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card.",
+    "The selection and drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card so every state matches exactly.",
+  path: "/docs/canvas-ring",
   title: "Canvas ring",
-};
+});
 
 import { CanvasRingDemo } from "@/components/docs/demos/canvas-ring-demo";
 

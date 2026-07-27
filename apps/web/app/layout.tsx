@@ -27,13 +27,15 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(BASE_URL),
+  // No `url` here: pages inherit this whole object when they declare no
+  // `openGraph` of their own, which would stamp the site root on every page.
+  // Routes set their own via `pageMetadata`.
   openGraph: {
     description: SITE_DESCRIPTION,
     locale: "en_US",
     siteName: SITE_NAME,
     title: SITE_NAME,
     type: "website",
-    url: BASE_URL,
   },
   other: {
     "llms.txt": `${BASE_URL}/llms.txt`,

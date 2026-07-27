@@ -1,8 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/pagination" },
-  description: "Previous/next navigation between documents.",
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  description:
+    "Previous and next navigation between documents, laid out as a minimal Previous and a Next card. Router-agnostic via href items or onClick items.",
+  path: "/docs/pagination",
   title: "Pagination",
-};
+});
 
 import { PaginationDemo } from "@/components/docs/demos/pagination-demo";
 

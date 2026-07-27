@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/canvas-board" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data.",
+    "A complete, self-contained board composing Canvas, CanvasCard and FolderCard with sample data. Install this one item to get the whole demo.",
+  path: "/docs/canvas-board",
   title: "Canvas board",
-};
+});
 
 import { CanvasBoardDemo } from "@/components/docs/demos/canvas-board-demo";
 

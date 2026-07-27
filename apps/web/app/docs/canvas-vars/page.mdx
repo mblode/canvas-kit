@@ -1,9 +1,11 @@
-export const metadata = {
-  alternates: { canonical: "/docs/canvas-vars" },
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
   description:
-    "CSS custom properties for the canvas surface, folders, drag rings and marquee selection.",
+    "CSS custom properties for the canvas surface, folder fronts, drag rings and marquee selection, defined for both the light and dark themes.",
+  path: "/docs/canvas-vars",
   title: "Canvas theme variables",
-};
+});
 
 # Canvas theme variables
 

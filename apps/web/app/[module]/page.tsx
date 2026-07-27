@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { getModule, modules } from "@/content/course";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
+import { pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
 
@@ -22,19 +23,11 @@ export const generateMetadata = async ({
   if (!data) {
     return {};
   }
-  const url = `${BASE_URL}/${data.slug}`;
-  return {
-    alternates: { canonical: `/${data.slug}` },
+  return pageMetadata({
     description: data.description,
-    openGraph: {
-      description: data.description,
-      images: ["/opengraph-image"],
-      title: data.title,
-      type: "website",
-      url,
-    },
+    path: `/${data.slug}`,
     title: data.title,
-  };
+  });
 };
 
 export default async function ModulePage({

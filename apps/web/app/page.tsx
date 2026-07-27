@@ -5,10 +5,18 @@ import Link from "next/link";
 import { HomeBoard } from "@/components/canvas/home-board";
 import { JsonLd } from "@/components/json-ld";
 import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
+import { pageMetadata } from "@/lib/metadata";
+
+const HOME_TITLE = "Canvas kit: an infinite canvas for React";
 
 export const metadata: Metadata = {
-  alternates: { canonical: BASE_URL },
-  description: SITE_DESCRIPTION,
+  ...pageMetadata({
+    description: SITE_DESCRIPTION,
+    path: "/",
+    title: HOME_TITLE,
+  }),
+  // The layout template appends the site name, which the home title already carries.
+  title: { absolute: HOME_TITLE },
 };
 
 const HomePage = () => (
