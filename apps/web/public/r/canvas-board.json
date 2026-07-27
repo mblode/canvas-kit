@@ -5,12 +5,12 @@
   "description": "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data, install this to get everything at once.",
   "dependencies": ["motion"],
   "registryDependencies": [
-    "https://canvas.blode.co/r/canvas.json",
-    "https://canvas.blode.co/r/canvas-card.json",
-    "https://canvas.blode.co/r/folder-card.json",
-    "https://canvas.blode.co/r/document-overlay.json",
-    "https://canvas.blode.co/r/pagination.json",
-    "https://canvas.blode.co/r/canvas-vars.json"
+    "https://blode.co/canvas/r/canvas.json",
+    "https://blode.co/canvas/r/canvas-card.json",
+    "https://blode.co/canvas/r/folder-card.json",
+    "https://blode.co/canvas/r/document-overlay.json",
+    "https://blode.co/canvas/r/pagination.json",
+    "https://blode.co/canvas/r/canvas-vars.json"
   ],
   "files": [
     {

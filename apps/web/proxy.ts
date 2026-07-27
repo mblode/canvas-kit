@@ -2,7 +2,8 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export const proxy = (request: NextRequest) => {
-  const { pathname } = request.nextUrl;
+  const pathname =
+    request.nextUrl.pathname.replace(/^\/canvas(?=\/|$)/u, "") || "/";
 
   if (pathname.endsWith(".md")) {
     const cleanPath = pathname.slice(0, -3);
@@ -10,12 +11,15 @@ export const proxy = (request: NextRequest) => {
 
     if (segments.length === 2) {
       return NextResponse.rewrite(
-        new URL(`/api/markdown/${segments[0]}/${segments[1]}`, request.url)
+        new URL(
+          `/canvas/api/markdown/${segments[0]}/${segments[1]}`,
+          request.url
+        )
       );
     }
     if (segments.length === 1) {
       return NextResponse.rewrite(
-        new URL(`/api/markdown/${segments[0]}`, request.url)
+        new URL(`/canvas/api/markdown/${segments[0]}`, request.url)
       );
     }
   }
@@ -26,12 +30,15 @@ export const proxy = (request: NextRequest) => {
 
     if (segments.length === 2) {
       return NextResponse.rewrite(
-        new URL(`/api/markdown/${segments[0]}/${segments[1]}`, request.url)
+        new URL(
+          `/canvas/api/markdown/${segments[0]}/${segments[1]}`,
+          request.url
+        )
       );
     }
     if (segments.length === 1) {
       return NextResponse.rewrite(
-        new URL(`/api/markdown/${segments[0]}`, request.url)
+        new URL(`/canvas/api/markdown/${segments[0]}`, request.url)
       );
     }
   }

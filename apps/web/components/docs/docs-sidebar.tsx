@@ -59,7 +59,7 @@ export const DocsNavList = ({ onNavigate }: { onNavigate?: () => void }) => {
 };
 
 /**
- * Sticky desktop docs rail. Mirrors the ui.blode.co sidebar: a soft gradient
+ * Sticky desktop docs rail. Mirrors the blode.co/ui sidebar: a soft gradient
  * fade at the top and bottom, a hairline divider on the right, and compact
  * pill-style menu buttons. Must be rendered inside a `SidebarProvider`.
  */

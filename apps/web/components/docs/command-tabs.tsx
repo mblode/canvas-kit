@@ -18,7 +18,7 @@ type ManagerId = (typeof MANAGERS)[number]["id"];
 
 /**
  * shadcn CLI install command with bun / npm / pnpm / yarn tabs, the tabbed
- * code block from ui.blode.co, framed to match the site's other code blocks.
+ * code block from blode.co/ui, framed to match the site's other code blocks.
  * Built from the registry item `name`; the package manager persists to
  * localStorage.
  */

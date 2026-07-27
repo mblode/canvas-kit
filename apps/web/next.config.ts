@@ -4,6 +4,8 @@ import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  assetPrefix: "/canvas",
+  basePath: "/canvas",
   headers() {
     return [
       {
@@ -11,8 +13,8 @@ const nextConfig: NextConfig = {
           {
             key: "Link",
             value: [
-              '</llms.txt>; rel="service-doc"; type="text/plain"',
-              '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
+              '</canvas/llms.txt>; rel="service-doc"; type="text/plain"',
+              '</canvas/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
             ].join(", "),
           },
         ],
@@ -22,6 +24,24 @@ const nextConfig: NextConfig = {
   },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactCompiler: true,
+  redirects() {
+    return Promise.resolve([
+      {
+        basePath: false,
+        destination: "https://blode.co/canvas",
+        has: [{ type: "host" as const, value: "canvas.blode.co" }],
+        permanent: true,
+        source: "/",
+      },
+      {
+        basePath: false,
+        destination: "https://blode.co/canvas/:path*",
+        has: [{ type: "host" as const, value: "canvas.blode.co" }],
+        permanent: true,
+        source: "/:path*",
+      },
+    ]);
+  },
   // TS 7's compiler API moved to typescript/unstable/*, which Next's inline type
   // check can't load. Type safety is enforced via `tsc --noEmit` (check-types).
   typescript: { ignoreBuildErrors: true },

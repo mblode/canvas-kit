@@ -27,7 +27,7 @@ export default function OpengraphImage() {
           letterSpacing: "0.02em",
         }}
       >
-        canvas.blode.co
+        blode.co/canvas
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
         <div

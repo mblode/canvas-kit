@@ -14,7 +14,7 @@ export const SiteFooter = () => (
           alt="Matthew Blode"
           className="rounded-full"
           height={20}
-          src="/avatar-sm.png"
+          src="/canvas/avatar-sm.png"
           width={20}
         />
         Matthew Blode

@@ -1,7 +1,7 @@
 /** Site-level config for the Canvas kit docs chrome (header + footer). */
 export const siteConfig = {
   links: {
-    author: "https://matthewblode.com",
+    author: "https://blode.co",
     github: "https://github.com/mblode/canvas",
   },
   name: "Canvas kit",

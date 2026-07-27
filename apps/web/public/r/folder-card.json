@@ -6,10 +6,10 @@
   "dependencies": ["motion"],
   "registryDependencies": [
     "utils",
-    "https://canvas.blode.co/r/use-draggable.json",
-    "https://canvas.blode.co/r/circular-progress.json",
-    "https://canvas.blode.co/r/canvas-ring.json",
-    "https://canvas.blode.co/r/canvas-vars.json"
+    "https://blode.co/canvas/r/use-draggable.json",
+    "https://blode.co/canvas/r/circular-progress.json",
+    "https://blode.co/canvas/r/canvas-ring.json",
+    "https://blode.co/canvas/r/canvas-vars.json"
   ],
   "files": [
     {

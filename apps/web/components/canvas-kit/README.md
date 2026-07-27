@@ -1,29 +1,29 @@
 # Canvas kit
 
-The infinite-canvas UI from [course.blode.co](https://course.blode.co), packaged
+The infinite-canvas UI from [the Blode course](https://blode.co/course), packaged
 as a [shadcn registry](https://ui.shadcn.com/docs/registry) you can install into
 any React + Tailwind v4 project. Plain DOM and `requestAnimationFrame`, no canvas
 engine, no WebGL.
 
-Browse and copy install commands at [`/docs/installation`](https://course.blode.co/docs/installation),
-or see it live at [`/demo`](https://course.blode.co/demo).
+Browse and copy install commands at [`/docs/installation`](https://blode.co/canvas/docs/installation),
+or see it live at [`/demo`](https://blode.co/canvas).
 
 ## Install
 
 Everything at once (Canvas + cards + folders + sample data):
 
 ```bash
-npx shadcn@latest add https://course.blode.co/r/canvas-board.json
+npx shadcn@latest add https://blode.co/canvas/r/canvas-board.json
 ```
 
 Or pick individual pieces:
 
 ```bash
-npx shadcn@latest add https://course.blode.co/r/canvas.json        # viewport: pan / zoom / marquee
-npx shadcn@latest add https://course.blode.co/r/folder-card.json   # draggable folder with peek
-npx shadcn@latest add https://course.blode.co/r/document-card.json # draggable document card
-npx shadcn@latest add https://course.blode.co/r/document-overlay.json # full-screen reader (scale up / back)
-npx shadcn@latest add https://course.blode.co/r/canvas-vars.json   # theme CSS variables only
+npx shadcn@latest add https://blode.co/canvas/r/canvas.json        # viewport: pan / zoom / marquee
+npx shadcn@latest add https://blode.co/canvas/r/folder-card.json   # draggable folder with peek
+npx shadcn@latest add https://blode.co/canvas/r/document-card.json # draggable document card
+npx shadcn@latest add https://blode.co/canvas/r/document-overlay.json # full-screen reader (scale up / back)
+npx shadcn@latest add https://blode.co/canvas/r/canvas-vars.json   # theme CSS variables only
 ```
 
 Each item pulls its own dependencies (hooks, `circular-progress`, the
@@ -51,6 +51,6 @@ Each item pulls its own dependencies (hooks, `circular-progress`, the
 
 These components are generated from `apps/web/components/canvas-kit/` via
 `npm run registry:build` (output committed to `apps/web/public/r/`). This is the
-single source of truth: the live course at course.blode.co renders these exact
+single source of truth: the live course at blode.co/course renders these exact
 components, `apps/web/components/canvas/` only holds the course-specific shell
 (the lesson overlay, MDX preview, hero card and page wiring) that composes them.

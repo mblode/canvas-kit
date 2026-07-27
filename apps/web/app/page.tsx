@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/json-ld";
 import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: BASE_URL },
   description: SITE_DESCRIPTION,
 };
 

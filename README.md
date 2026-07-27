@@ -6,7 +6,7 @@
 Register the `@canvas` registry once, then add items by name:
 
 ```bash
-npx shadcn@latest registry add @canvas=https://canvas.blode.co/r/{name}.json
+npx shadcn@latest registry add @canvas=https://blode.co/canvas/r/{name}.json
 ```
 
 Install everything at once with the all-in-one canvas board:
@@ -22,11 +22,11 @@ npx shadcn@latest add @canvas/canvas @canvas/folder-card @canvas/canvas-card @ca
 ```
 
 > Prefer not to register the namespace? The full URL still works for one-off
-> installs, e.g. `npx shadcn@latest add https://canvas.blode.co/r/canvas-board.json`.
+> installs, e.g. `npx shadcn@latest add https://blode.co/canvas/r/canvas-board.json`.
 
 ## Documentation
 
-[canvas.blode.co/docs](https://canvas.blode.co/docs)
+[blode.co/canvas/docs](https://blode.co/canvas/docs)
 
 ## License
 
@@ -34,4 +34,4 @@ npx shadcn@latest add @canvas/canvas @canvas/folder-card @canvas/canvas-card @ca
 
 ---
 
-Crafted by [<img src="https://matthewblode.com/avatar-circle.png" width="20" align="top" />](https://matthewblode.com) [Matthew Blode](https://matthewblode.com)
+Crafted by [<img src="https://blode.co/avatar-circle.png" width="20" align="top" />](https://blode.co) [Matthew Blode](https://blode.co)
