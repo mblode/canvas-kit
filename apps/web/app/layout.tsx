@@ -68,8 +68,7 @@ export default function RootLayout({
       className={`${glide.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <link href="https://us.i.posthog.com" rel="preconnect" />
-        <link href="https://us-assets.i.posthog.com" rel="dns-prefetch" />
+        <link href="https://r.blode.co" rel="preconnect" />
       </head>
       <body className="min-h-full flex flex-col">
         <JsonLd
