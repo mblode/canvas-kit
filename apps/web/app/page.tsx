@@ -24,12 +24,21 @@ const HomePage = () => (
     <JsonLd
       data={{
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        applicationCategory: "DeveloperApplication",
+        // A WebPage, not a WebApplication. WebApplication is a
+        // SoftwareApplication subtype, which validators hold to Google's
+        // Software App rich result: that requires aggregateRating or review, and
+        // the only ratings available here would be ones we wrote about our own
+        // tool, which Google's review policy forbids.
+        "@type": "WebPage",
         description: SITE_DESCRIPTION,
+        keywords: ["Developer tool", "Canvas", "Browser-based"],
         name: SITE_NAME,
-        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        operatingSystem: "Web",
+        offers: {
+          "@type": "Offer",
+          category: "Free",
+          price: "0",
+          priceCurrency: "USD",
+        },
         url: BASE_URL,
       }}
     />
