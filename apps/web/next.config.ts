@@ -9,24 +9,6 @@ const nextConfig: NextConfig = {
   headers() {
     return [
       {
-        // The zone origin and the *.vercel.app aliases are non-canonical
-        // hostnames inside the sc-domain:blode.co Search Console property, so
-        // left open they are a crawlable duplicate of the whole site.
-        //
-        // Keyed off x-forwarded-host, NOT host: the multi-zone rewrite proxies
-        // to the origin, so `host` is the origin for real blode.co traffic
-        // too. Matching on `host` would noindex the live site.
-        has: [
-          {
-            key: "x-forwarded-host",
-            type: "header" as const,
-            value: String.raw`.*\.zone\.blode\.co|.*\.vercel\.app`,
-          },
-        ],
-        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
-        source: "/:path*",
-      },
-      {
         headers: [
           {
             key: "Link",
