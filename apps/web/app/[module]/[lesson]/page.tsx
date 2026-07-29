@@ -11,7 +11,7 @@ import {
   getModule,
 } from "@/content/course";
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
-import { readLessonMarkdown } from "@/lib/mdx-to-markdown";
+import { readLessonMarkdown, stripCodeBlocks } from "@/lib/mdx-to-markdown";
 import { pageMetadata } from "@/lib/metadata";
 
 export const dynamicParams = false;
@@ -52,7 +52,8 @@ export default async function LessonPage({
     notFound();
   }
 
-  const body = readLessonMarkdown(module, lesson);
+  const markdown = readLessonMarkdown(module, lesson);
+  const body = markdown && stripCodeBlocks(markdown);
   const { prev, next } = getAdjacentLessons(module, lesson);
   const prevLesson = prev && getLesson(prev.module, prev.lesson);
   const nextLesson = next && getLesson(next.module, next.lesson);

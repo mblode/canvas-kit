@@ -100,6 +100,32 @@ const stripJsx = (raw: string): string => {
     .trim();
 };
 
+/**
+ * Drops fenced code blocks. The crawlable lesson fallback renders markdown as
+ * plain text, so attribute text inside code samples (`href="/foundations/..."`,
+ * `href={tier.href}`) otherwise reaches the DOM and reads as a real link. The
+ * full source, code included, still ships from the markdown and llms.txt routes.
+ */
+export const stripCodeBlocks = (markdown: string): string => {
+  const result: string[] = [];
+  let inCodeBlock = false;
+
+  for (const line of markdown.split("\n")) {
+    if (line.trimStart().startsWith("```")) {
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+    if (!inCodeBlock) {
+      result.push(line);
+    }
+  }
+
+  return result
+    .join("\n")
+    .replaceAll(/\n{3,}/gu, "\n\n")
+    .trim();
+};
+
 export const readLessonMarkdown = (
   moduleSlug: string,
   lessonSlug: string

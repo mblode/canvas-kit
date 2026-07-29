@@ -9,7 +9,7 @@ import { LoadingStateDemo } from "@/components/demos/craft/loading-state-demo";
 
 ## Links vs. buttons
 
-- **`<a href="...">`** for navigation. Supports Cmd+click, middle-click, copy link, bookmarks.
+- **`<a href>`** for navigation. Supports Cmd+click, middle-click, copy link, bookmarks.
 - **`<button>`** for actions on the current page: modals, forms, toggles.
 
 Put state in the URL. Tab state, sort order, filters become shareable, refreshable, and Back-button friendly:
@@ -20,7 +20,7 @@ Put state in the URL. Tab state, sort order, filters become shareable, refreshab
 <button onClick={() => setTab(t)}>Dashboard</button>
 ```
 
-Most common violation: `<button onClick={() => router.push('/x')}>`. Use `<Link href="/x">`.
+Most common violation: `<button onClick={() => router.push('/x')}>`. Use `<Link>` with the route as its href.
 
 ## Loading delay: 150-300ms before the spinner
 
