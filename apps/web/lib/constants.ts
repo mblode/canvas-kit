@@ -1,4 +1,7 @@
-export const BASE_URL = "https://blode.co/canvas";
+/** Must stay in step with `basePath` in next.config.ts. */
+export const BASE_PATH = "/canvas";
+
+export const BASE_URL = `https://blode.co${BASE_PATH}`;
 
 export const SITE_NAME = "Canvas kit";
 
