@@ -46,9 +46,9 @@ export const DocumentPreview = ({
           }}
         >
           <div className="px-8 py-10">
-            <h1 className="mb-6 font-heading text-3xl font-semibold tracking-tight text-canvas-fg">
+            <h2 className="mb-6 font-heading text-3xl font-semibold tracking-tight text-canvas-fg">
               {title}
-            </h1>
+            </h2>
             <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-p:text-canvas-fg/70 prose-li:text-canvas-fg/70">
               <Content />
             </div>

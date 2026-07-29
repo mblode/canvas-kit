@@ -25,9 +25,9 @@ export const HeroCard = ({ x, y, selected }: HeroCardProps) => (
       <p className="text-[0.6875rem] font-medium text-canvas-fg/40">
         A course in obsessive attention to detail
       </p>
-      <h1 className="mt-3 text-balance text-[1.75rem] font-semibold tracking-tight text-canvas-fg">
+      <h2 className="mt-3 text-balance text-[1.75rem] font-semibold tracking-tight text-canvas-fg">
         Blode Course
-      </h1>
+      </h2>
       <p className="mt-3 text-pretty text-sm text-canvas-fg/55">
         The invisible details that separate forgettable websites from memorable
         ones. Learn to see them, then fix them.

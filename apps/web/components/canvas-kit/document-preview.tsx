@@ -33,9 +33,9 @@ export const DocumentPreview = ({
         style={{ transform: `scale(${scale})`, width: INNER_WIDTH }}
       >
         <div className="px-10 py-12">
-          <h1 className="mb-6 font-heading font-semibold text-4xl text-canvas-fg tracking-tight">
+          <h2 className="mb-6 font-heading font-semibold text-4xl text-canvas-fg tracking-tight">
             {title}
-          </h1>
+          </h2>
           <p className="text-2xl text-canvas-fg/70 leading-relaxed">
             {doc?.body}
           </p>

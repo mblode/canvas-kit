@@ -203,9 +203,9 @@ const OverlayBody = ({
   <div className="min-h-dvh">
     <div className="px-5 pt-20 pb-10 sm:px-8 sm:py-10">
       {title ? (
-        <h1 className="mb-8 font-heading font-semibold text-3xl text-canvas-fg tracking-tight">
+        <h2 className="mb-8 font-heading font-semibold text-3xl text-canvas-fg tracking-tight">
           {title}
-        </h1>
+        </h2>
       ) : null}
       <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:text-balance prose-headings:tracking-tight prose-p:text-canvas-fg/70 prose-p:text-pretty prose-a:text-canvas-fg prose-a:decoration-canvas-fg/25 prose-a:underline-offset-2 prose-strong:text-canvas-fg prose-li:text-canvas-fg/70 prose-blockquote:border-canvas-fg/15 prose-blockquote:not-italic prose-th:font-medium prose-th:text-canvas-fg/50 prose-td:text-canvas-fg/60">
         {children}
