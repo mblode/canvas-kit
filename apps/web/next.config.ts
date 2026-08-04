@@ -60,9 +60,6 @@ const nextConfig: NextConfig = {
       },
     ]);
   },
-  // TS 7's compiler API moved to typescript/unstable/*, which Next's inline type
-  // check can't load. Type safety is enforced via `tsc --noEmit` (check-types).
-  typescript: { ignoreBuildErrors: true },
 };
 
 const withMDX = createMDX({
