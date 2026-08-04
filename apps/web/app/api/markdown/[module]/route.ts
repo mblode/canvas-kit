@@ -1,8 +1,6 @@
 import { modules } from "@/content/course";
 import { readModuleMarkdown } from "@/lib/mdx-to-markdown";
 
-export const dynamic = "force-static";
-
 export const generateStaticParams = () =>
   modules.map((m) => ({ module: m.slug }));
 

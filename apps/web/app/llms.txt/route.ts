@@ -1,8 +1,6 @@
 import { modules } from "@/content/course";
 import { BASE_URL } from "@/lib/constants";
 
-export const dynamic = "force-static";
-
 export const GET = () => {
   const lines: string[] = [
     "# Blode Course",

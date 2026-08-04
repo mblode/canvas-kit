@@ -1,7 +1,5 @@
 import { BASE_PATH, BASE_URL } from "@/lib/constants";
 
-export const dynamic = "force-static";
-
 export const GET = () => {
   // AI-open on purpose: crawl, index, ground and train are all permitted, so a
   // single `*` group states the whole policy. No `Content-Signal:` line: signals

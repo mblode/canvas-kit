@@ -1,7 +1,5 @@
 import { BASE_URL } from "@/lib/constants";
 
-export const dynamic = "force-static";
-
 export const GET = () =>
   Response.json(
     {

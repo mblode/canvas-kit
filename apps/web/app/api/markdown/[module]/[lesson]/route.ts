@@ -1,8 +1,6 @@
 import { getAllLessonSlugs } from "@/content/course";
 import { readLessonMarkdown } from "@/lib/mdx-to-markdown";
 
-export const dynamic = "force-static";
-
 export const generateStaticParams = () => getAllLessonSlugs();
 
 export const GET = async (

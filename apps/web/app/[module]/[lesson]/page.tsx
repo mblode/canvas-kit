@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { CanvasPage } from "@/components/canvas/canvas-page";
 import { JsonLd } from "@/components/json-ld";
@@ -13,8 +14,6 @@ import {
 import { BASE_URL, SITE_NAME } from "@/lib/constants";
 import { readLessonMarkdown, stripCodeBlocks } from "@/lib/mdx-to-markdown";
 import { pageMetadata } from "@/lib/metadata";
-
-export const dynamicParams = false;
 
 export const generateStaticParams = () => getAllLessonSlugs();
 
@@ -39,11 +38,13 @@ export const generateMetadata = async ({
   });
 };
 
-export default async function LessonPage({
+// A lesson is nothing but its slugs, so the whole body reads the promise behind
+// a boundary and the canvas backdrop around it prerenders as the App Shell.
+const Lesson = async ({
   params,
 }: {
   params: Promise<{ module: string; lesson: string }>;
-}) {
+}) => {
   const { module, lesson } = await params;
   const data = getLesson(module, lesson);
   const mod = getModule(module);
@@ -128,5 +129,17 @@ export default async function LessonPage({
 
       <CanvasPage initialLesson={{ lessonSlug: lesson, moduleSlug: module }} />
     </>
+  );
+};
+
+export default function LessonPage({
+  params,
+}: {
+  params: Promise<{ module: string; lesson: string }>;
+}) {
+  return (
+    <Suspense fallback={<div className="min-h-dvh bg-canvas-bg" />}>
+      <Lesson params={params} />
+    </Suspense>
   );
 }
