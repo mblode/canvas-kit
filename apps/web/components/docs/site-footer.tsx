@@ -23,6 +23,16 @@ export const SiteFooter = () => (
     <div className="flex items-center gap-2 text-muted-foreground/40">
       <span className="text-muted-foreground">{siteConfig.name}</span>
       &bull;
+      {/* The edge back to the hub: same origin behind a rewrite, so same tab
+          and no rel. See
+          blode-co/apps/web/.claude/knowledge/zone-conventions.md. */}
+      <a
+        className="text-muted-foreground transition-colors hover:text-foreground"
+        href="https://blode.co/projects"
+      >
+        All projects
+      </a>{" "}
+      &bull;
       <a
         className="text-muted-foreground transition-colors hover:text-foreground"
         href={siteConfig.links.github}

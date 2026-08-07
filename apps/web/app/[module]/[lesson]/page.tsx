@@ -11,7 +11,7 @@ import {
   getLesson,
   getModule,
 } from "@/content/course";
-import { BASE_URL, SITE_NAME } from "@/lib/constants";
+import { BASE_URL, breadcrumbJsonLd, SITE_NAME } from "@/lib/constants";
 import { readLessonMarkdown, stripCodeBlocks } from "@/lib/mdx-to-markdown";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -77,30 +77,9 @@ const Lesson = async ({
         }}
       />
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              item: BASE_URL,
-              name: SITE_NAME,
-              position: 1,
-            },
-            {
-              "@type": "ListItem",
-              item: `${BASE_URL}/${module}`,
-              name: mod.title,
-              position: 2,
-            },
-            {
-              "@type": "ListItem",
-              item: url,
-              name: data.title,
-              position: 3,
-            },
-          ],
-        }}
+        data={breadcrumbJsonLd([
+          { name: mod.title, url: `${BASE_URL}/${module}` },
+        ])}
       />
 
       {/* Crawlable, screen-reader-accessible fallback for the client canvas. */}

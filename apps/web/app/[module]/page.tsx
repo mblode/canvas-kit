@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 import { JsonLd } from "@/components/json-ld";
 import { getModule, modules } from "@/content/course";
-import { BASE_URL, SITE_NAME } from "@/lib/constants";
+import { BASE_URL, breadcrumbJsonLd } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 
 export const generateStaticParams = () =>
@@ -65,24 +65,9 @@ const ModuleArticle = async ({
   return (
     <>
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              item: BASE_URL,
-              name: SITE_NAME,
-              position: 1,
-            },
-            {
-              "@type": "ListItem",
-              item: `${BASE_URL}/${data.slug}`,
-              name: data.title,
-              position: 2,
-            },
-          ],
-        }}
+        data={breadcrumbJsonLd([
+          { name: data.title, url: `${BASE_URL}/${data.slug}` },
+        ])}
       />
       <article className="mx-auto max-w-3xl overflow-hidden rounded-2xl bg-background shadow-2xl">
         <div className="h-1.5 bg-canvas-fg/[0.04]" />

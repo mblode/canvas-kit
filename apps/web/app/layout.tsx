@@ -5,7 +5,14 @@ import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/docs/site-footer";
 import { JsonLd } from "@/components/json-ld";
-import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
+import {
+  BASE_URL,
+  ORG_ID,
+  PERSON_ID,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  WEBSITE_ID,
+} from "@/lib/constants";
 
 import "./globals.css";
 
@@ -71,21 +78,24 @@ export default function RootLayout({
         <link href={process.env.NEXT_PUBLIC_POSTHOG_HOST} rel="preconnect" />
       </head>
       <body className="min-h-full flex flex-col">
+        {/*
+          A WebPage, not an Organization and a WebSite. Those two described
+          blode.co itself under this zone's URL, so one domain published two
+          organizations and two websites; blode.co's own nodes are referenced by
+          @id instead. See the note on the ids in `lib/constants.ts`.
+        */}
         <JsonLd
           data={{
             "@context": "https://schema.org",
-            "@type": "Organization",
-            logo: `${BASE_URL}/icon1.png`,
-            name: SITE_NAME,
-            url: BASE_URL,
-          }}
-        />
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "WebSite",
+            "@id": `${BASE_URL}/#webpage`,
+            "@type": "WebPage",
+            author: { "@id": PERSON_ID },
+            breadcrumb: { "@id": `${BASE_URL}/#breadcrumb` },
             description: SITE_DESCRIPTION,
+            inLanguage: "en-US",
+            isPartOf: { "@id": WEBSITE_ID },
             name: SITE_NAME,
+            publisher: { "@id": ORG_ID },
             url: BASE_URL,
           }}
         />
