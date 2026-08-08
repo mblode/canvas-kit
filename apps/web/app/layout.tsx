@@ -1,6 +1,5 @@
 import { Agentation } from "agentation";
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/docs/site-footer";
@@ -18,14 +17,19 @@ import "./globals.css";
 
 const glide = localFont({
   display: "swap",
-  src: "../public/fonts/Glide-Variable.woff2",
+  src: [
+    { path: "./fonts/glide-variable.woff2", style: "normal" },
+    { path: "./fonts/glide-variable-italic.woff2", style: "italic" },
+  ],
   variable: "--font-glide",
-  weight: "100 900",
+  weight: "100 950",
 });
 
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
+const glideMono = localFont({
+  display: "swap",
+  src: "./fonts/glide-mono.woff2",
+  variable: "--font-glide-mono",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -72,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${glide.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${glide.variable} ${glideMono.variable} h-full antialiased`}
     >
       <head>
         <link href={process.env.NEXT_PUBLIC_POSTHOG_HOST} rel="preconnect" />
