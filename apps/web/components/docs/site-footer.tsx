@@ -9,9 +9,11 @@ export const SiteFooter = () => (
         href={siteConfig.links.author}
         rel="author"
       >
+        {/* alt is empty on purpose: the name follows in text, so describing the
+            avatar makes a screen reader say "Matthew Blode" twice. */}
         {/* oxlint-disable-next-line next/no-img-element -- self-hosted 20px avatar, plain img avoids next/image overhead */}
         <img
-          alt="Matthew Blode"
+          alt=""
           className="rounded-full"
           height={20}
           src="/canvas/avatar-sm.png"

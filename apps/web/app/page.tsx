@@ -4,10 +4,11 @@ import Link from "next/link";
 
 import { HomeBoard } from "@/components/canvas/home-board";
 import { JsonLd } from "@/components/json-ld";
-import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
+import { ZoneBreadcrumb } from "@/components/zone-breadcrumb";
+import { SITE_DESCRIPTION, SITE_NAME, zoneRootJsonLd } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 
-const HOME_TITLE = "Canvas kit: an infinite canvas for React";
+const HOME_TITLE = "Canvas Kit: an infinite canvas for React";
 
 export const metadata: Metadata = {
   ...pageMetadata({
@@ -21,27 +22,7 @@ export const metadata: Metadata = {
 
 const HomePage = () => (
   <main className="min-h-dvh bg-canvas-bg">
-    <JsonLd
-      data={{
-        "@context": "https://schema.org",
-        // A WebPage, not a WebApplication. WebApplication is a
-        // SoftwareApplication subtype, which validators hold to Google's
-        // Software App rich result: that requires aggregateRating or review, and
-        // the only ratings available here would be ones we wrote about our own
-        // tool, which Google's review policy forbids.
-        "@type": "WebPage",
-        description: SITE_DESCRIPTION,
-        keywords: ["Developer tool", "Canvas", "Browser-based"],
-        name: SITE_NAME,
-        offers: {
-          "@type": "Offer",
-          category: "Free",
-          price: "0",
-          priceCurrency: "USD",
-        },
-        url: BASE_URL,
-      }}
-    />
+    <JsonLd data={zoneRootJsonLd} />
 
     {/* Crawlable, screen-reader-accessible fallback for the client canvas. */}
     <section className="sr-only">
@@ -49,6 +30,17 @@ const HomePage = () => (
       <p>{SITE_DESCRIPTION}</p>
       <Link href="/docs">Read the documentation</Link>
     </section>
+
+    {/*
+      Pinned rather than in flow: the board below fills the viewport and has no
+      document to sit above. It is the visible half of the BreadcrumbList in
+      lib/constants.ts, and the two must read identically or Google treats the
+      mismatch as a markup error. Rule 4 of
+      blode-co/apps/web/.claude/knowledge/zone-conventions.md.
+    */}
+    <div className="fixed top-4 left-4 z-50 rounded-lg border border-canvas-border bg-background/80 px-3 py-1.5 backdrop-blur-sm">
+      <ZoneBreadcrumb product={SITE_NAME} />
+    </div>
 
     <HomeBoard />
 

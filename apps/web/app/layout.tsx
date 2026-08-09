@@ -3,15 +3,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/docs/site-footer";
-import { JsonLd } from "@/components/json-ld";
-import {
-  BASE_URL,
-  ORG_ID,
-  PERSON_ID,
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  WEBSITE_ID,
-} from "@/lib/constants";
+import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
 
 import "./globals.css";
 
@@ -36,6 +28,9 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: SITE_NAME,
   },
+  // Person-level attribution as metadata, not only as footer HTML and JSON-LD.
+  authors: [{ name: "Matthew Blode", url: "https://blode.co" }],
+  creator: "Matthew Blode",
   description: SITE_DESCRIPTION,
   metadataBase: new URL(BASE_URL),
   // No `url` here: pages inherit this whole object when they declare no
@@ -44,7 +39,10 @@ export const metadata: Metadata = {
   openGraph: {
     description: SITE_DESCRIPTION,
     locale: "en_US",
-    siteName: SITE_NAME,
+    // The person, not the product: every blode.co path is one site, and the
+    // product name is already in og:title. Rule 9 of
+    // blode-co/apps/web/.claude/knowledge/zone-conventions.md.
+    siteName: "Matthew Blode",
     title: SITE_NAME,
     type: "website",
   },
@@ -57,6 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    creator: "@mattblode",
   },
 };
 
@@ -83,26 +82,13 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         {/*
-          A WebPage, not an Organization and a WebSite. Those two described
-          blode.co itself under this zone's URL, so one domain published two
-          organizations and two websites; blode.co's own nodes are referenced by
-          @id instead. See the note on the ids in `lib/constants.ts`.
+          No JSON-LD here. The layout wraps every route, so the WebPage it used
+          to emit stamped `@id` and `url` of the zone root onto docs and lesson
+          pages as well, and sat alongside whatever those pages emitted
+          themselves: two or three disconnected blocks describing one page. Each
+          route now emits exactly one `@graph` of its own. See
+          `lib/constants.ts`.
         */}
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@id": `${BASE_URL}/#webpage`,
-            "@type": "WebPage",
-            author: { "@id": PERSON_ID },
-            breadcrumb: { "@id": `${BASE_URL}/#breadcrumb` },
-            description: SITE_DESCRIPTION,
-            inLanguage: "en-US",
-            isPartOf: { "@id": WEBSITE_ID },
-            name: SITE_NAME,
-            publisher: { "@id": ORG_ID },
-            url: BASE_URL,
-          }}
-        />
         {children}
         <SiteFooter />
         {process.env.NODE_ENV === "development" && <Agentation />}

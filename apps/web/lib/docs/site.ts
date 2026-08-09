@@ -1,10 +1,10 @@
-/** Site-level config for the Canvas kit docs chrome (header + footer). */
+/** Site-level config for the Canvas Kit docs chrome (header + footer). */
 export const siteConfig = {
   links: {
     author: "https://blode.co",
     github: "https://github.com/mblode/canvas",
   },
-  name: "Canvas kit",
+  name: "Canvas Kit",
   navItems: [
     { href: "/docs", label: "Docs" },
     { href: "/docs/installation", label: "Installation" },

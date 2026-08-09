@@ -44,6 +44,12 @@ export const pageMetadata = ({
           width: OG_IMAGE_SIZE.width,
         },
       ],
+      // Restated for the same reason as the image: a page-level `openGraph`
+      // replaces the layout's rather than merging into it, so leaving this out
+      // dropped og:site_name from every page that has its own metadata,
+      // including the zone root. Always the person, never the product: Rule 9
+      // of blode-co/apps/web/.claude/knowledge/zone-conventions.md.
+      siteName: "Matthew Blode",
       title,
       type,
       url,

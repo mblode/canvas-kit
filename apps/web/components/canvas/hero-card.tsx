@@ -43,7 +43,7 @@ export const HeroCard = ({ x, y, selected }: HeroCardProps) => (
           className="mt-4 inline-flex items-center gap-1 text-[0.6875rem] font-medium text-canvas-fg/35 transition-colors hover:text-canvas-fg/60"
           href="/docs"
         >
-          Built with Canvas kit
+          Built with Canvas Kit
           <ArrowUpRightIcon aria-hidden="true" className="size-3" />
         </Link>
       </div>

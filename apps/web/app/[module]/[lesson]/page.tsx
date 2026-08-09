@@ -11,7 +11,12 @@ import {
   getLesson,
   getModule,
 } from "@/content/course";
-import { BASE_URL, breadcrumbJsonLd, SITE_NAME } from "@/lib/constants";
+import {
+  BASE_URL,
+  breadcrumbNode,
+  graphJsonLd,
+  SITE_NAME,
+} from "@/lib/constants";
 import { readLessonMarkdown, stripCodeBlocks } from "@/lib/mdx-to-markdown";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -62,23 +67,26 @@ const Lesson = async ({
 
   return (
     <>
+      {/* One @graph, not a script per node: two disconnected blocks describe
+          two unrelated things rather than one lesson. */}
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "LearningResource",
-          description: data.description,
-          isPartOf: {
-            "@type": "Course",
-            name: mod.title,
-            url: `${BASE_URL}/${module}`,
+        data={graphJsonLd([
+          {
+            "@type": "LearningResource",
+            breadcrumb: { "@id": `${url}/#breadcrumb` },
+            description: data.description,
+            isPartOf: {
+              "@type": "Course",
+              name: mod.title,
+              url: `${BASE_URL}/${module}`,
+            },
+            name: data.title,
+            url,
           },
-          name: data.title,
-          url,
-        }}
-      />
-      <JsonLd
-        data={breadcrumbJsonLd([
-          { name: mod.title, url: `${BASE_URL}/${module}` },
+          breadcrumbNode([
+            { name: mod.title, url: `${BASE_URL}/${module}` },
+            { name: data.title, url },
+          ]),
         ])}
       />
 

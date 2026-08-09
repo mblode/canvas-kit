@@ -94,7 +94,7 @@ export const HomeBoard = () => {
           y={-40}
         >
           <div className="p-5">
-            <h2 className="font-semibold text-canvas-fg text-sm">Canvas kit</h2>
+            <h2 className="font-semibold text-canvas-fg text-sm">Canvas Kit</h2>
             <p className="mt-1.5 text-canvas-fg/55 text-xs leading-relaxed">
               An infinite canvas as composable shadcn parts. Drag a folder, peek
               inside, then open any card to read what it is and jump straight to
