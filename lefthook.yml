@@ -6,7 +6,13 @@ pre-commit:
     # blocked every commit that touched only package.json, a lockfile, or CSS.
     # lefthook skips a job whose glob matches nothing, so each tool now runs
     # only when it actually has files to work on.
+    # `apps/web/public/r` is generated shadcn registry output and oxfmt.config.ts
+    # ignores it. lefthook only skips a job whose glob matches nothing, so
+    # without this exclude a commit touching only a regenerated registry entry
+    # hands oxfmt a file it then discards, and it exits 2 on an empty target set.
     - name: oxfmt
+      exclude:
+        - "apps/web/public/r/*"
       glob: "*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,json,jsonc,css}"
       run: npx oxfmt --write {staged_files}
       stage_fixed: true
