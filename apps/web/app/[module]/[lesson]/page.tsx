@@ -15,6 +15,7 @@ import {
   BASE_URL,
   breadcrumbNode,
   graphJsonLd,
+  HOST_URL,
   SITE_NAME,
 } from "@/lib/constants";
 import { readLessonMarkdown, stripCodeBlocks } from "@/lib/mdx-to-markdown";
@@ -92,7 +93,25 @@ const Lesson = async ({
 
       {/* Crawlable, screen-reader-accessible fallback for the client canvas. */}
       <article className="sr-only">
+        {/*
+          All five crumbs, in the order `breadcrumbNode` declares them. The
+          trail used to start at Canvas Kit, so the "Projects" crumb was
+          asserted to Google and shown to nobody, and "Matthew Blode" passed
+          only because the footer credit happens to repeat it. Both leave the
+          zone, so they are plain absolute anchors rather than `next/link`,
+          the same rule `components/zone-breadcrumb.tsx` follows: a basePath
+          relative href would resolve under /canvas-kit and 404.
+
+          Costs no sighted reader anything, because this whole article is the
+          `sr-only` fallback for the client canvas.
+        */}
         <nav aria-label="Breadcrumb">
+          <a href={HOST_URL} rel="author">
+            Matthew Blode
+          </a>
+          {" / "}
+          <a href={`${HOST_URL}/projects`}>Projects</a>
+          {" / "}
           <Link href="/">{SITE_NAME}</Link>
           {" / "}
           <Link href={`/${module}`}>{mod.title}</Link>
