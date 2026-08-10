@@ -64,11 +64,13 @@ export const proxy = (request: NextRequest) => {
     request.nextUrl.pathname.replace(/^\/canvas(?=\/|$)/u, "") || "/";
 
   if (isUnknownCoursePath(pathname)) {
-    // Rewritten to a path no route claims, which is what makes Next answer with
-    // a genuine 404 status and its not-found body before any shell is streamed.
-    return NextResponse.rewrite(new URL("/_unknown-course-path", request.url), {
-      status: 404,
-    });
+    // Rewritten to `app/gone`, a real route whose only job is to call
+    // `notFound()`. That is what makes Next answer with a genuine 404 status
+    // and the HTML 404 body before any shell is streamed. See that file for why
+    // the target has to be a route that exists.
+    const goneUrl = request.nextUrl.clone();
+    goneUrl.pathname = "/gone";
+    return NextResponse.rewrite(goneUrl);
   }
 
   if (pathname.endsWith(".md")) {
