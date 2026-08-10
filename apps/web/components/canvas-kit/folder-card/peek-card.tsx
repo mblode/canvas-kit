@@ -119,7 +119,7 @@ export const PeekCard = ({
         // folder, and the dark palette deliberately keeps the folder itself
         // light. An app-background card reads as a black bar laid across a pale
         // folder wherever the stack peeks above the front edge.
-        "absolute top-0 left-0 overflow-hidden rounded-xl border border-canvas-border bg-canvas-document text-left",
+        "absolute top-0 left-0 overflow-hidden rounded-xl border border-canvas-document-border bg-canvas-document text-left",
         peeked && "cursor-pointer shadow-xl"
       )}
       data-item-card

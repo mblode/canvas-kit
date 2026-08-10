@@ -125,11 +125,7 @@ export const Canvas = ({
       )}
       {...handlers}
     >
-      <div
-        ref={contentRef}
-        className="origin-top-left will-change-transform"
-        style={initialStyle}
-      >
+      <div ref={contentRef} className="origin-top-left" style={initialStyle}>
         {children}
       </div>
 

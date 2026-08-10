@@ -29,6 +29,8 @@ const MAX_SCALE = 2;
 const ZOOM_SENSITIVITY = 0.005;
 const KEYBOARD_ZOOM_FACTOR = 1.25;
 const ANIMATION_DURATION = 200;
+/** Idle gap after the last camera write before the layer is re-rasterised. */
+const RASTER_SETTLE_MS = 180;
 const SELECTION_THRESHOLD = 3;
 const FIT_PADDING = 80;
 
@@ -85,11 +87,22 @@ export const useCanvas = ({
   const settleRef = useRef(onCameraSettle);
   settleRef.current = onCameraSettle;
   const wheelIdleTimer = useRef<number>(0);
+  const rasterTimer = useRef<number>(0);
   const selectionChangeRef = useRef(onSelectionChange);
   selectionChangeRef.current = onSelectionChange;
   const selectionEndRef = useRef(onSelectionEnd);
   selectionEndRef.current = onSelectionEnd;
 
+  /**
+   * `will-change: transform` is held only while the camera is actually moving.
+   *
+   * It has to be there during a gesture, or every frame of a pan repaints the
+   * whole board. It must not still be there once the camera settles: it tells
+   * the compositor to keep the layer's existing raster and re-use it under new
+   * transforms, so after a zoom in, text is the old raster scaled up rather
+   * than re-rendered, and the board goes visibly soft. Dropping the hint on
+   * idle makes the browser rasterise once more at the scale now on screen.
+   */
   const applyTransform = () => {
     const el = contentRef.current;
     if (!el) {
@@ -97,6 +110,12 @@ export const useCanvas = ({
     }
     const { x, y, scale } = camera.current;
     el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+
+    el.style.willChange = "transform";
+    clearTimeout(rasterTimer.current);
+    rasterTimer.current = window.setTimeout(() => {
+      el.style.willChange = "auto";
+    }, RASTER_SETTLE_MS);
   };
 
   const animateTo = (target: CanvasState, duration = ANIMATION_DURATION) => {
@@ -545,6 +564,7 @@ export const useCanvas = ({
     () => () => {
       cancelAnimationFrame(animFrameId.current);
       clearTimeout(wheelIdleTimer.current);
+      clearTimeout(rasterTimer.current);
     },
     []
   );
