@@ -18,6 +18,7 @@ import {
   HOST_URL,
   SITE_NAME,
 } from "@/lib/constants";
+import { markdownToReact } from "@/lib/markdown-to-react";
 import { readLessonMarkdown, stripCodeBlocks } from "@/lib/mdx-to-markdown";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -118,7 +119,7 @@ const Lesson = async ({
         </nav>
         <h1>{data.title}</h1>
         <p>{data.description}</p>
-        {body ? <div>{body}</div> : null}
+        {body ? <div>{markdownToReact(body)}</div> : null}
         <nav aria-label="Lesson navigation">
           {prev && prevLesson ? (
             <Link href={`/${prev.module}/${prev.lesson}`}>

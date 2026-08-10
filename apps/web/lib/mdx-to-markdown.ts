@@ -14,19 +14,42 @@ const isJsxClose = (trimmed: string): boolean =>
 
 const trackJsxNesting = (line: string, depth: number): number => {
   const opens = (line.match(/<[A-Z]/gu) || []).length;
-  const selfCloses = (line.match(/\/>/gu) || []).length;
+  // `(?<!<)` so a fragment close, `</>`, is not read as a self-closing tag. It
+  // contains the substring `/>`, which used to end the skip two lines early and
+  // leak the element's trailing `}` and `/>` into the prose on 13 lessons.
+  const selfCloses = (line.match(/(?<!<)\/>/gu) || []).length;
   const closes = (line.match(/<\/[A-Z]/gu) || []).length;
   return Math.max(0, depth + opens - closes - selfCloses);
 };
 
-const classifyJsxOpenLine = (trimmed: string): "self-close" | "block" => {
+/*
+ * Three shapes, and the middle one used to be missed.
+ *
+ * - `self-close`: the whole element is on this line, so the line goes.
+ * - `wrapper`: a complete opening tag, `<Slide id="..." demoState={{...}}>`,
+ *   whose children are the lesson's prose. Only the tag goes. Treating these
+ *   as blocks to skip is what left `animation/easing`, `spring-animations` and
+ *   `component-patterns` with 0, 4 and 20 characters of crawlable text: every
+ *   heading and paragraph in those three lives inside a `<Slide>`.
+ * - `props`: the tag runs on past this line, so its props are still to come and
+ *   none of them are prose. Skip until the element closes.
+ *
+ * A complete opening tag ends in `>`; a props list does not. That is the whole
+ * distinction between the last two.
+ */
+const classifyJsxOpenLine = (
+  trimmed: string
+): "self-close" | "wrapper" | "props" => {
   if (trimmed.includes("/>")) {
     return "self-close";
   }
   if (/<\/[A-Z]/u.test(trimmed) && trimmed.includes(">")) {
     return "self-close";
   }
-  return "block";
+  if (trimmed.endsWith(">")) {
+    return "wrapper";
+  }
+  return "props";
 };
 
 const stripJsx = (raw: string): string => {
@@ -81,9 +104,11 @@ const stripJsx = (raw: string): string => {
     }
 
     if (isJsxOpen(trimmed)) {
-      if (classifyJsxOpenLine(trimmed) === "block") {
+      if (classifyJsxOpenLine(trimmed) === "props") {
         inJsxBlock = 1;
       }
+      // A wrapper drops its tag and lets its children through; the matching
+      // `</Slide>` is dropped below.
       continue;
     }
 
