@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "canvas-kit",
-  "homepage": "https://blode.co/canvas",
+  "homepage": "https://blode.co/canvas-kit",
   "items": [
     {
       "name": "canvas",
@@ -10,8 +10,8 @@
       "description": "The infinite-canvas viewport: pan, zoom, grab and marquee selection with a fixed full-bleed surface.",
       "registryDependencies": [
         "utils",
-        "https://blode.co/canvas/r/use-canvas.json",
-        "https://blode.co/canvas/r/canvas-vars.json"
+        "https://blode.co/canvas-kit/r/use-canvas.json",
+        "https://blode.co/canvas-kit/r/canvas-vars.json"
       ],
       "files": [
         {
@@ -28,12 +28,12 @@
       "description": "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data, install this to get everything at once.",
       "dependencies": ["motion"],
       "registryDependencies": [
-        "https://blode.co/canvas/r/canvas.json",
-        "https://blode.co/canvas/r/canvas-card.json",
-        "https://blode.co/canvas/r/folder-card.json",
-        "https://blode.co/canvas/r/document-overlay.json",
-        "https://blode.co/canvas/r/pagination.json",
-        "https://blode.co/canvas/r/canvas-vars.json"
+        "https://blode.co/canvas-kit/r/canvas.json",
+        "https://blode.co/canvas-kit/r/canvas-card.json",
+        "https://blode.co/canvas-kit/r/folder-card.json",
+        "https://blode.co/canvas-kit/r/document-overlay.json",
+        "https://blode.co/canvas-kit/r/pagination.json",
+        "https://blode.co/canvas-kit/r/canvas-vars.json"
       ],
       "files": [
         {
@@ -60,8 +60,8 @@
       "description": "An absolutely-positioned card for the canvas, optionally a link (router-agnostic) with a selection ring.",
       "registryDependencies": [
         "utils",
-        "https://blode.co/canvas/r/canvas-ring.json",
-        "https://blode.co/canvas/r/canvas-vars.json"
+        "https://blode.co/canvas-kit/r/canvas-ring.json",
+        "https://blode.co/canvas-kit/r/canvas-vars.json"
       ],
       "files": [
         {
@@ -76,7 +76,7 @@
       "type": "registry:component",
       "title": "Canvas ring",
       "description": "The selection/drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card.",
-      "registryDependencies": ["https://blode.co/canvas/r/canvas-vars.json"],
+      "registryDependencies": ["https://blode.co/canvas-kit/r/canvas-vars.json"],
       "files": [
         {
           "path": "components/canvas-kit/canvas-ring.tsx",
@@ -151,9 +151,9 @@
       "description": "A draggable document card with title, excerpt and metadata that emits a generic onOpen payload.",
       "registryDependencies": [
         "utils",
-        "https://blode.co/canvas/r/use-draggable.json",
-        "https://blode.co/canvas/r/canvas-ring.json",
-        "https://blode.co/canvas/r/canvas-vars.json"
+        "https://blode.co/canvas-kit/r/use-draggable.json",
+        "https://blode.co/canvas-kit/r/canvas-ring.json",
+        "https://blode.co/canvas-kit/r/canvas-vars.json"
       ],
       "files": [
         {
@@ -169,7 +169,7 @@
       "title": "Document overlay",
       "description": "A full-screen document reader that scales up from a source card and scales back into it on close. Content-agnostic, pass the document as children and optional prev/next controls via a footer slot.",
       "dependencies": ["motion", "blode-icons-react"],
-      "registryDependencies": ["https://blode.co/canvas/r/canvas-vars.json"],
+      "registryDependencies": ["https://blode.co/canvas-kit/r/canvas-vars.json"],
       "files": [
         {
           "path": "components/canvas-kit/document-overlay.tsx",
@@ -186,10 +186,10 @@
       "dependencies": ["motion"],
       "registryDependencies": [
         "utils",
-        "https://blode.co/canvas/r/use-draggable.json",
-        "https://blode.co/canvas/r/circular-progress.json",
-        "https://blode.co/canvas/r/canvas-ring.json",
-        "https://blode.co/canvas/r/canvas-vars.json"
+        "https://blode.co/canvas-kit/r/use-draggable.json",
+        "https://blode.co/canvas-kit/r/circular-progress.json",
+        "https://blode.co/canvas-kit/r/canvas-ring.json",
+        "https://blode.co/canvas-kit/r/canvas-vars.json"
       ],
       "files": [
         {

@@ -20,7 +20,8 @@ import {
 interface FolderFrontProps {
   frontH: number;
   peeked: boolean;
-  progressValue: number;
+  /** Omit to render no dial. */
+  progressValue?: number;
   itemCount: number;
   title: string;
   onHoverChange: (hovered: boolean) => void;
@@ -69,25 +70,29 @@ export const FolderFront = ({
       </svg>
 
       <div className="absolute inset-0 flex flex-col justify-between px-[22px] pt-5 pb-[22px]">
-        <div
-          className="flex justify-center"
-          style={{
-            transform: peeked ? "translateY(-3px)" : "translateY(0)",
-            transition: `transform ${DURATION}s ${EASE}`,
-          }}
-        >
-          <CircularProgress
-            className="size-[34px]"
-            strokeWidth={3}
+        {progressValue === undefined ? (
+          <span />
+        ) : (
+          <div
+            className="flex justify-center"
             style={{
-              color:
-                progressValue === 100
-                  ? "var(--canvas-folder-accent)"
-                  : "var(--canvas-folder-fg-muted)",
+              transform: peeked ? "translateY(-3px)" : "translateY(0)",
+              transition: `transform ${DURATION}s ${EASE}`,
             }}
-            value={progressValue}
-          />
-        </div>
+          >
+            <CircularProgress
+              className="size-[34px]"
+              strokeWidth={3}
+              style={{
+                color:
+                  progressValue === 100
+                    ? "var(--canvas-folder-accent)"
+                    : "var(--canvas-folder-fg-muted)",
+              }}
+              value={progressValue}
+            />
+          </div>
+        )}
         <div>
           <p className="m-0 text-[13px] text-[var(--canvas-folder-fg-muted)] leading-[1.3]">
             {itemCount} {itemCount === 1 ? "Item" : "Items"}

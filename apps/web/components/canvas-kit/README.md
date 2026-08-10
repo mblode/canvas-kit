@@ -5,25 +5,25 @@ as a [shadcn registry](https://ui.shadcn.com/docs/registry) you can install into
 any React + Tailwind v4 project. Plain DOM and `requestAnimationFrame`, no canvas
 engine, no WebGL.
 
-Browse and copy install commands at [`/docs/installation`](https://blode.co/canvas/docs/installation),
-or see it live at [`/demo`](https://blode.co/canvas).
+Browse and copy install commands at [`/docs/installation`](https://blode.co/canvas-kit/docs/installation),
+or see it live at [`/demo`](https://blode.co/canvas-kit).
 
 ## Install
 
 Everything at once (Canvas + cards + folders + sample data):
 
 ```bash
-npx shadcn@latest add https://blode.co/canvas/r/canvas-board.json
+npx shadcn@latest add https://blode.co/canvas-kit/r/canvas-board.json
 ```
 
 Or pick individual pieces:
 
 ```bash
-npx shadcn@latest add https://blode.co/canvas/r/canvas.json        # viewport: pan / zoom / marquee
-npx shadcn@latest add https://blode.co/canvas/r/folder-card.json   # draggable folder with peek
-npx shadcn@latest add https://blode.co/canvas/r/document-card.json # draggable document card
-npx shadcn@latest add https://blode.co/canvas/r/document-overlay.json # full-screen reader (scale up / back)
-npx shadcn@latest add https://blode.co/canvas/r/canvas-vars.json   # theme CSS variables only
+npx shadcn@latest add https://blode.co/canvas-kit/r/canvas.json        # viewport: pan / zoom / marquee
+npx shadcn@latest add https://blode.co/canvas-kit/r/folder-card.json   # draggable folder with peek
+npx shadcn@latest add https://blode.co/canvas-kit/r/document-card.json # draggable document card
+npx shadcn@latest add https://blode.co/canvas-kit/r/document-overlay.json # full-screen reader (scale up / back)
+npx shadcn@latest add https://blode.co/canvas-kit/r/canvas-vars.json   # theme CSS variables only
 ```
 
 Each item pulls its own dependencies (hooks, `circular-progress`, the

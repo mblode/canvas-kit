@@ -2,7 +2,7 @@
 export const siteConfig = {
   links: {
     author: "https://blode.co",
-    github: "https://github.com/mblode/canvas",
+    github: "https://github.com/mblode/canvas-kit",
   },
   name: "Canvas Kit",
   navItems: [

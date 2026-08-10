@@ -23,6 +23,6 @@
   "menuAccent": "subtle",
   "registries": {
     "@blode": "https://blode.co/ui/r/{name}.json",
-    "@canvas": "https://blode.co/canvas/r/{name}.json"
+    "@canvas": "https://blode.co/canvas-kit/r/{name}.json"
   }
 }

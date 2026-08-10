@@ -41,7 +41,12 @@ interface FolderCardProps {
   /** Fade the card back so it recedes while another folder is peeked open. */
   dimmed?: boolean;
   openItemId?: string;
-  /** Optional 0–100 progress. Falls back to the share of completed items. */
+  /**
+   * Optional 0–100 progress. Falls back to the share of completed items when
+   * any item declares `completed`. A folder that tracks no progress at all
+   * renders no dial: a ring reading 0% asserts "none done yet", which is a
+   * different claim from "there is nothing to finish here".
+   */
   progress?: number;
   /** Render the preview inside each raised card. */
   renderPreview?: RenderPreview;
@@ -136,6 +141,8 @@ export const FolderCard = ({
   };
 
   const completedCount = items.filter((i) => i.completed).length;
+  const tracksProgress =
+    progress !== undefined || items.some((i) => i.completed !== undefined);
   const progressValue =
     progress ?? (items.length > 0 ? (completedCount / items.length) * 100 : 0);
 
@@ -276,7 +283,7 @@ export const FolderCard = ({
           onHoverChange={setHovered}
           onToggle={togglePeek}
           peeked={peeked}
-          progressValue={progressValue}
+          progressValue={tracksProgress ? progressValue : undefined}
           title={title}
         />
       </div>

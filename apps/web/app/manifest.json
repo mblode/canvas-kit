@@ -1,17 +1,17 @@
 {
   "name": "Blode Course",
   "short_name": "Blode Course",
-  "start_url": "/canvas",
-  "scope": "/canvas/",
+  "start_url": "/canvas-kit",
+  "scope": "/canvas-kit/",
   "icons": [
     {
-      "src": "/canvas/web-app-manifest-192x192.png",
+      "src": "/canvas-kit/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/canvas/web-app-manifest-512x512.png",
+      "src": "/canvas-kit/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

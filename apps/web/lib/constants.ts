@@ -1,5 +1,5 @@
 /** Must stay in step with `basePath` in next.config.ts. */
-export const BASE_PATH = "/canvas";
+export const BASE_PATH = "/canvas-kit";
 
 export const BASE_URL = `https://blode.co${BASE_PATH}`;
 
@@ -14,7 +14,7 @@ export const SITE_DESCRIPTION =
   "An infinite-canvas shadcn registry: pan, zoom, drag and folder cards, with no canvas engine. Pure DOM + requestAnimationFrame.";
 
 /*
- * Host graph ids. blode.co/canvas is a path on blode.co behind a rewrite, not a
+ * Host graph ids. blode.co/canvas-kit is a path on blode.co behind a rewrite, not a
  * site of its own, so these are referenced by `@id` and never redefined here: a
  * second WebSite or Organization on one domain splits the entity. Contract:
  * blode-co/apps/web/.claude/knowledge/zone-conventions.md
@@ -97,7 +97,7 @@ export const zoneRootJsonLd = graphJsonLd([
     "@id": `${BASE_URL}/#software`,
     "@type": "SoftwareSourceCode",
     author: { "@id": PERSON_ID },
-    codeRepository: "https://github.com/mblode/canvas",
+    codeRepository: "https://github.com/mblode/canvas-kit",
     description: SITE_DESCRIPTION,
     isAccessibleForFree: true,
     license: "https://opensource.org/licenses/MIT",

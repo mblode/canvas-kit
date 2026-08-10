@@ -3,14 +3,16 @@
   "name": "canvas-board",
   "title": "Canvas board",
   "description": "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data, install this to get everything at once.",
-  "dependencies": ["motion"],
+  "dependencies": [
+    "motion"
+  ],
   "registryDependencies": [
-    "https://blode.co/canvas/r/canvas.json",
-    "https://blode.co/canvas/r/canvas-card.json",
-    "https://blode.co/canvas/r/folder-card.json",
-    "https://blode.co/canvas/r/document-overlay.json",
-    "https://blode.co/canvas/r/pagination.json",
-    "https://blode.co/canvas/r/canvas-vars.json"
+    "https://blode.co/canvas-kit/r/canvas.json",
+    "https://blode.co/canvas-kit/r/canvas-card.json",
+    "https://blode.co/canvas-kit/r/folder-card.json",
+    "https://blode.co/canvas-kit/r/document-overlay.json",
+    "https://blode.co/canvas-kit/r/pagination.json",
+    "https://blode.co/canvas-kit/r/canvas-vars.json"
   ],
   "files": [
     {
@@ -27,7 +29,7 @@
     },
     {
       "path": "components/canvas-kit/document-preview.tsx",
-      "content": "\"use client\";\n\nimport { sampleDocuments } from \"./canvas-board-data\";\n\n/** Width the overlay renders content at; the preview is this scaled down. */\nconst INNER_WIDTH = 640;\n\ninterface DocumentPreviewProps {\n  /** Folder item id, used to look up the document body. */\n  itemId: string;\n  title: string;\n  width: number;\n  height: number;\n}\n\n/**\n * A miniature of the document that opens in the overlay, the real title and\n * body scaled down, so a peeked card reads as a page, not a coloured tile.\n */\nexport const DocumentPreview = ({\n  itemId,\n  title,\n  width,\n  height,\n}: DocumentPreviewProps) => {\n  const doc = sampleDocuments[itemId];\n  const scale = width / INNER_WIDTH;\n\n  return (\n    <div className=\"overflow-hidden bg-background\" style={{ height, width }}>\n      <div\n        className=\"pointer-events-none origin-top-left\"\n        style={{ transform: `scale(${scale})`, width: INNER_WIDTH }}\n      >\n        <div className=\"px-10 py-12\">\n          <h1 className=\"mb-6 font-heading font-semibold text-4xl text-canvas-fg tracking-tight\">\n            {title}\n          </h1>\n          <p className=\"text-2xl text-canvas-fg/70 leading-relaxed\">\n            {doc?.body}\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n};\n",
+      "content": "\"use client\";\n\nimport { sampleDocuments } from \"./canvas-board-data\";\n\n/** Width the overlay renders content at; the preview is this scaled down. */\nconst INNER_WIDTH = 640;\n\ninterface DocumentPreviewProps {\n  /** Folder item id, used to look up the document body. */\n  itemId: string;\n  title: string;\n  width: number;\n  height: number;\n}\n\n/**\n * A miniature of the document that opens in the overlay, the real title and\n * body scaled down, so a peeked card reads as a page, not a coloured tile.\n */\nexport const DocumentPreview = ({\n  itemId,\n  title,\n  width,\n  height,\n}: DocumentPreviewProps) => {\n  const doc = sampleDocuments[itemId];\n  const scale = width / INNER_WIDTH;\n\n  return (\n    <div className=\"overflow-hidden bg-background\" style={{ height, width }}>\n      <div\n        className=\"pointer-events-none origin-top-left\"\n        style={{ transform: `scale(${scale})`, width: INNER_WIDTH }}\n      >\n        <div className=\"px-10 py-12\">\n          <h2 className=\"mb-6 font-heading font-semibold text-4xl text-canvas-fg tracking-tight\">\n            {title}\n          </h2>\n          <p className=\"text-2xl text-canvas-fg/70 leading-relaxed\">\n            {doc?.body}\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n};\n",
       "type": "registry:component",
       "target": "components/canvas/document-preview.tsx"
     }

@@ -9,8 +9,8 @@ import type { NextConfig } from "next";
 const buildTime = new Date().toISOString();
 
 const nextConfig: NextConfig = {
-  assetPrefix: "/canvas",
-  basePath: "/canvas",
+  assetPrefix: "/canvas-kit",
+  basePath: "/canvas-kit",
   cacheComponents: true,
   env: { BUILD_TIME: buildTime },
   experimental: {
@@ -30,8 +30,8 @@ const nextConfig: NextConfig = {
           {
             key: "Link",
             value: [
-              '</canvas/llms.txt>; rel="service-doc"; type="text/plain"',
-              '</canvas/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
+              '</canvas-kit/llms.txt>; rel="service-doc"; type="text/plain"',
+              '</canvas-kit/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
             ].join(", "),
           },
         ],
@@ -43,22 +43,29 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   reactCompiler: true,
   redirects() {
-    return Promise.resolve([
-      {
-        basePath: false,
-        destination: "https://blode.co/canvas",
-        has: [{ type: "host" as const, value: "canvas.blode.co" }],
-        permanent: true,
-        source: "/",
-      },
-      {
-        basePath: false,
-        destination: "https://blode.co/canvas/:path*",
-        has: [{ type: "host" as const, value: "canvas.blode.co" }],
-        permanent: true,
-        source: "/:path*",
-      },
-    ]);
+    // Both subdomains land on the path mount. `canvas.blode.co` predates the
+    // rename and stays: it is linked from published docs and from every
+    // components.json that installed from here.
+    const subdomains = ["canvas.blode.co", "canvas-kit.blode.co"];
+
+    return Promise.resolve(
+      subdomains.flatMap((host) => [
+        {
+          basePath: false,
+          destination: "https://blode.co/canvas-kit",
+          has: [{ type: "host" as const, value: host }],
+          permanent: true,
+          source: "/",
+        },
+        {
+          basePath: false,
+          destination: "https://blode.co/canvas-kit/:path*",
+          has: [{ type: "host" as const, value: host }],
+          permanent: true,
+          source: "/:path*",
+        },
+      ])
+    );
   },
 };
 
