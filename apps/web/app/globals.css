@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --color-canvas-bg: var(--canvas-bg);
   --color-canvas-fg: var(--canvas-fg);
+  --color-canvas-document: var(--canvas-document);
   --color-canvas-border: var(--canvas-border);
   --color-canvas-selection: var(--canvas-selection);
   --color-canvas-selection-fill: var(--canvas-selection-fill);
@@ -73,6 +74,7 @@
   --canvas-bg: #e7eaeb;
   --canvas-fg: #1b1d22;
   --canvas-border: rgba(27, 29, 34, 0.08);
+  --canvas-document: #ffffff;
   --canvas-folder-back: #f1f7f9;
   --canvas-folder-front: #edf5f7;
   --canvas-folder-tab: #e3ecee;
@@ -124,6 +126,7 @@
     --canvas-bg: #16181a;
     --canvas-fg: #d5d7d9;
     --canvas-border: #2e3233;
+    --canvas-document: #ffffff;
     --canvas-folder-back: #cdeef6;
     --canvas-folder-front: #d6f3fb;
     --canvas-folder-tab: #bfe7f1;

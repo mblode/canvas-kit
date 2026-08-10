@@ -97,14 +97,14 @@ export const PeekCard = ({
     });
   } else if (revealed) {
     body = (
-      <div className="flex h-full w-full items-center justify-center bg-background p-3 text-center text-canvas-fg/60 text-xs">
+      <div className="flex h-full w-full items-center justify-center bg-canvas-document p-3 text-center text-canvas-folder-fg/60 text-xs">
         {item.title}
       </div>
     );
   } else {
     body = (
       <div
-        className="bg-background"
+        className="bg-canvas-document"
         style={{ height: PEEK_CARD_HEIGHT, width: PEEK_COL_WIDTH }}
       />
     );
@@ -115,7 +115,11 @@ export const PeekCard = ({
       aria-hidden={!peeked}
       aria-label={item.title}
       className={cn(
-        "absolute top-0 left-0 overflow-hidden rounded-xl border border-canvas-border bg-background text-left",
+        // `bg-canvas-document`, not `bg-background`: these are sheets inside a
+        // folder, and the dark palette deliberately keeps the folder itself
+        // light. An app-background card reads as a black bar laid across a pale
+        // folder wherever the stack peeks above the front edge.
+        "absolute top-0 left-0 overflow-hidden rounded-xl border border-canvas-border bg-canvas-document text-left",
         peeked && "cursor-pointer shadow-xl"
       )}
       data-item-card

@@ -26,7 +26,9 @@
       "type": "registry:block",
       "title": "Canvas board",
       "description": "A complete, self-contained demo composing Canvas, CanvasCard and FolderCard with sample data, install this to get everything at once.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "registryDependencies": [
         "https://blode.co/canvas-kit/r/canvas.json",
         "https://blode.co/canvas-kit/r/canvas-card.json",
@@ -76,7 +78,9 @@
       "type": "registry:component",
       "title": "Canvas ring",
       "description": "The selection/drag ring drawn around a canvas card. Shared by canvas-card, document-card and folder-card.",
-      "registryDependencies": ["https://blode.co/canvas-kit/r/canvas-vars.json"],
+      "registryDependencies": [
+        "https://blode.co/canvas-kit/r/canvas-vars.json"
+      ],
       "files": [
         {
           "path": "components/canvas-kit/canvas-ring.tsx",
@@ -96,7 +100,8 @@
           "color-canvas-fg": "var(--canvas-fg)",
           "color-canvas-border": "var(--canvas-border)",
           "color-canvas-selection": "var(--canvas-selection)",
-          "color-canvas-selection-fill": "var(--canvas-selection-fill)"
+          "color-canvas-selection-fill": "var(--canvas-selection-fill)",
+          "color-canvas-document": "var(--canvas-document)"
         },
         "light": {
           "canvas-bg": "#e7eaeb",
@@ -111,7 +116,8 @@
           "canvas-folder-accent": "#16a34a",
           "canvas-drag-ring": "white",
           "canvas-selection": "rgba(59, 130, 246, 0.5)",
-          "canvas-selection-fill": "rgba(59, 130, 246, 0.08)"
+          "canvas-selection-fill": "rgba(59, 130, 246, 0.08)",
+          "canvas-document": "#ffffff"
         },
         "dark": {
           "canvas-bg": "#16181a",
@@ -126,7 +132,8 @@
           "canvas-folder-accent": "#16a34a",
           "canvas-drag-ring": "rgba(255, 255, 255, 0.15)",
           "canvas-selection": "rgba(96, 165, 250, 0.5)",
-          "canvas-selection-fill": "rgba(96, 165, 250, 0.1)"
+          "canvas-selection-fill": "rgba(96, 165, 250, 0.1)",
+          "canvas-document": "#ffffff"
         }
       }
     },
@@ -135,7 +142,9 @@
       "type": "registry:ui",
       "title": "Circular progress",
       "description": "Accessible SVG circular progress dial used on folder fronts.",
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "components/ui/circular-progress.tsx",
@@ -168,8 +177,13 @@
       "type": "registry:component",
       "title": "Document overlay",
       "description": "A full-screen document reader that scales up from a source card and scales back into it on close. Content-agnostic, pass the document as children and optional prev/next controls via a footer slot.",
-      "dependencies": ["motion", "blode-icons-react"],
-      "registryDependencies": ["https://blode.co/canvas-kit/r/canvas-vars.json"],
+      "dependencies": [
+        "motion",
+        "blode-icons-react"
+      ],
+      "registryDependencies": [
+        "https://blode.co/canvas-kit/r/canvas-vars.json"
+      ],
       "files": [
         {
           "path": "components/canvas-kit/document-overlay.tsx",
@@ -183,7 +197,9 @@
       "type": "registry:component",
       "title": "Folder card",
       "description": "The signature draggable folder: tap to peek open into a staggered masonry of preview cards (render-prop driven), with a progress dial.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "registryDependencies": [
         "utils",
         "https://blode.co/canvas-kit/r/use-draggable.json",
@@ -219,8 +235,12 @@
       "type": "registry:component",
       "title": "Pagination",
       "description": "Previous/next navigation between documents, a Previous-minimal + Next-card layout. Router-agnostic: pass href items with a linkComponent (e.g. next/link) or onClick items.",
-      "dependencies": ["blode-icons-react"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "blode-icons-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "components/canvas-kit/pagination.tsx",

@@ -98,7 +98,8 @@
           "color-canvas-fg": "var(--canvas-fg)",
           "color-canvas-border": "var(--canvas-border)",
           "color-canvas-selection": "var(--canvas-selection)",
-          "color-canvas-selection-fill": "var(--canvas-selection-fill)"
+          "color-canvas-selection-fill": "var(--canvas-selection-fill)",
+          "color-canvas-document": "var(--canvas-document)"
         },
         "light": {
           "canvas-bg": "#e7eaeb",
@@ -113,7 +114,8 @@
           "canvas-folder-accent": "#16a34a",
           "canvas-drag-ring": "white",
           "canvas-selection": "rgba(59, 130, 246, 0.5)",
-          "canvas-selection-fill": "rgba(59, 130, 246, 0.08)"
+          "canvas-selection-fill": "rgba(59, 130, 246, 0.08)",
+          "canvas-document": "#ffffff"
         },
         "dark": {
           "canvas-bg": "#16181a",
@@ -128,7 +130,8 @@
           "canvas-folder-accent": "#16a34a",
           "canvas-drag-ring": "rgba(255, 255, 255, 0.15)",
           "canvas-selection": "rgba(96, 165, 250, 0.5)",
-          "canvas-selection-fill": "rgba(96, 165, 250, 0.1)"
+          "canvas-selection-fill": "rgba(96, 165, 250, 0.1)",
+          "canvas-document": "#ffffff"
         }
       }
     },
