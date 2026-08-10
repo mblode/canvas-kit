@@ -30,13 +30,6 @@ export const SiteFooter = () => (
           blode-co/apps/web/.claude/knowledge/zone-conventions.md. */}
       <a
         className="text-muted-foreground transition-colors hover:text-foreground"
-        href="https://blode.co/projects"
-      >
-        All projects
-      </a>
-      <span aria-hidden="true">·</span>
-      <a
-        className="text-muted-foreground transition-colors hover:text-foreground"
         href={siteConfig.links.github}
         rel="noopener noreferrer"
         target="_blank"
