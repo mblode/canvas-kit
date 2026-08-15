@@ -1,4 +1,5 @@
 import { renderZoneOgImage } from "@/app/og-image-shared";
+import { OgLogo } from "@/app/og-logo";
 import { OG_IMAGE_ALT, SITE_NAME } from "@/lib/constants";
 
 export {
@@ -13,9 +14,9 @@ export const alt = OG_IMAGE_ALT;
  */
 export default function OpengraphImage() {
   return renderZoneOgImage({
-    badge: "CANVAS-KIT",
-    eyebrow: "blode.co/canvas-kit",
-    subtitle: "An infinite-canvas shadcn registry. Pure DOM, no canvas engine.",
+    background: "#111111",
+    color: "#ffffff",
+    logo: <OgLogo />,
     title: SITE_NAME,
   });
 }
