@@ -1,6 +1,6 @@
 # Canvas Kit
 
-The infinite-canvas UI from [the Blode course](https://blode.co/course), packaged
+The infinite-canvas UI from [the Blode course](https://blode.co/taste-training), packaged
 as a [shadcn registry](https://ui.shadcn.com/docs/registry) you can install into
 any React + Tailwind v4 project. Plain DOM and `requestAnimationFrame`, no canvas
 engine, no WebGL.
