@@ -4,13 +4,9 @@ import { modules } from "@/content/course";
 import { BASE_URL } from "@/lib/constants";
 import { docsFlat } from "@/lib/docs/config";
 
-// Stamped in next.config at build time. Prerendering can't read the clock.
-const buildTime = process.env.BUILD_TIME;
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const modulePages = modules.map((mod) => ({
     changeFrequency: "monthly" as const,
-    lastModified: buildTime,
     priority: 0.8,
     url: `${BASE_URL}/${mod.slug}`,
   }));
@@ -18,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lessonPages = modules.flatMap((mod) =>
     mod.lessons.map((lesson) => ({
       changeFrequency: "monthly" as const,
-      lastModified: buildTime,
       priority: 0.7,
       url: `${BASE_URL}/${mod.slug}/${lesson.slug}`,
     }))
@@ -26,7 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const docsPages = docsFlat.map((item) => ({
     changeFrequency: "monthly" as const,
-    lastModified: buildTime,
     priority: 0.5,
     url: `${BASE_URL}${item.href}`,
   }));
@@ -34,7 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       changeFrequency: "weekly" as const,
-      lastModified: buildTime,
       priority: 1,
       url: BASE_URL,
     },
