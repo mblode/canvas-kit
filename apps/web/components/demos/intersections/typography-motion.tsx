@@ -18,7 +18,7 @@ const treatments = [
   },
   {
     description: "Medium weight, tighter tracking",
-    fontFamily: "var(--font-glide)",
+    fontFamily: "var(--font-inter)",
     headingSize: "text-3xl",
     headingWeight: 500,
     id: "refined",
@@ -28,7 +28,7 @@ const treatments = [
   },
   {
     description: "Bold, optical sizing, caps subhead",
-    fontFamily: "var(--font-glide)",
+    fontFamily: "var(--font-inter)",
     headingSize: "text-4xl",
     headingWeight: 700,
     id: "display",
