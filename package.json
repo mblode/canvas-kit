@@ -24,6 +24,9 @@
     "turbo": "^2",
     "ultracite": "7.9.3"
   },
+  "overrides": {
+    "proxy-addr": "^2.0.8"
+  },
   "engines": {
     "node": ">=24"
   },
